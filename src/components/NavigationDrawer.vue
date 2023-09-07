@@ -9,55 +9,53 @@ const menuItems = [
 
 <template>
   <v-card class="rounded-0">
-    <v-layout>
-      <v-navigation-drawer
-        color="secondary"
-        theme="white"
-        permanent
-        class="disable-scrollbar"
-      >
-        <div class="section-container">
-          <h1 class="mx-auto title-app pa-5">
-            IUT SERVICES APP
-          </h1>
+    <v-navigation-drawer
+      color="secondary"
+      theme="white"
+      permanent
+      class="disable-scrollbar"
+    >
+      <div class="section-container">
+        <h1 class="mx-auto title-app pa-5">
+          IUT SERVICES APP
+        </h1>
 
-          <div class="section-nav">
-            <v-list nav>
-              <v-list-subheader class="menu-title">
-                Menu
-              </v-list-subheader>
+        <div class="section-nav">
+          <v-list nav>
+            <v-list-subheader class="menu-title">
+              Menu
+            </v-list-subheader>
 
-              <v-list-item
-                v-for="(item, index) in menuItems"
-                :key="index"
-                class="ml-4 list-item"
-                :value="item.value"
-                :class="{ 'bottom-border': index < menuItems.length - 1 }"
-              >
-                <v-icon class="white--text mr-5">
-                  {{ item.icon }}
-                </v-icon> {{ item.text }}
-              </v-list-item>
-            </v-list>
-          </div>
-        </div>
-
-
-        <template #append>
-          <div class="pa-2">
-            <v-btn
-              block
-              color="white"
+            <v-list-item
+              v-for="(item, index) in menuItems"
+              :key="index"
+              class="ml-4 list-item"
+              :value="item.value"
+              :class="{ 'bottom-border': index < menuItems.length - 1 }"
+              :to="item.value"
             >
-              <p class="custom-text-color">
-                Se déconnecter
-              </p>
-            </v-btn>
-          </div>
-        </template>
-      </v-navigation-drawer>
-      <v-main style="height: 100vh" />
-    </v-layout>
+              <v-icon class="white--text mr-5">
+                {{ item.icon }}
+              </v-icon> {{ item.text }}
+            </v-list-item>
+          </v-list>
+        </div>
+      </div>
+
+
+      <template #append>
+        <div class="pa-2">
+          <v-btn
+            block
+            color="white"
+          >
+            <p class="custom-text-color">
+              Se déconnecter
+            </p>
+          </v-btn>
+        </div>
+      </template>
+    </v-navigation-drawer>
   </v-card>
 </template>
 
