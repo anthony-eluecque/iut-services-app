@@ -8,12 +8,12 @@
     <div class="container-actions d-flex">
       <div class="add-action">
         <v-btn
-            @click="addInputFields" 
-            class="d-flex"
-            height="55px"
-            append-icon="mdi-plus"
-            text="Ajouter un enseignement"
-            color="primary"
+          class="d-flex" 
+          height="55px"
+          append-icon="mdi-plus"
+          text="Ajouter un enseignement"
+          color="primary"
+          @click="addInputFields"
         />
       </div>
     </div>
@@ -31,7 +31,7 @@ import { useAppStore } from '@/store'
 const AppStore = useAppStore();
 
 const addInputFields = () => {
-    AppStore.editIsCreatingItem(true)
+  AppStore.editIsCreatingItem(true)
 }
 
 </script>
@@ -50,7 +50,7 @@ const addInputFields = () => {
 .container-content {
     /* background-color: white; */
     width: 100%;
-    height: 50%;
+    height: 55%;
 }
 
 .container-actions{

@@ -19,11 +19,24 @@
         > 
           <div class="text-field-container">
             <v-text-field
-              class=""
-              :label="field.label"
-              variant="outlined"
+                hide-details
+                class=""
+                :label="field.label"
+                variant="outlined"
             />
           </div>
+        </td>
+        <td>
+          <v-btn
+            icon="mdi-trash-can-outline"
+            color="red"
+            variant="plain"
+          />
+          <v-btn
+            icon="mdi-check-circle-outline"
+            color="green"
+            variant="plain"
+          />
         </td>
       </tr>
 
@@ -38,6 +51,21 @@
         <td>{{ item.libelle }}</td>
         <td>{{ item.volH }}</td>
         <td>
+          <v-btn
+            icon="mdi-trash-can-outline"
+            color="red"
+            variant="plain"
+          />
+          <v-btn
+            icon="mdi-pencil-outline"
+            color="orange"
+            variant="plain"
+          />
+          <v-btn
+            icon="mdi-download"
+            color="primary"
+            variant="plain"
+          />
           <!-- Todo : Ajouter nos actions -->
         </td>
       </tr>
@@ -65,7 +93,6 @@ const inputField = [
   { label : "Id"},
   { label : "Libellé"},
   { label : "Vol H"},
-  { label : "Temporaire"}
 ]
 
 </script>
