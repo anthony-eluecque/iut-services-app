@@ -45,6 +45,14 @@ export const useAppStore = defineStore('app', {
       newValue: InputFieldType[K][F]
     ) {
       this.inputField[objName][fieldName] = newValue;
+    },
+    clearInputField(){
+      this.inputField.teacher.givenId = '';
+      this.inputField.teacher.firstname = '';
+      this.inputField.teacher.lastname = '';
+      this.inputField.lesson.givenId = '';
+      this.inputField.lesson.label = '';
+      this.inputField.lesson.amountHours = 0;
     }
     
   }

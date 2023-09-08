@@ -24,6 +24,11 @@ const createInputFieldComputed = <
 });
 
 
+const removeInput = () => {
+    AppStore.editIsCreatingItem(false)
+    AppStore.clearInputField()
+}
+
 const givenIdTeacher = createInputFieldComputed("teacher", "givenId");
 const firstnameTeacher = createInputFieldComputed("teacher", "firstname");
 const lastnameTeacher = createInputFieldComputed("teacher", "lastname");
@@ -31,7 +36,6 @@ const lastnameTeacher = createInputFieldComputed("teacher", "lastname");
 const givenIdLesson = createInputFieldComputed("lesson", "givenId");
 const amountHoursLesson = createInputFieldComputed("lesson", "amountHours");
 const labelLesson = createInputFieldComputed("lesson", "label");
-
 
 </script>
 
@@ -103,6 +107,7 @@ const labelLesson = createInputFieldComputed("lesson", "label");
             icon="mdi-trash-can-outline"
             color="red"
             variant="plain"
+            @click = "removeInput"
           />
           <v-btn
             icon="mdi-check-circle-outline"
