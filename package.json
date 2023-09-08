@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.21.4",
+    "@faker-js/faker": "^8.0.2",
     "@types/node": "^18.15.0",
     "@types/webfontloader": "^1.6.35",
     "@vitejs/plugin-vue": "^4.0.0",

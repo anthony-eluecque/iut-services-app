@@ -12,17 +12,17 @@
       </tr>
     </thead>
     <tbody>
-      <InputField/>
+      <InputField />
       <tr
-        v-for="(item, index) in tableData"
+        v-for="(item, index) in dataRows"
         :key="index"
       >
-        <td>{{ item.id }}</td>
-        <td>{{ item.nom }}</td>
-        <td>{{ item.prenom }}</td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.libelle }}</td>
-        <td>{{ item.volH }}</td>
+        <td>{{ item.teacher.givenId }}</td>
+        <td>{{ item.teacher.lastname }}</td>
+        <td>{{ item.teacher.firstname }}</td>
+        <td>{{ item.lesson.givenId }}</td>
+        <td>{{ item.lesson.label }}</td>
+        <td>{{ item.amountHours }}</td>
         <td>
           <v-btn
             icon="mdi-trash-can-outline"
@@ -39,7 +39,6 @@
             color="primary"
             variant="plain"
           />
-          <!-- Todo : Ajouter nos actions -->
         </td>
       </tr>
     </tbody>
@@ -49,17 +48,11 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
+import { computed } from 'vue';
 
 const AppStore = useAppStore(); // Init un store avec pinia
 
-// Temp : fake data (remplacer avec faker (voir doc sur google))
-const tableData =  [
-  { id: 1, nom: 'Nom1', prenom: 'Prenom1', libelle: 'Libelle1', volH: 10 },
-  { id: 2, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 },
-  { id: 3, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 },
-  { id: 4, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 },
-  { id: 5, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 }
-];
+const dataRows = computed(() => AppStore.getDataRows);
 
 </script>
 

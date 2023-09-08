@@ -15,18 +15,30 @@ const inputField = [
 const createInputFieldComputed = <
     T extends keyof typeof AppStore.inputField, 
     F extends keyof typeof AppStore.inputField[T]>
-    (objName: T, fieldName: F) => 
+  (objName: T, fieldName: F) => 
     computed({
-        get: () => AppStore.inputField[objName][fieldName],
-        set: (newValue) => {
-            AppStore.setInputFieldValue(objName, fieldName, newValue);
-        },
-});
+      get: () => AppStore.inputField[objName][fieldName],
+      set: (newValue) => {
+        AppStore.setInputFieldValue(objName, fieldName, newValue);
+      },
+    });
+const amountHoursLesson = computed({
+  get: () => AppStore.inputField.amountHours,
+  set: (newValue) => {
+    AppStore.inputField.amountHours = newValue
+  }
+})
 
 
 const removeInput = () => {
-    AppStore.editIsCreatingItem(false)
-    AppStore.clearInputField()
+  AppStore.editIsCreatingItem(false)
+  AppStore.clearInputField()
+}
+
+const AddItem = () => {
+  AppStore.editIsCreatingItem(false)
+  AppStore.addItem()
+  AppStore.clearInputField()
 }
 
 const givenIdTeacher = createInputFieldComputed("teacher", "givenId");
@@ -34,88 +46,87 @@ const firstnameTeacher = createInputFieldComputed("teacher", "firstname");
 const lastnameTeacher = createInputFieldComputed("teacher", "lastname");
 
 const givenIdLesson = createInputFieldComputed("lesson", "givenId");
-const amountHoursLesson = createInputFieldComputed("lesson", "amountHours");
 const labelLesson = createInputFieldComputed("lesson", "label");
 
 </script>
 
 <template>
-     <tr v-if="AppStore.isCreatingItem">
+  <tr v-if="AppStore.isCreatingItem">
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="givenIdTeacher"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="givenIdTeacher"
-                />
-            </div>
-        </td>
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="lastnameTeacher"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="lastnameTeacher"
-                />
-            </div>
-        </td>
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="firstnameTeacher"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="firstnameTeacher"
-                />
-            </div>
-        </td>
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="givenIdLesson"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="givenIdLesson"
-                />
-            </div>
-        </td>
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="labelLesson"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="labelLesson"
-                />
-            </div>
-        </td>
+    <td>
+      <div class="text-field-container">
+        <v-text-field
+          v-model="amountHoursLesson"
+          hide-details
+          class=""
+        />
+      </div>
+    </td>
 
-        <td>
-            <div class="text-field-container">
-                <v-text-field
-                hide-details
-                class=""
-                v-model="amountHoursLesson"
-                />
-            </div>
-        </td>
-
-        <td>
-          <v-btn
-            icon="mdi-trash-can-outline"
-            color="red"
-            variant="plain"
-            @click = "removeInput"
-          />
-          <v-btn
-            icon="mdi-check-circle-outline"
-            color="green"
-            variant="plain"
-          />
-        </td>
-      </tr>
+    <td>
+      <v-btn
+        icon="mdi-trash-can-outline"
+        color="red"
+        variant="plain"
+        @click="removeInput"
+      />
+      <v-btn
+        icon="mdi-check-circle-outline"
+        color="green"
+        variant="plain"
+        @click="AddItem"
+      />
+    </td>
+  </tr>
 </template>
 
 
