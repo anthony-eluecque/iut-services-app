@@ -12,34 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-if="AppStore.isCreatingItem">
-        <td
-          v-for="(field,index) in inputField"
-          :key="index"
-        > 
-          <div class="text-field-container">
-            <v-text-field
-                hide-details
-                class=""
-                :label="field.label"
-                variant="outlined"
-            />
-          </div>
-        </td>
-        <td>
-          <v-btn
-            icon="mdi-trash-can-outline"
-            color="red"
-            variant="plain"
-          />
-          <v-btn
-            icon="mdi-check-circle-outline"
-            color="green"
-            variant="plain"
-          />
-        </td>
-      </tr>
-
+      <InputField/>
       <tr
         v-for="(item, index) in tableData"
         :key="index"
@@ -75,6 +48,8 @@
 
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
+import InputField from './InputField.vue';
+
 const AppStore = useAppStore(); // Init un store avec pinia
 
 // Temp : fake data (remplacer avec faker (voir doc sur google))
@@ -85,15 +60,6 @@ const tableData =  [
   { id: 4, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 },
   { id: 5, nom: 'Nom2', prenom: 'Prenom2', libelle: 'Libelle2', volH: 15 }
 ];
-
-const inputField = [
-  { label : "Id"},
-  { label : "Nom"},
-  { label : "Prénom"},
-  { label : "Id"},
-  { label : "Libellé"},
-  { label : "Vol H"},
-]
 
 </script>
 
@@ -134,8 +100,6 @@ const inputField = [
 .styled-table tbody tr:nth-of-type(odd) {
     background-color: white;
 }
-
-
 .text-field-container {
     display: flex;
     align-items: center; 
