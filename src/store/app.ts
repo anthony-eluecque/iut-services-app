@@ -74,7 +74,10 @@ export const useAppStore = defineStore('app', {
       const item = createItem(newTeacher, newLesson,newAmountHours);
       this.dataRows.push(item);
       // changer la logique avec l'API
+    },
+    removeItem(itemToDelete : Item){
+      this.dataRows = this.dataRows.filter(item => item !== itemToDelete)
+      // changer la logique avec l'API
     }
-    
   }
 })

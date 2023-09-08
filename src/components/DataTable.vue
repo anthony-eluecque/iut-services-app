@@ -28,6 +28,7 @@
             icon="mdi-trash-can-outline"
             color="red"
             variant="plain"
+            @click="deleteItem(item)"
           />
           <v-btn
             icon="mdi-pencil-outline"
@@ -49,11 +50,15 @@
 import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
 import { computed } from 'vue';
+import { Item } from '@/types';
 
-const AppStore = useAppStore(); // Init un store avec pinia
+const AppStore = useAppStore();
 
 const dataRows = computed(() => AppStore.getDataRows);
 
+const deleteItem = (itemToDelete : Item) => {
+  AppStore.removeItem(itemToDelete)
+}
 </script>
 
 
