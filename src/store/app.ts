@@ -3,11 +3,25 @@ import { InputFieldType, Item, Lesson, Teacher } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
 
+type Pagination = {
+  rowsPerPage : number,
+  page : number
+}
+
 // L'interface du store
 interface RootState {
   isCreatingItem : boolean
   inputField : InputFieldType
-  dataRows : Item[]
+  dataRows : Item[],
+  pagination : Pagination
+  dataRowsCopy : Item[] // A SUPPRIMER QUAND L API DISPO
+}
+
+const initPagination = () : Pagination => {
+  return {
+    page : 1,
+    rowsPerPage : 5  
+  }
 }
 
 // Reset / init les champs inputs au dessus
@@ -30,10 +44,13 @@ const initInputField = () : InputFieldType => {
 
 // Méthode d'appel pour initialiser le store
 const initStore = () : RootState => {
+  const fakeData = generateFakerArrayItem()
   return {
-    dataRows : generateFakerArrayItem(),
+    dataRows : fakeData,
     isCreatingItem : false,
-    inputField : initInputField()
+    inputField : initInputField(),
+    pagination : initPagination(),
+    dataRowsCopy : structuredClone(fakeData)
   }
 }
 // Créer un item du tableau (clean way)
@@ -51,6 +68,9 @@ export const useAppStore = defineStore('app', {
   getters:{
     getDataRows: (state) => {
       return state.dataRows;
+    },
+    getPages() : number{
+      return Math.ceil(this.dataRowsCopy.length / this.pagination.rowsPerPage)
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -78,6 +98,15 @@ export const useAppStore = defineStore('app', {
     removeItem(itemToDelete : Item){
       this.dataRows = this.dataRows.filter(item => item !== itemToDelete)
       // changer la logique avec l'API
+    },
+    paginationHandler(pageNumber : number){
+      this.pagination.page = pageNumber
+      const pagination = { ...this.pagination }
+      // Ajouter la logique API à la place
+      const start = (pagination.page - 1) * pagination.rowsPerPage
+      const end = (pagination.page) * pagination.rowsPerPage
+
+      this.dataRows = this.dataRowsCopy.slice(start,end)
     }
   }
 })

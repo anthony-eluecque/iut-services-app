@@ -21,7 +21,11 @@
     <div class="container-content">
       <DataTable />
       <div class="container-pagination">
-        <v-pagination :length="6"></v-pagination>
+        <v-pagination 
+          :length="AppStore.getPages"
+          v-model="page"
+          >
+        </v-pagination>
       </div>
     </div>
 
@@ -31,12 +35,25 @@
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
+import { onMounted } from 'vue';
+import { computed } from 'vue';
 
 const AppStore = useAppStore();
+
+const page = computed({
+  get : () => AppStore.pagination.page,
+  set: (newValue) => {
+    AppStore.paginationHandler(newValue)
+  }
+})
 
 const addInputFields = () => {
   AppStore.editIsCreatingItem(true)
 }
+
+onMounted(() => {
+  AppStore.paginationHandler(page.value);
+})
 
 </script>
   
