@@ -22,6 +22,8 @@
       <DataTable />
       <div class="container-pagination">
         <v-pagination 
+          active-color="primary"
+          variant="elevated"
           :length="AppStore.getPages"
           v-model="page"
           >
