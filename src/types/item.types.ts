@@ -3,9 +3,10 @@ import { Lesson } from "./lesson.types";
 import { Teacher } from "./teacher.types";
 
 export type Item = {
-    teacher : Teacher
-    lesson : Lesson
     amountHours : number
+    type : string
+    lesson? : Lesson
+    teacher : Teacher // à modifier
 } & IdEntity
 
 

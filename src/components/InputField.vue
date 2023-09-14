@@ -46,7 +46,7 @@ const firstnameTeacher = createInputFieldComputed("teacher", "firstname");
 const lastnameTeacher = createInputFieldComputed("teacher", "lastname");
 
 const givenIdLesson = createInputFieldComputed("lesson", "givenId");
-const labelLesson = createInputFieldComputed("lesson", "label");
+const labelLesson = createInputFieldComputed("lesson", "name");
 
 </script>
 

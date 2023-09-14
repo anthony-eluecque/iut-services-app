@@ -44,8 +44,8 @@ const AppStore = useAppStore();
 
 const page = computed({
   get : () => AppStore.pagination.page,
-  set: (newValue) => {
-    AppStore.paginationHandler(newValue)
+  set: async (newValue) => {
+    await AppStore.fetchItems(newValue)
   }
 })
 
@@ -53,9 +53,11 @@ const addInputFields = () => {
   AppStore.editIsCreatingItem(true)
 }
 
-onMounted(() => {
+onMounted(async () => {
   AppStore.paginationHandler(page.value);
 })
+
+
 
 </script>
   

@@ -1,7 +1,8 @@
 import { IdEntity } from "./entity.types"
+import { Item } from "./item.types"
 
 export type Lesson = {
     givenId : string
-    label : string
+    name : string
+    items? : Item[]
 } & IdEntity
-  
