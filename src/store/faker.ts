@@ -47,7 +47,7 @@ export const generateFakerItem = () : Item => {
 
 export const generateFakerArrayItem = () : Item[] => {
   const array = [];
-  for (let index = 0; index < 5; index++) { // Changer le index < NUMBER
+  for (let index = 0; index < 50; index++) { // Changer le index < NUMBER
     array.push(generateFakerItem());
   }
   return array

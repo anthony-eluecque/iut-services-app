@@ -1,5 +1,5 @@
 <template>
-  <table class="styled-table">
+  <table class="styled-table" v-if="isLoading">
     <thead>
       <tr>
         <th>ID</th>
@@ -14,14 +14,14 @@
     <tbody>
       <InputField />
       <tr
-        v-for="(item, index) in dataRows"
-        :key="index"
+        v-for="item in dataRows"
+        :key="item.Id"
       >
-        <td>{{ item.teacher.givenId }}</td>
-        <td>{{ item.teacher.lastname }}</td>
-        <td>{{ item.teacher.firstname }}</td>
-        <td>{{ item.lesson.givenId }}</td>
-        <td>{{ item.lesson.label }}</td>
+        <td>{{  item.service?.teacher?.givenId }}</td>
+        <td>{{  item.service?.teacher?.lastName }}</td>
+        <td>{{  item.service?.teacher?.firstName }}</td>
+        <td>{{ item.lesson?.givenId }}</td>
+        <td>{{ item.lesson?.name }}</td>
         <td>{{ item.amountHours }}</td>
         <td>
           <v-btn
@@ -49,16 +49,24 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
-import { computed } from 'vue';
+import { computed, onMounted, ref} from 'vue';
 import { Item } from '@/types';
 
 const AppStore = useAppStore();
+
+const isLoading = ref(false)
 
 const dataRows = computed(() => AppStore.getDataRows);
 
 const deleteItem = (itemToDelete : Item) => {
   AppStore.removeItem(itemToDelete)
 }
+
+onMounted(async () => {
+  await AppStore.fetchItems(1)
+  isLoading.value = true
+})
+
 </script>
 
 

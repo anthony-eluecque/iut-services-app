@@ -20,40 +20,72 @@
 
     <div class="container-content">
       <DataTable />
+      <div class="container-pagination">
+        <v-pagination 
+          active-color="primary"
+          variant="elevated"
+          :length="AppStore.getPages"
+          v-model="page"
+          >
+        </v-pagination>
+      </div>
     </div>
+
   </section>
 </template>
   
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
+import { onMounted } from 'vue';
+import { computed } from 'vue';
 
 const AppStore = useAppStore();
+
+const page = computed({
+  get : () => AppStore.pagination.page,
+  set: async (newValue) => {
+    await AppStore.fetchItems(newValue)
+  }
+})
 
 const addInputFields = () => {
   AppStore.editIsCreatingItem(true)
 }
 
+onMounted(async () => {
+  AppStore.paginationHandler(page.value);
+})
+
+
+
 </script>
   
 <style>
+.container-pagination{
+  margin-top: 30px;
+}
+
 .container{
     width: 95%;
     margin: auto;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     padding: 20px;
-    background-color: #F4F3F3;
     justify-content: space-around;
 }
 
 .container-content {
     /* background-color: white; */
+    margin-top: 80px;
+    display: flex;
     width: 100%;
-    height: 55%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .container-actions{
+    margin-top: 80px;
     height: 8%;
     justify-content: flex-end;
     align-items: center;

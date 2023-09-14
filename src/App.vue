@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavigationDrawer />
-    <v-main style="height: 100vh">
+    <v-main>
       <router-view />
     </v-main>
   </v-app>
