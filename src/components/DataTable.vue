@@ -17,12 +17,9 @@
         v-for="item in dataRows"
         :key="item.Id"
       >
-        <td></td>
-        <td></td>
-        <td></td>
-        <!-- <td>{{ item.teacher.givenId }}</td> -->
-        <!-- <td>{{ item.teacher.lastname }}</td> -->
-        <!-- <td>{{ item.teacher.firstname }}</td> -->
+        <td>{{  item.service?.teacher?.givenId }}</td>
+        <td>{{  item.service?.teacher?.lastName }}</td>
+        <td>{{  item.service?.teacher?.firstName }}</td>
         <td>{{ item.lesson?.givenId }}</td>
         <td>{{ item.lesson?.name }}</td>
         <td>{{ item.amountHours }}</td>

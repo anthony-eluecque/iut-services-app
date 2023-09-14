@@ -2,7 +2,7 @@ import { IdEntity } from "./entity.types"
 
 export type Teacher  = {
     givenId : string
-    firstname : string
-    lastname : string
+    firstName : string
+    lastName : string
 } & IdEntity
   

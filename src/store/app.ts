@@ -36,10 +36,10 @@ const initInputField = () : InputFieldType => {
       name : ""
     },
     teacher : {
-      firstname : "",
+      firstName : "",
       givenId : "",
       Id : "",
-      lastname : ""
+      lastName : ""
     }
   }
 }
@@ -60,8 +60,8 @@ const createItem = (teacher : Teacher, lesson : Lesson, amountHours : number) : 
   return {
     amountHours : amountHours,
     lesson : lesson,
-    teacher : teacher,
     type : "",
+    // Ajouter le service et donc les teachers?
     Id : "" 
   };
 }
@@ -113,7 +113,6 @@ export const useAppStore = defineStore('app', {
         this.paginationHandler(pageNumber);
         const dataFromPage : ResponseData<Item[]> = await fetchData(`${Routes.ITEMS}/${this.pagination.page.toString()}`)
         this.dataRows = extractData(dataFromPage)
-
       } catch (error) {
         throw error
       }

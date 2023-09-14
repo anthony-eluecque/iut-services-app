@@ -42,8 +42,8 @@ const AddItem = () => {
 }
 
 const givenIdTeacher = createInputFieldComputed("teacher", "givenId");
-const firstnameTeacher = createInputFieldComputed("teacher", "firstname");
-const lastnameTeacher = createInputFieldComputed("teacher", "lastname");
+const firstnameTeacher = createInputFieldComputed("teacher", "firstName");
+const lastnameTeacher = createInputFieldComputed("teacher", "lastName");
 
 const givenIdLesson = createInputFieldComputed("lesson", "givenId");
 const labelLesson = createInputFieldComputed("lesson", "name");
