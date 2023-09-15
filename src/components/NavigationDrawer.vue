@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { useUserStore } from '@/store'
+
+const userStore = useUserStore()
 
 const menuItems = [
   { text: 'Accueil', icon: 'mdi-home-outline', value: 'home' },
   { text: 'Services', icon: 'mdi-book-account-outline', value: 'services' },
 ]
-
+const logout = () => {
+        userStore.logout();
+    }
+    
 </script>
 
 <template>
@@ -48,6 +54,7 @@ const menuItems = [
           <v-btn
             block
             color="white"
+            @click = "logout()"
           >
             <p class="custom-text-color">
               Se déconnecter
