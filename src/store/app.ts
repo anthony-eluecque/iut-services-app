@@ -15,6 +15,7 @@ interface RootState {
   isCreatingItem : boolean
   inputField : InputFieldType
   dataRows : Item[],
+  token ?: string,
   pagination : Pagination,
 }
 
@@ -50,7 +51,8 @@ const initStore = () : RootState => {
   return {
     dataRows : [],
     isCreatingItem : false,
-    inputField : initInputField(),
+    inputField : initInputField(), 
+    token : undefined,
     pagination : initPagination(),
   };
 }

@@ -1,7 +1,24 @@
+import { useUserStore } from '@/store';
 import axios, { AxiosResponse } from 'axios';
 
-const API_ORIGIN = "http://localhost:4000";
+const API_ORIGIN = "http://localhost:8080";
 
+export const Axios = axios.create({
+    baseURL: API_ORIGIN
+});
+
+Axios.interceptors.request.use(request => {
+    const userStore = useUserStore();
+    const token = userStore.getToken;
+
+    if (token) {
+        request.headers.Authorization = `Baerer ${token}`;
+    }
+
+    return request;
+});
+
+export default Axios
 
 export enum Routes {
     ITEMS = "/items",
@@ -14,10 +31,9 @@ export type ResponseData<T> = {
     data : T|T[]
 }
 
-
 export const fetchData = async <T>(route : Routes|string, config = {}) : Promise<ResponseData<T>> => {
     try {
-        const response : AxiosResponse<ResponseData<T>> = await axios.get(`${API_ORIGIN}${route}`,config);
+        const response : AxiosResponse<ResponseData<T>> = await Axios.get(`${route}`,config);
         return response.data;
     } catch (error) {
         throw error;
@@ -26,7 +42,7 @@ export const fetchData = async <T>(route : Routes|string, config = {}) : Promise
 
 export const postData = async (route : Routes, data: any, config = {}) => {
     try {
-        const response = await axios.post(`${API_ORIGIN}${route}`, data, config);
+        const response = await axios.post(`${route}`, data, config);
         return response.data;
     } catch (error) {
         throw error;
