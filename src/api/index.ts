@@ -1,7 +1,7 @@
 import { useUserStore } from '@/store';
 import axios, { AxiosResponse } from 'axios';
 
-const API_ORIGIN = "http://localhost:8080";
+const API_ORIGIN = "http://localhost:4000";
 
 export const Axios = axios.create({
     baseURL: API_ORIGIN
@@ -42,8 +42,17 @@ export const fetchData = async <T>(route : Routes|string, config = {}) : Promise
 
 export const postData = async (route : Routes, data: any, config = {}) => {
     try {
-        const response = await axios.post(`${route}`, data, config);
+        const response = await Axios.post(`${route}`, data, config);
         return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const deleteItem = async (route : Routes, id: string, config = {}) => {
+    try {
+        const response = await Axios.delete(`${route}/${id}`)
+        return response
     } catch (error) {
         throw error;
     }

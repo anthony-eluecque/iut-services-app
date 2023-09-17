@@ -2,7 +2,7 @@
 import { InputFieldType, Item, Lesson, Teacher } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
-import { ResponseData, Routes, extractData, fetchData} from '@/api'
+import { ResponseData, Routes, deleteItem, extractData, fetchData} from '@/api'
 
 type Pagination = {
   rowsPerPage : number,
@@ -33,13 +33,13 @@ const initInputField = () : InputFieldType => {
     amountHours : 0,
     lesson : {
       givenId : "",
-      Id : "",
+      id : "",
       name : ""
     },
     teacher : {
       firstName : "",
       givenId : "",
-      Id : "",
+      id : "",
       lastName : ""
     }
   }
@@ -64,7 +64,7 @@ const createItem = (teacher : Teacher, lesson : Lesson, amountHours : number) : 
     lesson : lesson,
     type : "",
     // Ajouter le service et donc les teachers?
-    Id : "" 
+    id : "" 
   };
 }
 
@@ -101,9 +101,10 @@ export const useAppStore = defineStore('app', {
       // changer la logique avec l'API
       // Voir avec le clone dataRowsCopy
     },
-    removeItem(itemToDelete : Item){
-      this.dataRows = this.dataRows.filter(item => item !== itemToDelete)
-      // changer la logique avec l'API
+    async removeItem(itemToDelete : Item){
+      // this.dataRows = this.dataRows.filter(item => item !== itemToDelete)
+      const res = await deleteItem(Routes.ITEMS,itemToDelete.id);
+      this.fetchItems(this.pagination.page)
     },
     paginationHandler(pageNumber : number){
       this.pagination.page = pageNumber ;     

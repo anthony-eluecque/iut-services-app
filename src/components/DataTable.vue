@@ -15,7 +15,7 @@
       <InputField />
       <tr
         v-for="item in dataRows"
-        :key="item.Id"
+        :key="item.id"
       >
         <td>{{  item.service?.teacher?.givenId }}</td>
         <td>{{  item.service?.teacher?.lastName }}</td>
@@ -58,8 +58,10 @@ const isLoading = ref(false)
 
 const dataRows = computed(() => AppStore.getDataRows);
 
-const deleteItem = (itemToDelete : Item) => {
-  AppStore.removeItem(itemToDelete)
+const deleteItem = async (itemToDelete : Item) => {
+  await AppStore.removeItem(itemToDelete)
+  console.log(itemToDelete.id)
+
 }
 
 onMounted(async () => {
