@@ -1,5 +1,5 @@
 import { useUserStore } from '@/store';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 
 const API_ORIGIN = "http://localhost:4000";
 
@@ -16,6 +16,7 @@ Axios.interceptors.request.use(request => {
     }
 
     return request;
+    
 });
 
 export default Axios
@@ -28,25 +29,57 @@ export enum Routes {
 };
 
 export type ResponseData<T> = {
-    data : T|T[]
+    data : T,
+    status : number;
 }
 
-export const fetchData = async <T>(route : Routes|string, config = {}) : Promise<ResponseData<T>> => {
+const processResponse = <T>(
+    response: AxiosResponse<any> | undefined,
+    error?: AxiosError | null
+  ): ResponseData<T> => {
+    if (error && error.response) {
+      return {
+        data: error.response.data as T,
+        status: error.response.status,
+      };
+    }
+    return {
+      data: response?.data.data,
+      status: response?.status as number,
+    };
+};
+
+const performRequest = async<T>(
+    method: 'get' | 'post',
+    route : Routes|string,
+    data?: any,
+    config = {}
+) : Promise<ResponseData<T>> => {
     try {
-        const response : AxiosResponse<ResponseData<T>> = await Axios.get(`${route}`,config);
-        return response.data;
-    } catch (error) {
-        throw error;
+        const response = await Axios[method](`${route}`, data, config);
+        return processResponse<T>(response);
+      } catch (error) {
+        if (isAxiosError(error) && error.response){
+            return processResponse<T>(error.response , error);
+        }
+        return processResponse<T>(undefined)
     }
 }
 
-export const postData = async (route : Routes, data: any, config = {}) => {
-    try {
-        const response = await Axios.post(`${route}`, data, config);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+
+export const fetchData = async <T>(
+    route : Routes|string, 
+    config = {}
+) : Promise<ResponseData<T>> => {
+    return await performRequest<T>('get', route, undefined, config);
+}
+
+export const postData = async <T>(
+    route : Routes, 
+    data: any, 
+    config = {}
+) : Promise<ResponseData<T>> => {
+    return await performRequest<T>('post', route, data, config);
 }
 
 export const deleteItem = async (route : Routes, id: string, config = {}) => {
@@ -61,5 +94,9 @@ export const deleteItem = async (route : Routes, id: string, config = {}) => {
 export const extractData = <T>(
     responseData : ResponseData<T>
     ): T => 
-    responseData.data as T
+    responseData.data;
     
+
+export const getStatusCode = (response : AxiosResponse) => {
+    return response.status
+}
