@@ -39,7 +39,7 @@
     </div>
 
     <div class="container-content">
-      <DataTable />
+      <DataTable :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
         <v-pagination 
           v-model="page"
@@ -55,7 +55,7 @@
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { computed } from 'vue';
 
 const AppStore = useAppStore();
@@ -75,10 +75,12 @@ const currentYear = computed({
   }
 })
 
+const isCreatingItem = ref<boolean>(false)
+
 const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
 const addInputFields = () => {
-  AppStore.editIsCreatingItem(true)
+  isCreatingItem.value = true
 }
 
 onMounted(async () => {

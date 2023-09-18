@@ -1,5 +1,6 @@
 <template>
-  <tr @click="toggleDetails(props.item,$event,props.index)">
+  <!-- <tr @click="toggleDetails(props.item,$event,props.index)"> -->
+  <tr v-if="!props.isUpdated">
     <td>{{ props.item.service?.teacher?.givenId }}</td>
     <td>{{ props.item.service?.teacher?.lastName }}</td>
     <td>{{ props.item.service?.teacher?.firstName }}</td>
@@ -11,13 +12,13 @@
         icon="mdi-trash-can-outline"
         color="red"
         variant="plain"
-        @click="deleteItem(props.item)"
+        @click="removeItem(props.item)"
       />
       <v-btn
         icon="mdi-pencil-outline"
         color="orange"
         variant="plain"
-        @click="toggleUpdate(props.index)"
+        @click="emitToggleUpdate(props.index)"
       />
       <v-btn
         icon="mdi-download"
@@ -27,6 +28,11 @@
       />
     </td>
   </tr>
+  <InputField 
+    v-if="props.isUpdated"
+    :is-creating-item="true"
+    :item="props.item"
+  />
 </template>
 
 
@@ -37,12 +43,18 @@ import InputField from './InputField.vue';
 import { computed, onMounted, ref} from 'vue';
 import { Item } from '@/types';
 import router from '@/router';
+import { Routes, deleteItem } from '@/api';
 
 const AppStore = useAppStore();
 const showDetailsIndex = ref<number | null>(null);
-const editingIndex = ref<number | null>(null)
 
-// const props = defineProps(['Item','Index']);
+const emit = defineEmits<{
+  (e:'emitUpdate',index : number): void
+}>();
+
+const emitToggleUpdate = (index : number) => {
+  emit('emitUpdate',index)
+}
 const props = defineProps({
   item: {
     type: Object as () => Item, 
@@ -52,6 +64,10 @@ const props = defineProps({
     type: Number, 
     required: true, 
   },
+  isUpdated : {
+    type : Boolean,
+    required : true
+  }
 });
 
 
@@ -66,9 +82,7 @@ const closeDetails = () : void => {
 }
 
 
-const toggleUpdate = (index : number) => {
-  editingIndex.value = index
-}
+
 
 const toggleDetails = (item: Item, event: Event, index: number) : void => {
 
@@ -89,8 +103,9 @@ const toggleDetails = (item: Item, event: Event, index: number) : void => {
 
 const dataRows = computed(() => AppStore.getDataRows);
 
-const deleteItem = async (itemToDelete : Item) => {
-  await AppStore.removeItem(itemToDelete)
+const removeItem = async (itemToDelete : Item) => {
+  await deleteItem(Routes.ITEMS,itemToDelete.id);
+  await AppStore.fetchItems(AppStore.pagination.page)
 }
 
 const openItem = (itemToOpen : Item) => {

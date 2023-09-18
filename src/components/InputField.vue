@@ -1,92 +1,134 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
-import { computed } from 'vue'
+import { ref } from 'vue'
 import _ from 'lodash';
 import { Item } from '@/types';
+import { onMounted } from 'vue';
+import { Routes, deleteItem } from '@/api';
 
 
 const AppStore = useAppStore(); // Init un store avec pinia
 
-const createInputFieldComputed = <
-    T extends keyof typeof AppStore.inputField, 
-    F extends keyof typeof AppStore.inputField[T]>
-  (objName: T, fieldName: F) => 
-    computed({
-      get: () => AppStore.inputField[objName][fieldName],
-      set: (newValue) => {
-        AppStore.setInputFieldValue(objName, fieldName, newValue);
+const removeOrCancelInput = async () => {
+  if (props.item){ // remove de la bdd
+    await deleteItem(Routes.ITEMS,props.item.id);
+    await AppStore.fetchItems(AppStore.pagination.page)
+    AppStore.setEditingIndex(null)
+    // AppStore.editIsCreatingItem(false)
+    // AppStore.clearInputField()
+  } else{
+    firstnameTeacherValue.value = '';
+    labelLessonValue.value = '';  
+    givenIdLessonValue.value = '';
+    lastnameTeacherValue.value = '';
+    givenIdTeacherValue.value = '';
+  }
+}
+
+const AddOrUpdateItem = async () => {
+
+  if (props.item){ // update de la bdd
+    // Faire l'update demain
+  } else{
+    const newItem : Item = {
+      amountHours : 0,
+      lesson : {
+        givenId : givenIdLessonValue.value,
+        id : "",
+        name : labelLessonValue.value
       },
-    });
-const amountHoursLesson = computed({
-  get: () => AppStore.inputField.amountHours,
-  set: (newValue) => {
-    AppStore.inputField.amountHours = newValue
+      id : '',
+      type : '',
+      service : {
+        id : '',
+        year : 0,
+        teacher : {
+          firstName : firstnameTeacherValue.value,
+          givenId : givenIdTeacherValue.value,
+          id : '',
+          lastName : lastnameTeacherValue.value
+        }
+      }
+    }
+
+    await AppStore.addItem(newItem)
+    // AppStore.editIsCreatingItem(false)
+    // AppStore.addItem()
+    // AppStore.clearInputField()
+  }
+}
+
+
+
+// const onInputTeacher = (fieldName : string, targetValue : string) => {
+  
+//   const foundObject : Item|undefined  = _.find(
+//     AppStore.getDataRows, 
+//     item => _.get(item, fieldName) === targetValue);
+
+//   if (foundObject){
+//     firstnameTeacher.value = foundObject.service?.teacher?.firstName as string
+//     lastnameTeacher.value = foundObject.service?.teacher?.lastName as string
+//     givenIdTeacher.value = foundObject.service?.teacher?.givenId as string
+//   } else{
+//     // firstnameTeacher.value = ''
+//     // lastnameTeacher.value = '' 
+//   }
+// }
+
+// const onInputLesson = (fieldName : string, targetValue : string) => {
+//   const foundObject : Item|undefined  = _.find(
+//     AppStore.getDataRows, 
+//     item => _.get(item, fieldName) === targetValue);
+
+//   if (foundObject){
+//     labelLesson.value = foundObject.lesson?.name as string;
+//     givenIdLesson.value = foundObject.lesson?.givenId as string;
+//   } else{
+//     // firstnameTeacher.value = ''
+//     // lastnameTeacher.value = '' 
+//   }
+// }
+
+
+
+
+
+const props = defineProps({
+  item: {
+    type: Object as () => Item, 
+    required: false 
+  },
+  isCreatingItem: {
+    type : Boolean,
+    required : true
   }
 })
 
-
-const removeInput = () => {
-  AppStore.editIsCreatingItem(false)
-  AppStore.clearInputField()
-}
-
-const AddItem = () => {
-  AppStore.editIsCreatingItem(false)
-  AppStore.addItem()
-  AppStore.clearInputField()
-}
-
-const givenIdTeacher = createInputFieldComputed("teacher", "givenId");
-const firstnameTeacher = createInputFieldComputed("teacher", "firstName");
-const lastnameTeacher = createInputFieldComputed("teacher", "lastName");
-
-const givenIdLesson = createInputFieldComputed("lesson", "givenId");
-const labelLesson = createInputFieldComputed("lesson", "name");
+const givenIdTeacherValue = ref<string>(props.item?.service?.teacher?.givenId ?? '');
+const firstnameTeacherValue = ref<string>(props.item?.service?.teacher?.firstName ?? '');
+const lastnameTeacherValue = ref<string>(props.item?.service?.teacher?.lastName ?? '');
+const givenIdLessonValue = ref<string>(props.item?.lesson?.givenId ?? '');
+const labelLessonValue = ref<string>(props.item?.lesson?.name ?? '');
 
 
-const onInputTeacher = (fieldName : string, targetValue : string) => {
-  
-  const foundObject : Item|undefined  = _.find(
-    AppStore.getDataRows, 
-    item => _.get(item, fieldName) === targetValue);
+onMounted(() => {
 
-  if (foundObject){
-    firstnameTeacher.value = foundObject.service?.teacher?.firstName as string
-    lastnameTeacher.value = foundObject.service?.teacher?.lastName as string
-    givenIdTeacher.value = foundObject.service?.teacher?.givenId as string
-  } else{
-    // firstnameTeacher.value = ''
-    // lastnameTeacher.value = '' 
-  }
-}
+})
 
-const onInputLesson = (fieldName : string, targetValue : string) => {
-  const foundObject : Item|undefined  = _.find(
-    AppStore.getDataRows, 
-    item => _.get(item, fieldName) === targetValue);
-
-  if (foundObject){
-    labelLesson.value = foundObject.lesson?.name as string;
-    givenIdLesson.value = foundObject.lesson?.givenId as string;
-  } else{
-    // firstnameTeacher.value = ''
-    // lastnameTeacher.value = '' 
-  }
-}
 
 </script>
 
 <template>
-  <tr v-if="AppStore.isCreatingItem">
+  <tr v-if="props.isCreatingItem">
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="givenIdTeacher"
+          v-model="givenIdTeacherValue"
           hide-details
           class=""
           label="n° Matricule"
           variant="outlined"
-          @input="onInputTeacher('service.teacher.givenId',givenIdTeacher)"
         />
       </div>
     </td>
@@ -94,12 +136,11 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="lastnameTeacher"
+          v-model="lastnameTeacherValue"
           hide-details
           class=""
           label="Nom Enseignant"
           variant="outlined"
-          @input="onInputTeacher('service.teacher.lastName',lastnameTeacher)"
         />
       </div>
     </td>
@@ -107,12 +148,11 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="firstnameTeacher"
+          v-model="firstnameTeacherValue"
           hide-details
           class=""
           label="Prénom Enseignant"
           variant="outlined"
-          @input="onInputTeacher('service.teacher.firstName',firstnameTeacher)"
         />
       </div>
     </td>
@@ -120,12 +160,11 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="givenIdLesson"
+          v-model="givenIdLessonValue"
           hide-details
           variant="outlined"
           class=""
           label="Unité d'enseignement"
-          @input="onInputLesson('lesson.givenId',givenIdLesson)"
         />
       </div>
     </td>
@@ -133,12 +172,11 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="labelLesson"
+          v-model="labelLessonValue"
           hide-details
           variant="outlined"
           class=""
           label="Libellé Matière"
-          @input="onInputLesson('lesson.name',labelLesson)"
         />
       </div>
     </td>
@@ -146,7 +184,6 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     <td>
       <div class="text-field-container">
         <v-text-field
-          v-model="amountHoursLesson"
           hide-details
           class=""
           variant="outlined"
@@ -159,13 +196,13 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
         icon="mdi-trash-can-outline"
         color="red"
         variant="plain"
-        @click="removeInput"
+        @click="removeOrCancelInput"
       />
       <v-btn
         icon="mdi-check-circle-outline"
         color="green"
         variant="plain"
-        @click="AddItem"
+        @click="AddOrUpdateItem"
       />
     </td>
   </tr>

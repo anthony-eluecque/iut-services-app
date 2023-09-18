@@ -15,11 +15,13 @@
       </tr>
     </thead>
     <tbody>
-      <InputField />
+      <InputField :is-creating-item="isCreatingItem" />
       <DataRow
         v-for="(item,index) in dataRows"
         :item="item"
         :index="index"
+        :is-updated="index === AppStore.getEditingIndex"
+        @emitUpdate="toggleUpdate"
       />
     </tbody>
   </table>
@@ -35,10 +37,23 @@ const AppStore = useAppStore();
 const isLoading = ref(false)
 const dataRows = computed(() => AppStore.getDataRows);
 
+
+const props = defineProps({
+  isCreatingItem: {
+    type : Boolean,
+    required : true
+  }
+})
+
 onMounted(async () => {
   await AppStore.fetchItems(1)
   isLoading.value = true
 })
+
+const toggleUpdate = (index : number) : void => {
+  AppStore.setEditingIndex(index);
+}
+
 
 </script>
 
