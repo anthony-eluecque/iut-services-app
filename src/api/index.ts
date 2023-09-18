@@ -50,7 +50,7 @@ const processResponse = <T>(
 };
 
 const performRequest = async<T>(
-    method: 'get' | 'post',
+    method: 'get' | 'post' | 'delete' | 'put',
     route : Routes|string,
     data?: any,
     config = {}
@@ -82,13 +82,12 @@ export const postData = async <T>(
     return await performRequest<T>('post', route, data, config);
 }
 
-export const deleteItem = async (route : Routes, id: string, config = {}) => {
-    try {
-        const response = await Axios.delete(`${route}/${id}`)
-        return response
-    } catch (error) {
-        throw error;
-    }
+export const deleteItem = async (
+    route : Routes|string, 
+    id: string, 
+    config = {}
+) => {
+    return await performRequest('delete',`${route}/${id}`,undefined,config);
 }
 
 export const extractData = <T>(

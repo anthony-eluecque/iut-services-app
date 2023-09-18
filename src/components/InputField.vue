@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
-import { computed } from 'vue'
+import { WritableComputedRef, computed } from 'vue'
+import _ from 'lodash';
+import { Item, Teacher } from '@/types';
+import { Service } from '@/types/service.types';
+
+
 const AppStore = useAppStore(); // Init un store avec pinia
 
 const inputField = [
@@ -48,6 +53,40 @@ const lastnameTeacher = createInputFieldComputed("teacher", "lastName");
 const givenIdLesson = createInputFieldComputed("lesson", "givenId");
 const labelLesson = createInputFieldComputed("lesson", "name");
 
+
+console.log(AppStore.dataRows)
+
+const onInputTeacher = (fieldName : string, targetValue : string) => {
+  
+  const foundObject : Item|undefined  = _.find(
+    AppStore.getDataRows, 
+    item => _.get(item, fieldName) === targetValue);
+
+  if (foundObject){
+    firstnameTeacher.value = foundObject.service?.teacher?.firstName as string
+    lastnameTeacher.value = foundObject.service?.teacher?.lastName as string
+    givenIdTeacher.value = foundObject.service?.teacher?.givenId as string
+  } else{
+    // firstnameTeacher.value = ''
+    // lastnameTeacher.value = '' 
+  }
+}
+
+const onInputLesson = (fieldName : string, targetValue : string) => {
+  const foundObject : Item|undefined  = _.find(
+    AppStore.getDataRows, 
+    item => _.get(item, fieldName) === targetValue);
+
+  console.log(foundObject)
+  if (foundObject){
+    labelLesson.value = foundObject.lesson?.name as string;
+    givenIdLesson.value = foundObject.lesson?.givenId as string;
+  } else{
+    // firstnameTeacher.value = ''
+    // lastnameTeacher.value = '' 
+  }
+}
+
 </script>
 
 <template>
@@ -58,6 +97,9 @@ const labelLesson = createInputFieldComputed("lesson", "name");
           v-model="givenIdTeacher"
           hide-details
           class=""
+          @input="onInputTeacher('service.teacher.givenId',givenIdTeacher)"
+          label="n° Matricule"
+          variant="outlined"
         />
       </div>
     </td>
@@ -68,6 +110,9 @@ const labelLesson = createInputFieldComputed("lesson", "name");
           v-model="lastnameTeacher"
           hide-details
           class=""
+          @input="onInputTeacher('service.teacher.lastName',lastnameTeacher)"
+          label="Nom Enseignant"
+          variant="outlined"
         />
       </div>
     </td>
@@ -78,6 +123,9 @@ const labelLesson = createInputFieldComputed("lesson", "name");
           v-model="firstnameTeacher"
           hide-details
           class=""
+          @input="onInputTeacher('service.teacher.firstName',firstnameTeacher)"
+          label="Prénom Enseignant"
+          variant="outlined"
         />
       </div>
     </td>
@@ -87,7 +135,10 @@ const labelLesson = createInputFieldComputed("lesson", "name");
         <v-text-field
           v-model="givenIdLesson"
           hide-details
+          variant="outlined"
           class=""
+          label="Unité d'enseignement"
+          @input="onInputLesson('lesson.givenId',givenIdLesson)"
         />
       </div>
     </td>
@@ -97,7 +148,10 @@ const labelLesson = createInputFieldComputed("lesson", "name");
         <v-text-field
           v-model="labelLesson"
           hide-details
+          variant="outlined"
           class=""
+          label="Libellé Matière"
+          @input="onInputLesson('lesson.name',labelLesson)"
         />
       </div>
     </td>
@@ -108,6 +162,7 @@ const labelLesson = createInputFieldComputed("lesson", "name");
           v-model="amountHoursLesson"
           hide-details
           class=""
+          variant="outlined"
         />
       </div>
     </td>
