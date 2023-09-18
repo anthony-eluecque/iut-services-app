@@ -73,7 +73,7 @@ const createItem = (teacher : Teacher, lesson : Lesson, amountHours : number) : 
 export const useAppStore = defineStore('app', {
   state: () : RootState => initStore(),
   getters:{
-    getDataRows: (state) => {
+    getDataRows: (state) : Item[] => {
       return state.dataRows;
     },
     getPages() : number{
@@ -155,7 +155,8 @@ export const useAppStore = defineStore('app', {
         const dataFromPage : ResponseData<Item[]> = await fetchData(
           `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
         )
-        this.dataRows = extractData(dataFromPage)
+
+        this.dataRows = extractData(dataFromPage);
       } catch (error) {
         throw error
       }

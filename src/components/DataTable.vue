@@ -14,8 +14,9 @@
     <tbody>
       <InputField />
       <tr
-        v-for="item in dataRows"
+        v-for="(item,index) in dataRows"
         :key="item.id"
+        @click="toggleDetails(item,$event,index)"
       >
         <td>{{  item.service?.teacher?.givenId }}</td>
         <td>{{  item.service?.teacher?.lastName }}</td>
@@ -43,6 +44,7 @@
           />
         </td>
       </tr>
+
     </tbody>
   </table>
 </template>
@@ -55,15 +57,39 @@ import { Item } from '@/types';
 import router from '@/router';
 
 const AppStore = useAppStore();
-
 const isLoading = ref(false)
+const showDetailsIndex = ref<number | null>(null);
+
+const closeDetails = () : void => {
+
+  const existingDetails = document.querySelector('.details-row');
+    if (existingDetails) {
+      existingDetails.remove();
+    }
+}
+
+const toggleDetails = (item: Item, event: Event, index: number) : void => {
+
+  if (showDetailsIndex.value === index) {
+    showDetailsIndex.value = null;
+    closeDetails()
+    return;
+  }
+
+  showDetailsIndex.value = index;
+  const clickedTr = event.currentTarget as HTMLElement;
+  closeDetails()
+  const detailsTr = document.createElement('tr');
+  detailsTr.className = 'details-row';
+  detailsTr.innerHTML = `<td colspan="7">Contenu des détails ici</td>`;
+  clickedTr.insertAdjacentElement('afterend', detailsTr);
+}
+
 
 const dataRows = computed(() => AppStore.getDataRows);
 
 const deleteItem = async (itemToDelete : Item) => {
   await AppStore.removeItem(itemToDelete)
-  console.log(itemToDelete.id)
-
 }
 
 onMounted(async () => {
@@ -72,8 +98,7 @@ onMounted(async () => {
 })
 
 const openItem = (itemToOpen : Item) => {
-  console.log(itemToOpen)
-  router.push('/services/'+itemToOpen.id)
+  router.push('/services/'+itemToOpen.service?.id)
 }
 
 </script>
