@@ -11,16 +11,7 @@
         
         </div> 
 
-        <div class ="container-info d-flex">
-
-        <label for="nom"></label>
-            <input type="text" id="Lastname" name="nom" value="Patric">
-            <label for="prénom"></label>
-            <input type="text" id="Firstname" name="nom" value= "Joe">
-            <label for="id"></label>
-            <input type="text" id="id" name="nom" value= "1">
-
-        </div>
+        <TeacherField />
 
         <div class ="container-text d-flex">
 
@@ -29,6 +20,8 @@
 
         </div>
 
+        <!-- <DetailsTable /> -->
+
   </section>
   
 </template>
@@ -36,6 +29,7 @@
 <script lang="ts" setup>
 
 import DataTable from '@/components/DataTable.vue'
+import DetailsTable from '@/components/DetailsTable.vue';
 import TeacherField from '@/components/TeacherField.vue';
 import { useAppStore } from '@/store'
 import { onMounted } from 'vue';
@@ -83,23 +77,6 @@ const AppStore = useAppStore();
     width: 100%;
     height: 110px;
 
-}
-
-.container-info{
-    padding-left: 20px;
-    padding-right: 20px;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 110px;
-    background: white;
-}
-
-.container-info input{
-   
-    border: 1px solid black;
-    padding-top: 1%;
-    padding-bottom: 1%;
 }
 
 .container-title{
