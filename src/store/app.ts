@@ -134,7 +134,7 @@ export const useAppStore = defineStore('app', {
       const newService = {
         teacher : responseTeacher.data.id,
         itemsIds : [postItem.data.id],
-        year : 2023      
+        year : this.currentYear      
       }
       await postData(Routes.SERVICES,newService)
       this.fetchItems(this.pagination.page)
@@ -152,7 +152,9 @@ export const useAppStore = defineStore('app', {
         const data : ResponseData<Item[]> = await fetchData(Routes.ITEMS);
         this.pagination.totalItems =  extractData(data).length
         this.paginationHandler(pageNumber);
-        const dataFromPage : ResponseData<Item[]> = await fetchData(`${Routes.ITEMS}/${this.pagination.page.toString()}`)
+        const dataFromPage : ResponseData<Item[]> = await fetchData(
+          `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
+        )
         this.dataRows = extractData(dataFromPage)
       } catch (error) {
         throw error

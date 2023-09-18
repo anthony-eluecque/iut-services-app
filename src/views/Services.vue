@@ -71,6 +71,7 @@ const currentYear = computed({
   get : () => AppStore.currentYear,
   set: async (newValue) => {
     AppStore.currentYear = newValue
+    await AppStore.fetchItems(1)
   }
 })
 
