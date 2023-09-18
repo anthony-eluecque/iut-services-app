@@ -3,6 +3,7 @@
 const menuItems = [
   { text: 'Accueil', icon: 'mdi-home-outline', value: 'home' },
   { text: 'Services', icon: 'mdi-book-account-outline', value: 'services' },
+  { text: 'Mentions', icon: 'mdi-book-account-outline', value: 'mentions' },
 ]
 
 </script>
