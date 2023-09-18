@@ -90,11 +90,19 @@ export const deleteItem = async (
   return await performRequest('delete',`${route}/${id}`,undefined,config);
 }
 
+export const updateData = async <T>(
+    route : Routes, 
+    data: any, 
+    config = {}
+  ) : Promise<ResponseData<T>> => {
+    return await performRequest<T>('put', route, data, config);
+  }
+
 export const extractData = <T>(
   responseData : ResponseData<T>
 ): T => 
     responseData.data;
-    
+
 
 export const getStatusCode = (response : AxiosResponse) => {
   return response.status
