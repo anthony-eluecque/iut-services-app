@@ -19,8 +19,18 @@
             <h3> ANNÉE UNIVERSITAIRE </h3>
 
         </div>
-
-        <!-- <DetailsTable /> -->
+        <!-- <div class="container-content"> -->
+            <DetailsTable />
+            <!-- <div class="container-pagination">
+                <v-pagination 
+               
+                :length="AppStore.getPages"
+                v-model="page"
+                >
+                </v-pagination>
+            </div> -->
+        <!-- </div>  -->
+        
 
   </section>
   
@@ -39,6 +49,13 @@ const id = router.currentRoute.value.params.id
 
 const AppStore = useAppStore();
 
+const page = computed({
+  get : () => AppStore.pagination.page,
+  set: async (newValue) => {
+    await AppStore.fetchItems(newValue)
+  }
+})
+
 
 
 
@@ -50,6 +67,16 @@ const AppStore = useAppStore();
 
   
 <style>
+
+.container-content {
+    /* background-color: white; */
+    margin-top: 80px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /* .container-pagination{
   margin-top: 30px;
 } */
@@ -65,6 +92,8 @@ const AppStore = useAppStore();
     background: rgb(70, 99, 248);
 
 }
+
+
 
 .container-teacher h2{
   
