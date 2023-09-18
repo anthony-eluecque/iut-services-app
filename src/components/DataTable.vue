@@ -39,6 +39,7 @@
             icon="mdi-download"
             color="primary"
             variant="plain"
+            @click="openItem(item)"
           />
         </td>
       </tr>
@@ -51,6 +52,7 @@ import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
 import { computed, onMounted, ref} from 'vue';
 import { Item } from '@/types';
+import router from '@/router';
 
 const AppStore = useAppStore();
 
@@ -68,6 +70,11 @@ onMounted(async () => {
   await AppStore.fetchItems(1)
   isLoading.value = true
 })
+
+const openItem = (itemToOpen : Item) => {
+  console.log(itemToOpen)
+  router.push('/services/'+itemToOpen.id)
+}
 
 </script>
 

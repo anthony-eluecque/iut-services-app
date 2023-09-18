@@ -17,6 +17,7 @@ interface RootState {
   dataRows : Item[],
   token ?: string,
   pagination : Pagination,
+  currentYear : number
 }
 
 const initPagination = () : Pagination => {
@@ -54,6 +55,7 @@ const initStore = () : RootState => {
     inputField : initInputField(), 
     token : undefined,
     pagination : initPagination(),
+    currentYear : new Date().getFullYear()
   };
 }
 

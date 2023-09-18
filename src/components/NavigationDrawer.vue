@@ -1,8 +1,9 @@
 <script setup lang="ts">
-
+import Home from '@/views/Home.vue';
+import Services from '@/views/Services.vue';
 const menuItems = [
-  { text: 'Accueil', icon: 'mdi-home-outline', value: 'home' },
-  { text: 'Services', icon: 'mdi-book-account-outline', value: 'services' },
+  { text: 'Accueil', path:'/home', icon: 'mdi-home-outline', component: Home },
+  { text: 'Services', path:'/services', icon: 'mdi-book-account-outline', component: Services},
 ]
 
 </script>
@@ -30,9 +31,8 @@ const menuItems = [
               v-for="(item, index) in menuItems"
               :key="index"
               class="ml-4 list-item"
-              :value="item.value"
               :class="{ 'bottom-border': index < menuItems.length - 1 }"
-              :to="item.value"
+              :to="item.path"
             >
               <v-icon class="white--text mr-5">
                 {{ item.icon }}
