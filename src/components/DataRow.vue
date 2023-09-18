@@ -52,9 +52,6 @@ const emit = defineEmits<{
   (e:'emitUpdate',index : number): void
 }>();
 
-const emitToggleUpdate = (index : number) => {
-  emit('emitUpdate',index)
-}
 const props = defineProps({
   item: {
     type: Object as () => Item, 
@@ -71,8 +68,9 @@ const props = defineProps({
 });
 
 
-console.log(props)
-
+const emitToggleUpdate = (index : number) => {
+  emit('emitUpdate',index)
+}
 
 const closeDetails = () : void => {
   const existingDetails = document.querySelector('.details-row');
@@ -80,9 +78,6 @@ const closeDetails = () : void => {
     existingDetails.remove();
   }
 }
-
-
-
 
 const toggleDetails = (item: Item, event: Event, index: number) : void => {
 
@@ -100,8 +95,6 @@ const toggleDetails = (item: Item, event: Event, index: number) : void => {
   detailsTr.innerHTML = `<td colspan="7">Contenu des détails ici</td>`;
   clickedTr.insertAdjacentElement('afterend', detailsTr);
 }
-
-const dataRows = computed(() => AppStore.getDataRows);
 
 const removeItem = async (itemToDelete : Item) => {
   await deleteItem(Routes.ITEMS,itemToDelete.id);

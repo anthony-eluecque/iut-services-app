@@ -59,6 +59,8 @@ import { onMounted, ref } from 'vue';
 import { computed } from 'vue';
 
 const AppStore = useAppStore();
+const isCreatingItem = ref<boolean>(false)
+const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
 const page = computed({
   get : () => AppStore.pagination.page,
@@ -75,17 +77,13 @@ const currentYear = computed({
   }
 })
 
-const isCreatingItem = ref<boolean>(false)
-
-const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
+onMounted(async () => {
+  AppStore.paginationHandler(page.value);
+})
 
 const addInputFields = () => {
   isCreatingItem.value = true
 }
-
-onMounted(async () => {
-  AppStore.paginationHandler(page.value);
-})
 
 
 

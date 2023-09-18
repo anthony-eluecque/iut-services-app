@@ -37,7 +37,6 @@ const AppStore = useAppStore();
 const isLoading = ref(false)
 const dataRows = computed(() => AppStore.getDataRows);
 
-
 const props = defineProps({
   isCreatingItem: {
     type : Boolean,
@@ -53,8 +52,6 @@ onMounted(async () => {
 const toggleUpdate = (index : number) : void => {
   AppStore.setEditingIndex(index);
 }
-
-
 </script>
 
 

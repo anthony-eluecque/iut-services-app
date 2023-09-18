@@ -9,6 +9,24 @@ import { Routes, deleteItem } from '@/api';
 
 const AppStore = useAppStore(); // Init un store avec pinia
 
+const props = defineProps({
+  item: {
+    type: Object as () => Item, 
+    required: false 
+  },
+  isCreatingItem: {
+    type : Boolean,
+    required : true
+  }
+})
+
+const givenIdTeacherValue = ref<string>(props.item?.service?.teacher?.givenId ?? '');
+const firstnameTeacherValue = ref<string>(props.item?.service?.teacher?.firstName ?? '');
+const lastnameTeacherValue = ref<string>(props.item?.service?.teacher?.lastName ?? '');
+const givenIdLessonValue = ref<string>(props.item?.lesson?.givenId ?? '');
+const labelLessonValue = ref<string>(props.item?.lesson?.name ?? '');
+
+
 const removeOrCancelInput = async () => {
   if (props.item){ // remove de la bdd
     await deleteItem(Routes.ITEMS,props.item.id);
@@ -90,31 +108,6 @@ const AddOrUpdateItem = async () => {
 //   }
 // }
 
-
-
-
-
-const props = defineProps({
-  item: {
-    type: Object as () => Item, 
-    required: false 
-  },
-  isCreatingItem: {
-    type : Boolean,
-    required : true
-  }
-})
-
-const givenIdTeacherValue = ref<string>(props.item?.service?.teacher?.givenId ?? '');
-const firstnameTeacherValue = ref<string>(props.item?.service?.teacher?.firstName ?? '');
-const lastnameTeacherValue = ref<string>(props.item?.service?.teacher?.lastName ?? '');
-const givenIdLessonValue = ref<string>(props.item?.lesson?.givenId ?? '');
-const labelLessonValue = ref<string>(props.item?.lesson?.name ?? '');
-
-
-onMounted(() => {
-
-})
 
 
 </script>
