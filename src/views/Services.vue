@@ -12,15 +12,17 @@
         <v-col cols="5">
           <div class="content-v-select">
             <div class="content-v-select-title">
-              <h3 class="mr-2">Année Universitaire :</h3>
+              <h3 class="mr-2">
+                Année Universitaire :
+              </h3>
             </div>            
             <div class="container-component-select">
               <v-select 
-                hide-details 
+                v-model="currentYear" 
+                hide-details
                 variant="outlined"
-                v-model="currentYear"
                 :items="nextYears"
-                />
+              />
             </div>    
           </div>   
           <div class="add-action">
@@ -40,15 +42,13 @@
       <DataTable />
       <div class="container-pagination">
         <v-pagination 
+          v-model="page"
           active-color="primary"
           variant="elevated"
           :length="AppStore.getPages"
-          v-model="page"
-          >
-        </v-pagination>
+        />
       </div>
     </div>
-
   </section>
 </template>
   

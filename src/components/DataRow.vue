@@ -1,33 +1,32 @@
 <template>
-    <tr @click="toggleDetails(props.item,$event,props.index)"
-      >
-        <td>{{  props.item.service?.teacher?.givenId }}</td>
-        <td>{{  props.item.service?.teacher?.lastName }}</td>
-        <td>{{  props.item.service?.teacher?.firstName }}</td>
-        <td>{{ props.item.lesson?.givenId }}</td>
-        <td>{{ props.item.lesson?.name }}</td>
-        <td>{{ props.item.amountHours }}</td>
-        <td>
-          <v-btn
-            icon="mdi-trash-can-outline"
-            color="red"
-            variant="plain"
-            @click="deleteItem(props.item)"
-          />
-          <v-btn
-            icon="mdi-pencil-outline"
-            color="orange"
-            variant="plain"
-            @click="toggleUpdate(props.index)"
-          />
-          <v-btn
-            icon="mdi-download"
-            color="primary"
-            variant="plain"
-            @click="openItem(props.item)"
-          />
-        </td>
-      </tr>
+  <tr @click="toggleDetails(props.item,$event,props.index)">
+    <td>{{ props.item.service?.teacher?.givenId }}</td>
+    <td>{{ props.item.service?.teacher?.lastName }}</td>
+    <td>{{ props.item.service?.teacher?.firstName }}</td>
+    <td>{{ props.item.lesson?.givenId }}</td>
+    <td>{{ props.item.lesson?.name }}</td>
+    <td>{{ props.item.amountHours }}</td>
+    <td>
+      <v-btn
+        icon="mdi-trash-can-outline"
+        color="red"
+        variant="plain"
+        @click="deleteItem(props.item)"
+      />
+      <v-btn
+        icon="mdi-pencil-outline"
+        color="orange"
+        variant="plain"
+        @click="toggleUpdate(props.index)"
+      />
+      <v-btn
+        icon="mdi-download"
+        color="primary"
+        variant="plain"
+        @click="openItem(props.item)"
+      />
+    </td>
+  </tr>
 </template>
 
 
@@ -46,12 +45,12 @@ const editingIndex = ref<number | null>(null)
 // const props = defineProps(['Item','Index']);
 const props = defineProps({
   item: {
-      type: Object as () => Item, 
-      required: true, 
+    type: Object as () => Item, 
+    required: true, 
   },
   index: {
-      type: Number, 
-      required: true, 
+    type: Number, 
+    required: true, 
   },
 });
 
@@ -61,9 +60,9 @@ console.log(props)
 
 const closeDetails = () : void => {
   const existingDetails = document.querySelector('.details-row');
-    if (existingDetails) {
-      existingDetails.remove();
-    }
+  if (existingDetails) {
+    existingDetails.remove();
+  }
 }
 
 

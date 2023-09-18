@@ -98,8 +98,8 @@ export const useAppStore = defineStore('app', {
       const teacher = { ...this.inputField.teacher };
       const lesson = { ...this.inputField.lesson };
 
-      let responseTeacher : ResponseData<Teacher> = await fetchData(Routes.TEACHERS+"/givenid/"+teacher.givenId);
-      let responseLesson : ResponseData<Lesson> = await fetchData(Routes.LESSONS+"/givenid/"+lesson.givenId)
+      const responseTeacher : ResponseData<Teacher> = await fetchData(Routes.TEACHERS+"/givenid/"+teacher.givenId);
+      const responseLesson : ResponseData<Lesson> = await fetchData(Routes.LESSONS+"/givenid/"+lesson.givenId)
 
       // on créer le teacher si il n'est pas trouvé
       if (responseTeacher.status === 404){

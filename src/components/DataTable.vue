@@ -1,5 +1,8 @@
 <template>
-  <table class="styled-table" v-if="isLoading">
+  <table
+    v-if="isLoading"
+    class="styled-table"
+  >
     <thead>
       <tr>
         <th>ID</th>
@@ -13,7 +16,11 @@
     </thead>
     <tbody>
       <InputField />
-      <DataRow v-for="(item,index) in dataRows" :item="item" :index="index" />
+      <DataRow
+        v-for="(item,index) in dataRows"
+        :item="item"
+        :index="index"
+      />
     </tbody>
   </table>
 </template>
@@ -26,17 +33,12 @@ import { computed, onMounted, ref} from 'vue';
 
 const AppStore = useAppStore();
 const isLoading = ref(false)
-
-
 const dataRows = computed(() => AppStore.getDataRows);
-
 
 onMounted(async () => {
   await AppStore.fetchItems(1)
   isLoading.value = true
 })
-
-
 
 </script>
 

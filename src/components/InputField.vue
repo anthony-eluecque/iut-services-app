@@ -84,9 +84,9 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
           v-model="givenIdTeacher"
           hide-details
           class=""
-          @input="onInputTeacher('service.teacher.givenId',givenIdTeacher)"
           label="n° Matricule"
           variant="outlined"
+          @input="onInputTeacher('service.teacher.givenId',givenIdTeacher)"
         />
       </div>
     </td>
@@ -97,9 +97,9 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
           v-model="lastnameTeacher"
           hide-details
           class=""
-          @input="onInputTeacher('service.teacher.lastName',lastnameTeacher)"
           label="Nom Enseignant"
           variant="outlined"
+          @input="onInputTeacher('service.teacher.lastName',lastnameTeacher)"
         />
       </div>
     </td>
@@ -110,9 +110,9 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
           v-model="firstnameTeacher"
           hide-details
           class=""
-          @input="onInputTeacher('service.teacher.firstName',firstnameTeacher)"
           label="Prénom Enseignant"
           variant="outlined"
+          @input="onInputTeacher('service.teacher.firstName',firstnameTeacher)"
         />
       </div>
     </td>
