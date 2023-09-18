@@ -1,21 +1,11 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
-import { WritableComputedRef, computed } from 'vue'
+import { computed } from 'vue'
 import _ from 'lodash';
-import { Item, Teacher } from '@/types';
-import { Service } from '@/types/service.types';
+import { Item } from '@/types';
 
 
 const AppStore = useAppStore(); // Init un store avec pinia
-
-const inputField = [
-  { label : "Id"},
-  { label : "Nom"},
-  { label : "Prénom"},
-  { label : "Id"},
-  { label : "Libellé"},
-  { label : "Vol H"},
-]
 
 const createInputFieldComputed = <
     T extends keyof typeof AppStore.inputField, 
@@ -54,8 +44,6 @@ const givenIdLesson = createInputFieldComputed("lesson", "givenId");
 const labelLesson = createInputFieldComputed("lesson", "name");
 
 
-console.log(AppStore.dataRows)
-
 const onInputTeacher = (fieldName : string, targetValue : string) => {
   
   const foundObject : Item|undefined  = _.find(
@@ -77,7 +65,6 @@ const onInputLesson = (fieldName : string, targetValue : string) => {
     AppStore.getDataRows, 
     item => _.get(item, fieldName) === targetValue);
 
-  console.log(foundObject)
   if (foundObject){
     labelLesson.value = foundObject.lesson?.name as string;
     givenIdLesson.value = foundObject.lesson?.givenId as string;

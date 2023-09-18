@@ -13,93 +13,30 @@
     </thead>
     <tbody>
       <InputField />
-      <tr
-        v-for="(item,index) in dataRows"
-        :key="item.id"
-        @click="toggleDetails(item,$event,index)"
-      >
-        <td>{{  item.service?.teacher?.givenId }}</td>
-        <td>{{  item.service?.teacher?.lastName }}</td>
-        <td>{{  item.service?.teacher?.firstName }}</td>
-        <td>{{ item.lesson?.givenId }}</td>
-        <td>{{ item.lesson?.name }}</td>
-        <td>{{ item.amountHours }}</td>
-        <td>
-          <v-btn
-            icon="mdi-trash-can-outline"
-            color="red"
-            variant="plain"
-            @click="deleteItem(item)"
-          />
-          <v-btn
-            icon="mdi-pencil-outline"
-            color="orange"
-            variant="plain"
-          />
-          <v-btn
-            icon="mdi-download"
-            color="primary"
-            variant="plain"
-            @click="openItem(item)"
-          />
-        </td>
-      </tr>
-
+      <DataRow v-for="(item,index) in dataRows" :item="item" :index="index" />
     </tbody>
   </table>
 </template>
 
 <script lang="ts" setup>
+import DataRow from './DataRow.vue'
 import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
 import { computed, onMounted, ref} from 'vue';
-import { Item } from '@/types';
-import router from '@/router';
 
 const AppStore = useAppStore();
 const isLoading = ref(false)
-const showDetailsIndex = ref<number | null>(null);
-
-const closeDetails = () : void => {
-
-  const existingDetails = document.querySelector('.details-row');
-    if (existingDetails) {
-      existingDetails.remove();
-    }
-}
-
-const toggleDetails = (item: Item, event: Event, index: number) : void => {
-
-  if (showDetailsIndex.value === index) {
-    showDetailsIndex.value = null;
-    closeDetails()
-    return;
-  }
-
-  showDetailsIndex.value = index;
-  const clickedTr = event.currentTarget as HTMLElement;
-  closeDetails()
-  const detailsTr = document.createElement('tr');
-  detailsTr.className = 'details-row';
-  detailsTr.innerHTML = `<td colspan="7">Contenu des détails ici</td>`;
-  clickedTr.insertAdjacentElement('afterend', detailsTr);
-}
 
 
 const dataRows = computed(() => AppStore.getDataRows);
 
-const deleteItem = async (itemToDelete : Item) => {
-  await AppStore.removeItem(itemToDelete)
-}
 
 onMounted(async () => {
   await AppStore.fetchItems(1)
   isLoading.value = true
 })
 
-const openItem = (itemToOpen : Item) => {
-  router.push('/services/'+itemToOpen.service?.id)
-}
+
 
 </script>
 
@@ -128,21 +65,4 @@ const openItem = (itemToOpen : Item) => {
 .styled-table th {
     padding: 10px 15px;
 }
-
-.styled-table td {
-    padding: 15px 15px;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:nth-of-type(odd) {
-    background-color: white;
-}
-.text-field-container {
-    display: flex;
-    align-items: center; 
-}
-
 </style>
