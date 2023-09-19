@@ -30,6 +30,23 @@
                 </v-pagination>
             </div> -->
         <!-- </div>  -->
+
+        <div class ="container-hour d-flex">
+            <p> TOTAL HEURE </p>
+        </div>
+
+        <div class ="return-action">
+            <v-btn
+              height="55px"
+              prepend-icon="mdi-arrow-left" 
+              text="Retour"
+              color="red"
+              @click="returnServicePage()"
+            />
+
+        </div>
+ 
+
         
 
   </section>
@@ -38,11 +55,9 @@
   
 <script lang="ts" setup>
 
-import DataTable from '@/components/DataTable.vue'
 import DetailsTable from '@/components/DetailsTable.vue';
 import TeacherField from '@/components/TeacherField.vue';
 import { useAppStore } from '@/store'
-import { onMounted } from 'vue';
 import { computed } from 'vue';
 import router from '@/router';
 const id = router.currentRoute.value.params.id
@@ -55,6 +70,11 @@ const page = computed({
     await AppStore.fetchItems(newValue)
   }
 })
+
+const returnServicePage = () => {
+    router.push('/services/')
+
+}
 
 
 
@@ -77,9 +97,11 @@ const page = computed({
     justify-content: space-between;
 }
 
-/* .container-pagination{
-  margin-top: 30px;
-} */
+.container-hour {
+    margin-left: 80%;
+  
+  
+}
 
 .container-teacher{
     padding-left: 20px;
