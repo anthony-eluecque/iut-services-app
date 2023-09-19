@@ -28,24 +28,6 @@ const initPagination = () : Pagination => {
   }
 }
 
-// Reset / init les champs inputs au dessus
-const initInputField = () : InputFieldType => {
-  return {
-    amountHours : 0,
-    lesson : {
-      givenId : "",
-      id : "",
-      name : ""
-    },
-    teacher : {
-      firstName : "",
-      givenId : "",
-      id : "",
-      lastName : ""
-    }
-  }
-}
-
 // Méthode d'appel pour initialiser le store
 const initStore = () : RootState => {
   // const fakeData = generateFakerArrayItem()

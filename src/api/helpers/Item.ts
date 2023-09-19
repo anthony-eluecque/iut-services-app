@@ -3,8 +3,8 @@ import { ResponseData, Routes, fetchData, postData } from "..";
 
 export const postItem = async (item : Item,currentYear : number) => {
     try {
-        const teacher = item.service?.teacher as Teacher
-        const lesson = item.lesson as Lesson
+        const teacher = item.service?.teacher as Teacher;
+        const lesson = item.lesson as Lesson;
         const teacherData : ResponseData<Teacher> = await fetchData(Routes.TEACHERS+"/givenid/"+teacher.givenId);
         const lessonData : ResponseData<Lesson> = await fetchData(Routes.LESSONS+"/givenid/"+lesson.givenId);
 
@@ -18,7 +18,7 @@ export const postItem = async (item : Item,currentYear : number) => {
             lastName: teacher.lastName,
             givenId: teacher.givenId,
             id : ''
-          }))   
+          }));
         const responseLesson =  await handleResponse(
             lessonData,
             lesson,
@@ -27,21 +27,23 @@ export const postItem = async (item : Item,currentYear : number) => {
             givenId: lesson.givenId,
             name: lesson.name,
             id : ''
-        }))
+        }));
 
         if (responseTeacher){
-            teacherData.data.id = responseTeacher.data.id
-        }        
+            teacherData.data.id = responseTeacher.data.id;
+        };        
 
         if (responseLesson){
-            lessonData.data.id = responseLesson.data.id
-        }
+            lessonData.data.id = responseLesson.data.id;
+        };
+        console.log(item)
+        console.log(teacherData);
         
         const newItem = createItem(item.amountHours,lessonData.data.id);
-        const postItem :  ResponseData<Item> = await postData(Routes.ITEMS,newItem);
-        const newService = createService(teacherData.data.id,[postItem.data.id],currentYear)
-        console.log(newService)
-        await postData(Routes.SERVICES,newService)
+        const postItem :  ResponseData<Item> = await postData(Routes.ITEMS,newItem);       
+        const newService = createService(teacherData.data.id,[postItem.data.id],currentYear);
+        console.log(newService);
+        await postData(Routes.SERVICES,newService);
 
     } catch (error) {
         throw error;

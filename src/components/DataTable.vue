@@ -15,7 +15,9 @@
       </tr>
     </thead>
     <tbody>
-      <InputField :is-creating-item="isCreatingItem" />
+      <InputField 
+        :is-creating-item="isCreatingItem" 
+      />
       <DataRow
         v-for="(item,index) in dataRows"
         :item="item"
@@ -52,6 +54,7 @@ onMounted(async () => {
 const toggleUpdate = (index : number) : void => {
   AppStore.setEditingIndex(index);
 }
+
 </script>
 
 

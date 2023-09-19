@@ -55,8 +55,7 @@
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
-import { onMounted, ref } from 'vue';
-import { computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 const AppStore = useAppStore();
 const isCreatingItem = ref<boolean>(false)
