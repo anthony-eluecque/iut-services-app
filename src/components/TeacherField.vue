@@ -5,12 +5,26 @@
                 :key="item.id"
             > -->
        
-            <label for="nom"></label>
-            <input type="text" id="Lastname" name="nom" value="Cozot">
-            <label for="prénom"></label>
-            <input type="text" id="Firstname" name="nom" value="Rémi">
-            <label for="id"></label>
-            <input type="text" id="id" name="nom" value="2">
+        
+
+
+            <v-text-field
+            model-value="John"
+
+            variant="solo"
+            readonly
+          ></v-text-field>
+          <v-text-field
+            model-value="Doe"
+            variant="solo"
+      
+            readonly
+          ></v-text-field>
+          <v-text-field
+            model-value="1"
+            variant="solo"
+            readonly
+          ></v-text-field>
        
         <!-- </tr> -->
         </div>
@@ -44,11 +58,20 @@ const teacherId = router.currentRoute.value.params.id
     background: white;
 }
 
-.container-info input{
-   
+.container-info v-text-field{
+
+
+    padding-left: 20px;
+    padding-right: 20px;
     border: 1px solid black;
     padding-top: 1%;
     padding-bottom: 1%;
+}
+
+.v-input__control {
+  display: flex;
+  grid-area: control;
+  margin-left: 5%;
 }
 
 </style>
