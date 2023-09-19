@@ -2,7 +2,7 @@
 import { InputFieldType, Item, Lesson, Teacher } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
-import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData} from '@/api'
+import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
 
 type Pagination = {
   rowsPerPage : number,
@@ -77,50 +77,7 @@ export const useAppStore = defineStore('app', {
       this.editingIndex = index;
     },
     async addItem(item : Item){
-      const teacher = item.service?.teacher as Teacher
-      const lesson = item.lesson as Lesson
-      const responseTeacher : ResponseData<Teacher> = await fetchData(Routes.TEACHERS+"/givenid/"+teacher.givenId);
-      const responseLesson : ResponseData<Lesson> = await fetchData(Routes.LESSONS+"/givenid/"+lesson.givenId)
-      
-      console.log(responseLesson)
-      console.log(responseTeacher)
-
-      // on créer le teacher si il n'est pas trouvé
-      if (responseTeacher.status === 404){
-        responseTeacher.data = teacher;
-        const newTeacher = {
-          roleName : "admin",
-          firstName : teacher.firstName,
-          lastName : teacher.lastName,
-          givenId : teacher.givenId
-        }
-        const postTeacher : ResponseData<Teacher> = await postData(Routes.TEACHERS,newTeacher);
-        responseTeacher.data.id = postTeacher.data.id;
-      }
-      // on créer la leçon si elle n'est pas trouvé
-      if (responseLesson.status === 404){
-        responseLesson.data = lesson;
-        const newLesson = {
-          givenId : lesson.givenId,
-          name : lesson.name
-        }
-        const postLesson :  ResponseData<Lesson>  = await postData(Routes.LESSONS,newLesson);
-        responseLesson.data.id = postLesson.data.id;
-      }
-
-      const newItem = {
-        amountHours : item.amountHours,
-        type : "",
-        lesson : responseLesson.data.id
-      }
-      const postItem :  ResponseData<Item> = await postData(Routes.ITEMS,newItem);
-
-      const newService = {
-        teacher : responseTeacher.data.id,
-        itemsIds : [postItem.data.id],
-        year : this.currentYear      
-      }
-      await postData(Routes.SERVICES,newService)
+      await postItem(item,this.currentYear)
       this.fetchItems(this.pagination.page)
     },
     paginationHandler(pageNumber : number){

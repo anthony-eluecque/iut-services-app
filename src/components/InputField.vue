@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
 import { ref } from 'vue'
-import _ from 'lodash';
-import { Item } from '@/types';
-import { onMounted } from 'vue';
+// import _ from 'lodash';
+import { Item, Lesson, Teacher } from '@/types';
 import { Routes, deleteItem } from '@/api';
 
 
@@ -47,6 +46,14 @@ const AddOrUpdateItem = async () => {
 
   if (props.item){ // update de la bdd
     // Faire l'update demain
+    console.log(props.item)
+    const lesson : Lesson = {...props.item.lesson} as Lesson;
+    const teacher : Teacher = {...props.item.service?.teacher} as Teacher
+    
+  
+
+
+    AppStore.setEditingIndex(null)
   } else{
     const newItem : Item = {
       amountHours : 0,

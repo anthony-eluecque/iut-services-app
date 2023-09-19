@@ -1,5 +1,6 @@
 import { useUserStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
+export { postItem } from './helpers';
 
 const API_ORIGIN = "http://localhost:4000";
 
@@ -107,3 +108,6 @@ export const extractData = <T>(
 export const getStatusCode = (response : AxiosResponse) => {
   return response.status
 }
+
+
+
