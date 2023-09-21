@@ -1,5 +1,6 @@
 import { Lesson, Teacher, Item } from "@/types"
-import { ResponseData, Routes, fetchData, postData } from "..";
+import { ResponseData, Routes, fetchData, postData, updateData } from "..";
+import { Service } from "@/types/service.types";
 
 export const postItem = async (item : Item,currentYear : number) => {
     try {
@@ -19,6 +20,7 @@ export const postItem = async (item : Item,currentYear : number) => {
             givenId: teacher.givenId,
             id : ''
           }));
+
         const responseLesson =  await handleResponse(
             lessonData,
             lesson,
@@ -29,43 +31,51 @@ export const postItem = async (item : Item,currentYear : number) => {
             id : ''
         }));
 
-        if (responseTeacher){
-            teacherData.data.id = responseTeacher.data.id;
-        };        
+        let idTeacher = teacherData.data.id
+        if (responseTeacher){   
+            idTeacher = responseTeacher.data.id
+        } 
 
-        if (responseLesson){
-            lessonData.data.id = responseLesson.data.id;
+        let idLesson = lessonData.data.id
+        if (responseLesson){ 
+            idLesson = responseLesson.data.id;
         };
-        console.log(item)
-        console.log(teacherData);
-        
-        const newItem = createItem(item.amountHours,lessonData.data.id);
-        const postItem :  ResponseData<Item> = await postData(Routes.ITEMS,newItem);       
-        const newService = createService(teacherData.data.id,[postItem.data.id],currentYear);
-        console.log(newService);
-        await postData(Routes.SERVICES,newService);
+
+        if (teacherData.data.id){
+            const url = `/teacher/${teacherData.data.id}/year/${currentYear}`
+            const serviceIsExisting : ResponseData<Service> = await fetchData(Routes.SERVICES+url)
+            const newItem = createItem(item.amountHours,idLesson,serviceIsExisting.data.id);
+            await postData(Routes.ITEMS,newItem);  
+
+        } else {
+            const newService = createService(idTeacher,currentYear);
+            const postService : ResponseData<Service> = await postData(Routes.SERVICES,newService);
+            const newItem = createItem(item.amountHours,idLesson,postService.data.id);
+            await postData(Routes.ITEMS,newItem);       
+        }
+      
 
     } catch (error) {
         throw error;
     }
 }
 
-const createService = (idTeacher : string, itemsIds : string[],currentYear : number) => {
+const createService = (idTeacher : string,currentYear : number) => {
     return {
         teacher :  idTeacher,
-        itemsIds : itemsIds,
+        itemsIds : [],
         year: currentYear
     }
 }
 
-const createItem = (amountHours : number, idLesson : string) => {
+const createItem = (amountHours : number, idLesson : string, idService : string) => {
     return {
         amountHours : amountHours,
         type : '',
-        lesson : idLesson
+        lesson : idLesson,
+        service : idService
     }
 }
-
 
 const handleResponse = async <T extends Identifiable>(
     response : ResponseData<T>,
