@@ -76,7 +76,7 @@ export const fetchData = async <T>(
 }
 
 export const postData = async <T>(
-  route : Routes, 
+  route : Routes|string, 
   data: any, 
   config = {}
 ) : Promise<ResponseData<T>> => {
@@ -92,7 +92,7 @@ export const deleteItem = async (
 }
 
 export const updateData = async <T>(
-    route : Routes, 
+    route : Routes|string, 
     data: any, 
     config = {}
   ) : Promise<ResponseData<T>> => {
