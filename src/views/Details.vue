@@ -9,11 +9,11 @@
         <TeacherField />
         <div class="container-text d-flex">
             <h3>TABLEAU RÉCAPITULATIF DU SERVICE PRÉVISIONNEL</h3>
-            <h3>ANNÉE UNIVERSITAIRE {{ dataRows[0].service?.year }}</h3>
+            <h3>ANNÉE UNIVERSITAIRE {{ dataRows[0].service?.year }}-{{ dataRows[0].service?.year + 1 }} </h3>
         </div>
         <DetailsTable />
         <div class="container-hour d-flex">
-            <p>TOTAL HEURES</p>
+            <h3>TOTAL HEURES: {{ totalHours }}</h3>
         </div>
         <div class="return-action">
             <v-btn height="55px" prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />
@@ -33,6 +33,7 @@ import router from '@/router';
 
 const AppStore = useAppStore();
 const dataRows = computed(() => AppStore.getDataRows);
+const totalHours = computed(() => AppStore.getServiceHours);
 
 const page = computed({
     get: () => AppStore.pagination.page,
@@ -71,6 +72,7 @@ const downloadAsPDF = () => {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: auto;
 }
 
 .container-teacher {
@@ -113,7 +115,6 @@ const downloadAsPDF = () => {
 }
 
 .return-action {
-    margin-top: 60px;
     justify-content: space-between;
     display: flex;
 }
