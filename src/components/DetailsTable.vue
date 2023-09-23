@@ -43,7 +43,6 @@ const serviceData = computed(() => {
 });
 
 const parseSemester = (semester: string): number => {
-  if (!semester) return 0;
   return parseInt(semester.split('.')[0].slice(1));
 };
 </script>
