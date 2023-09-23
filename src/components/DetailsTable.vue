@@ -54,12 +54,10 @@ const parseSemester = (semester: string): number => {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 110px;
-
   margin: auto;
-  /* height: 100vh; */
-  /* display: flex; */
   padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
   background: white;
 }
 
