@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="headers" :items="serviceData" class="styled-table">
+  <v-data-table :headers="headers" :items="serviceData" :items-per-page-text="itemsPerPageText" class="styled-table">
   </v-data-table>
 </template>
    
@@ -10,6 +10,7 @@ import { computed, onMounted, ref } from 'vue';
 
 const AppStore = useAppStore();
 const dataRows = computed(() => AppStore.getDataRows);
+const itemsPerPageText = ref('Résultats par page');
 
 interface ServiceRow {
   givenId: string;
@@ -20,7 +21,7 @@ interface ServiceRow {
 }
 
 const headers = ref([
-  { title: 'Matricule', align: 'start', sortable: false, key: 'givenId' },
+  { title: 'Ressource', align: 'start', sortable: false, key: 'givenId' },
   { title: 'Enseignement', align: 'start', sortable: false, key: 'name' },
   { title: 'Type', align: 'start', sortable: false, key: 'type' },
   { title: 'Semestre', align: 'start', sortable: false, key: 'semester' },
@@ -47,6 +48,7 @@ const parseSemester = (semester: string): number => {
 };
 </script>
 
+
 <style scoped>
 .styled-table {
   padding-left: 20px;
@@ -64,7 +66,7 @@ const parseSemester = (semester: string): number => {
 .styled-table td {
   border-bottom: 1px solid grey;
   text-align: center;
-  vertical-align: middle
+  vertical-align: middle;
 }
 
 .styled-table th {
