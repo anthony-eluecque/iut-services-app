@@ -2,7 +2,7 @@
   <section class="container d-flex flex-column">
     <div class="container-title d-flex">
       <h2>Liste des Services prévisionnels</h2>
-      <h2>logo</h2>
+      <img src="../assets/IUT.png" alt="Logo de l'IUT" />
     </div>
 
     <div class="container-actions d-flex">
