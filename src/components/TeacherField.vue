@@ -1,66 +1,55 @@
 <template>
   <div class ="container-info d-flex">
-   
-    <tr v-for="item in dataRows" :key="item.id">
+    <v-text-field
+        class="flex-item"
+        :value="props.teacher.firstName"
+        variant="solo"
+        hide-details
+        readonly
+    />
+    <v-text-field
+      class="flex-item"
+      :value="props.teacher.lastName"
+      variant="solo"
+      hide-details
+      readonly
+    />
 
-      <td>
-        <v-text-field
-          :value="item.service?.teacher?.firstName"
-          variant="solo"
-          readonly
-        ></v-text-field>
-      </td>
-        
-      <td>
-        <v-text-field
-          :value="item.service?.teacher?.lastName"
-          variant="solo"
-          readonly
-        ></v-text-field>
-      </td>
-
-          <td>
-            <v-text-field
-              :value="item.service?.teacher?.givenId"
-              variant="solo"
-              readonly
-            ></v-text-field>
-          </td>
-        </tr>
-     
+    <v-text-field
+      class="flex-item"
+      :value="props.teacher.givenId"
+      variant="solo"
+      hide-details
+      readonly
+    />
   </div>
-
 </template>
 
 <script lang="ts" setup>
-import { useAppStore } from '@/store'
-import { computed, onMounted, ref} from 'vue';
+import { Teacher } from '@/types';
 
-const AppStore = useAppStore();
-
-const dataRows = computed(() => AppStore.getDataRows);
+const props = defineProps({
+  teacher: {
+    type : Object as () => Teacher, 
+    required : true
+  }
+})
 
 </script>
 
 <style>
 
 .container-info{
-  padding-left: 20px;
-padding-right: 20px;
-justify-content: space-between;
-align-items: center;
-width: 100%;
-height: 110px;
-background: white;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  background-color: white;
 }
 
-.container-info td{
-
-   padding-right: 10%;
-  display: inline-block; 
-  width: 300px;
-
+.flex-item {
+  flex: 1;
+  margin: 5px 20px;
+  align-self: center;
 }
-
 
 </style>

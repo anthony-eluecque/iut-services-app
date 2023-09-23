@@ -72,8 +72,16 @@ onMounted(async () => {
 })
 
 const openItem = (itemToOpen : Item) => {
-  console.log(itemToOpen)
-  router.push('/services/'+itemToOpen.id)
+  const itemToOpenJSON = JSON.stringify(itemToOpen);
+  router.push({
+    name: 'ServicesDetails',
+    params: {
+      id: itemToOpen.service?.id,
+    },
+    query: {
+      itemToOpenJSON: itemToOpenJSON,
+    },
+  });
 }
 
 </script>

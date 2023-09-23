@@ -3,13 +3,14 @@
         <div class="container-title d-flex">
             <h2>Visualisation d'un Service Prévisionnel</h2>
         </div>
+        {{  selectedService }}
         <div class="container-teacher d-flex">
             <h2>Enseignant</h2>
         </div>
-        <TeacherField />
+        <TeacherField :teacher="selectedTeacher" />
         <div class="container-text d-flex">
             <h3>TABLEAU RÉCAPITULATIF DU SERVICE PRÉVISIONNEL</h3>
-            <h3>ANNÉE UNIVERSITAIRE {{ dataRows[0].service?.year }}-{{ dataRows[0].service?.year! + 1 }} </h3>
+            <h3>ANNÉE UNIVERSITAIRE {{ selectedService?.service?.year }}-{{ selectedService?.service?.year! + 1 }} </h3>
         </div>
         <DetailsTable />
         <div class="container-hour d-flex">
@@ -28,18 +29,25 @@
 import DetailsTable from '@/components/DetailsTable.vue';
 import TeacherField from '@/components/TeacherField.vue';
 import { useAppStore } from '@/store'
-import { computed } from 'vue';
+import { Ref, computed, ref, onMounted, onBeforeMount } from 'vue';
 import router from '@/router';
+import Axios, { Routes, fetchData, ResponseData, extractData } from '@/api';
+import { Item, Teacher } from '@/types';
+
 
 const AppStore = useAppStore();
-const dataRows = computed(() => AppStore.getDataRows);
+const selectedService : Ref<Item|null> = ref(null)
+const selectedTeacher : Ref<Teacher> = ref({firstName : '',givenId : '', id : '', lastName : ''})
 const totalHours = computed(() => AppStore.getServiceHours);
 
-const page = computed({
-    get: () => AppStore.pagination.page,
-    set: async (newValue) => {
-        await AppStore.fetchItems(newValue)
-    }
+const props = defineProps({
+    id: String, 
+    itemToOpenJSON: Object, 
+});
+
+onBeforeMount(() => {
+    selectedService.value = props.itemToOpenJSON as Item
+    selectedTeacher.value = props.itemToOpenJSON?.service?.teacher 
 })
 
 const returnServicePage = () => {

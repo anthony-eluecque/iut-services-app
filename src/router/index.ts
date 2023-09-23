@@ -25,6 +25,10 @@ const routes: RouteRecordRaw[] = [
     path : '/services/:id',
     name : 'ServicesDetails',
     component: () => import(/* webpackChunkName: "home" */ '@/views/Details.vue'),
+    props: route => ({
+      id: route.params.id,
+      itemToOpenJSON: route.query.itemToOpenJSON ? JSON.parse(route.query.itemToOpenJSON as string) : null,
+    }),
   }
 ]
 
