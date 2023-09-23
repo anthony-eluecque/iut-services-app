@@ -3,7 +3,6 @@
         <div class="container-title d-flex">
             <h2>Visualisation d'un Service Prévisionnel</h2>
         </div>
-        {{  selectedService }}
         <div class="container-teacher d-flex">
             <h2>Enseignant</h2>
         </div>
