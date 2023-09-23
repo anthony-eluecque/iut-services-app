@@ -31,7 +31,6 @@ import { useAppStore } from '@/store'
 import { computed } from 'vue';
 import router from '@/router';
 
-const id = router.currentRoute.value.params.id
 const AppStore = useAppStore();
 const dataRows = computed(() => AppStore.getDataRows);
 
@@ -81,7 +80,7 @@ const downloadAsPDF = () => {
     align-items: center;
     width: 100%;
     height: 50px;
-    margin-top: 5%;
+    margin-top: 2%;
     background: rgb(70, 99, 248);
 }
 
@@ -93,12 +92,13 @@ const downloadAsPDF = () => {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 110px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .container-title {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin: 20px 0px;
+    padding: 20px;
     justify-content: space-between;
     align-items: center;
     width: 100%;
