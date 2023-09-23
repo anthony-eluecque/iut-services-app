@@ -1,9 +1,14 @@
-
 <template>
     <section class="container d-flex flex-column">
         <div class="container-title d-flex">
-            <h2>Services prévisionnels de {{id}}</h2>
+            <tr
+            v-for="item in dataRows"
+                :key="item.id"
+            >
+            
+            <h2>Services prévisionnels de {{ item.service?.teacher?.firstName}}</h2>
             <h2>logo</h2>
+            </tr>
         
         </div> 
         <div class="container-teacher d-flex">
@@ -19,17 +24,8 @@
             <h3> ANNÉE UNIVERSITAIRE </h3>
 
         </div>
-        <!-- <div class="container-content"> -->
+
             <DetailsTable />
-            <!-- <div class="container-pagination">
-                <v-pagination 
-               
-                :length="AppStore.getPages"
-                v-model="page"
-                >
-                </v-pagination>
-            </div> -->
-        <!-- </div>  -->
 
         <div class ="container-hour d-flex">
             <p> TOTAL HEURE </p>
@@ -44,10 +40,7 @@
               @click="returnServicePage()"
             />
 
-        </div>
- 
-
-        
+        </div>   
 
   </section>
   
@@ -61,6 +54,8 @@ import { useAppStore } from '@/store'
 import { computed } from 'vue';
 import router from '@/router';
 const id = router.currentRoute.value.params.id
+const dataRows = computed(() => AppStore.getDataRows);
+
 
 const AppStore = useAppStore();
 
@@ -76,20 +71,12 @@ const returnServicePage = () => {
 
 }
 
-
-
-
-
 </script>
 
 
-
-
-  
 <style>
 
 .container-content {
-    /* background-color: white; */
     margin-top: 80px;
     display: flex;
     width: 100%;
@@ -99,8 +86,6 @@ const returnServicePage = () => {
 
 .container-hour {
     margin-left: 80%;
-  
-  
 }
 
 .container-teacher{
@@ -112,10 +97,7 @@ const returnServicePage = () => {
     height: 50px;
     margin-top: 5%;
     background: rgb(70, 99, 248);
-
 }
-
-
 
 .container-teacher h2{
   
