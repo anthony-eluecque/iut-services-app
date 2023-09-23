@@ -9,7 +9,7 @@
         <TeacherField />
         <div class="container-text d-flex">
             <h3>TABLEAU RÉCAPITULATIF DU SERVICE PRÉVISIONNEL</h3>
-            <h3>ANNÉE UNIVERSITAIRE {{ dataRows[0].service?.year }}-{{ dataRows[0].service?.year + 1 }} </h3>
+            <h3>ANNÉE UNIVERSITAIRE {{ dataRows[0].service?.year }}-{{ dataRows[0].service?.year! + 1 }} </h3>
         </div>
         <DetailsTable />
         <div class="container-hour d-flex">
