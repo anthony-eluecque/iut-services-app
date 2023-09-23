@@ -6,7 +6,8 @@
 
 <script lang="ts" setup>
 import { useAppStore } from '@/store'
-import { computed, onMounted, ref } from 'vue';
+import { Ref } from 'vue';
+import { DeepReadonly, computed, onMounted, ref } from 'vue';
 
 const AppStore = useAppStore();
 const dataRows = computed(() => AppStore.getDataRows);
@@ -20,7 +21,7 @@ interface ServiceRow {
   amountHours: number;
 }
 
-const headers = ref([
+const headers: Ref<DeepReadonly<any[]>> = ref([
   { title: 'Ressource', align: 'start', sortable: false, key: 'givenId' },
   { title: 'Enseignement', align: 'start', sortable: false, key: 'name' },
   { title: 'Type', align: 'start', sortable: false, key: 'type' },
