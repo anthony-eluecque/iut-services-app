@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <NavigationDrawer />
+    <BtnTheme></BtnTheme>
     <v-main>
       <router-view />
     </v-main>
@@ -9,15 +10,8 @@
 
 <script lang="ts" setup>
 import NavigationDrawer from './components/NavigationDrawer.vue';
+import BtnTheme from './components/BtnTheme.vue';
 
 
 </script>
 
-
-<style>
-*{
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-</style>

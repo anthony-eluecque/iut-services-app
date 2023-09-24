@@ -9,11 +9,9 @@ const menuItems = [
 
 <template>
   <v-card class="rounded-0">
-    <v-navigation-drawer
-      color="secondary"
-      theme="white"
+    <v-navigation-drawer 
+      class="bg-background-navigation-drawer disable-scrollbar"
       permanent
-      class="disable-scrollbar"
     >
       <div class="section-container">
         <h1 class="mx-auto title-app pa-5">
@@ -47,9 +45,9 @@ const menuItems = [
         <div class="pa-2">
           <v-btn
             block
-            color="white"
+            color="button-logout"
           >
-            <p class="custom-text-color">
+            <p class="custom-text text-title-button-logout">
               Se déconnecter
             </p>
           </v-btn>
@@ -110,8 +108,7 @@ const menuItems = [
     border-bottom: 1px solid white;
 }
 
-.custom-text-color {
-    color: #4663F8;
+.custom-text {
     font-family: 'Montserrat',sans-serif;
     font-weight: bold;
 }

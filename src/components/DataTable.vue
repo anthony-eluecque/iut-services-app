@@ -14,8 +14,8 @@
     <tbody>
       <InputField />
       <tr
-        v-for="item in dataRows"
-        :key="item.Id"
+        v-for="(item, index) in dataRows"
+        :class="index%2 == 0 ? 'bg-background-tr-even' : 'bg-background-tr-odd'"
       >
         <td>{{  item.service?.teacher?.givenId }}</td>
         <td>{{  item.service?.teacher?.lastName }}</td>
@@ -99,13 +99,6 @@ onMounted(async () => {
     padding: 15px 15px;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:nth-of-type(odd) {
-    background-color: white;
-}
 .text-field-container {
     display: flex;
     align-items: center; 

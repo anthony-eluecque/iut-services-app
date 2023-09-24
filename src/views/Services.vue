@@ -1,10 +1,9 @@
 <template>
   <section class="container d-flex flex-column">
-    <div class="container-title d-flex">
+    <v-container class="container-title d-flex primary bg-background-container"  >
       <h2>Liste des Services prévisionnels</h2>
       <h2>logo</h2>
-    </div>
-
+    </v-container>
     <div class="container-actions d-flex">
       <div class="add-action">
         <v-btn
@@ -98,7 +97,6 @@ onMounted(async () => {
     align-items: center;
     width: 100%;
     height: 110px;
-    background: white;
 }
 
 .container-title h2{
