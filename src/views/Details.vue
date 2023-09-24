@@ -1,8 +1,9 @@
 <template>
     <section class="container d-flex flex-column">
-        <div class="container-title d-flex">
+
+        <v-container fluid class="d-flex container-title primary bg-background-container"  >
             <h2>Visualisation d'un Service Prévisionnel</h2>
-        </div>
+        </v-container>
         <div class="container-teacher d-flex">
             <h2>Enseignant</h2>
         </div>

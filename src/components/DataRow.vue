@@ -1,6 +1,6 @@
 <template>
   <!-- <tr @click="toggleDetails(props.item,$event,props.index)"> -->
-  <tr v-if="!props.isUpdated">
+  <tr :class="props.index%2 == 0 ? 'bg-background-tr-even' : 'bg-background-tr-odd'" :v-if="!props.isUpdated">
     <td>{{ props.item.service?.teacher?.givenId }}</td>
     <td>{{ props.item.service?.teacher?.lastName }}</td>
     <td>{{ props.item.service?.teacher?.firstName }}</td>
@@ -123,11 +123,4 @@ const openItem = (itemToOpen : Item) => {
     padding: 15px 15px;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:nth-of-type(odd) {
-    background-color: white;
-}
 </style>
