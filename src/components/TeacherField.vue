@@ -1,24 +1,26 @@
 <template>
   <div class ="container-info d-flex">
     <v-text-field
+      class="flex-item"
+      :model-value="props.teacher.givenId"
+      variant="outlined"
+      label="N° Matricule"
+      hide-details
+      readonly
+    />
+    <v-text-field
         class="flex-item"
-        :value="props.teacher.firstName"
-        variant="solo"
+        :model-value="props.teacher.firstName"
+        variant="outlined"
+        label="Prénom"
         hide-details
         readonly
     />
     <v-text-field
       class="flex-item"
-      :value="props.teacher.lastName"
-      variant="solo"
-      hide-details
-      readonly
-    />
-
-    <v-text-field
-      class="flex-item"
-      :value="props.teacher.givenId"
-      variant="solo"
+      :model-value="props.teacher.lastName"
+      variant="outlined"
+      label="Nom"
       hide-details
       readonly
     />
@@ -34,7 +36,6 @@ const props = defineProps({
     required : true
   }
 })
-
 </script>
 
 <style>
@@ -51,5 +52,4 @@ const props = defineProps({
   margin: 5px 20px;
   align-self: center;
 }
-
 </style>

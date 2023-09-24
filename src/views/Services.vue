@@ -41,6 +41,9 @@
     <div class="container-content">
       <DataTable :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
+        <div class="d-flex justify-end">
+          <h3 class="hours-text">Total Heures : {{  AppStore.getServiceHours }}</h3>
+        </div>
         <v-pagination 
           v-model="page"
           active-color="primary"
@@ -89,10 +92,6 @@ const addInputFields = () => {
 </script>
   
 <style>
-.container-pagination{
-  margin-top: 30px;
-}
-
 .container{
     width: 95%;
     margin: auto;
@@ -104,15 +103,23 @@ const addInputFields = () => {
 
 .container-content {
     /* background-color: white; */
-    margin-top: 80px;
+    margin-top: 40px;
     display: flex;
+    height: 550px;
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.hours-text{
+  font-family: 'Roboto',sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
 .container-actions{
-    margin-top: 80px;
+    margin-top: 10px;
     height: 8%;
     justify-content: flex-end;
     align-items: center;

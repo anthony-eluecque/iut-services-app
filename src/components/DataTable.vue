@@ -8,7 +8,7 @@
         <th>ID</th>
         <th>NOM</th>
         <th>Prénom</th>
-        <th>ID</th>
+        <th>Ressource</th>
         <th>Libellé</th>
         <th>Vol H</th>
         <th>Actions</th>
