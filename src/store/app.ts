@@ -2,7 +2,7 @@
 import { InputFieldType, Item, Lesson, Teacher } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
-import { ResponseData, Routes, extractData, fetchData} from '@/api'
+import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
 
 type Pagination = {
   rowsPerPage : number,
@@ -12,10 +12,12 @@ type Pagination = {
 
 // L'interface du store
 interface RootState {
-  isCreatingItem : boolean
-  inputField : InputFieldType
+ // inputField : InputFieldType
   dataRows : Item[],
+  token ?: string,
   pagination : Pagination,
+  currentYear : number
+  editingIndex : number | null
 }
 
 const initPagination = () : Pagination => {
@@ -26,96 +28,54 @@ const initPagination = () : Pagination => {
   }
 }
 
-// Reset / init les champs inputs au dessus
-const initInputField = () : InputFieldType => {
-  return {
-    amountHours : 0,
-    lesson : {
-      givenId : "",
-      Id : "",
-      name : ""
-    },
-    teacher : {
-      firstName : "",
-      givenId : "",
-      Id : "",
-      lastName : ""
-    }
-  }
-}
-
 // Méthode d'appel pour initialiser le store
 const initStore = () : RootState => {
   // const fakeData = generateFakerArrayItem()
   return {
     dataRows : [],
-    isCreatingItem : false,
-    inputField : initInputField(),
+    // inputField : initInputField(), 
+    editingIndex : null,
+    token : undefined,
     pagination : initPagination(),
-  };
-}
-
-// Créer un item du tableau (clean way)
-const createItem = (teacher : Teacher, lesson : Lesson, amountHours : number) : Item => {
-  return {
-    amountHours : amountHours,
-    lesson : lesson,
-    type : "",
-    // Ajouter le service et donc les teachers?
-    Id : "" 
+    currentYear : new Date().getFullYear()
   };
 }
 
 export const useAppStore = defineStore('app', {
   state: () : RootState => initStore(),
   getters:{
-    getDataRows: (state) => {
+    getDataRows: (state) : Item[] => {
       return state.dataRows;
     },
     getPages() : number{
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+    },
+    getEditingIndex: (state) : number|null => {
+      return state.editingIndex;
+    },
+    getServiceHours() : number {
+      return this.dataRows.reduce((acc, item) => acc + item.amountHours, 0)
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
-    editIsCreatingItem(newState : boolean) {
-      this.isCreatingItem = newState;
+    setEditingIndex(index : number|null){
+      this.editingIndex = index;
     },
-    setInputFieldValue<K extends keyof InputFieldType, F extends keyof InputFieldType[K]>(
-      objName: K,
-      fieldName: F,
-      newValue: InputFieldType[K][F]
-    ) {
-      this.inputField[objName][fieldName] = newValue;
-    },
-    clearInputField(){
-      this.inputField = initInputField()
-    },
-    addItem(){
-      const newTeacher = { ...this.inputField.teacher };
-      const newLesson = { ...this.inputField.lesson };
-      const newAmountHours = this.inputField.amountHours;
-      const item = createItem(newTeacher, newLesson,newAmountHours);
-      this.dataRows.push(item);
-      // changer la logique avec l'API
-      // Voir avec le clone dataRowsCopy
-    },
-    removeItem(itemToDelete : Item){
-      this.dataRows = this.dataRows.filter(item => item !== itemToDelete)
-      // changer la logique avec l'API
+    async addItem(item : Item){
+      await postItem(item,this.currentYear)
+      this.fetchItems(this.pagination.page)
     },
     paginationHandler(pageNumber : number){
       this.pagination.page = pageNumber ;     
     },
     async fetchItems(pageNumber : number){
-      try {
-        const data : ResponseData<Item[]> = await fetchData(Routes.ITEMS);
-        this.pagination.totalItems =  extractData(data).length
-        this.paginationHandler(pageNumber);
-        const dataFromPage : ResponseData<Item[]> = await fetchData(`${Routes.ITEMS}/${this.pagination.page.toString()}`)
-        this.dataRows = extractData(dataFromPage)
-      } catch (error) {
-        throw error
-      }
+      const data : ResponseData<Item[]> = await fetchData(Routes.ITEMS+`/year/${this.currentYear}`);
+      this.pagination.totalItems =  extractData(data).length
+      this.paginationHandler(pageNumber);
+      const dataFromPage : ResponseData<Item[]> = await fetchData(
+        `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
+      )
+      this.dataRows = extractData(dataFromPage);
     }
 
   }
