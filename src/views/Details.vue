@@ -9,9 +9,9 @@
         <TeacherField :teacher="selectedTeacher" />
         <div class="container-text d-flex">
             <h3>TABLEAU RÉCAPITULATIF DU SERVICE PRÉVISIONNEL</h3>
-            <h3>ANNÉE UNIVERSITAIRE {{ selectedService?.service?.year }}-{{ selectedService?.service?.year! + 1 }} </h3>
+            <h3>ANNÉE UNIVERSITAIRE {{ selectedItem?.service?.year }}-{{ selectedItem?.service?.year! + 1 }} </h3>
         </div>
-        <DetailsTable />
+        <DetailsTable :service="selectedService" />
         <div class="container-hour d-flex">
             <h3>TOTAL HEURES: {{ totalHours }}</h3>
         </div>
@@ -32,21 +32,32 @@ import { Ref, computed, ref, onMounted, onBeforeMount } from 'vue';
 import router from '@/router';
 import Axios, { Routes, fetchData, ResponseData, extractData } from '@/api';
 import { Item, Teacher } from '@/types';
+import { onUnmounted } from 'vue';
+import { Service } from '@/types/service.types';
 
 
 const AppStore = useAppStore();
-const selectedService : Ref<Item|null> = ref(null)
+const selectedItem : Ref<Item|null> = ref(null)
 const selectedTeacher : Ref<Teacher> = ref({firstName : '',givenId : '', id : '', lastName : ''})
+const selectedService : Ref<Service> = ref({id: '',year : 0})
 const totalHours = computed(() => AppStore.getServiceHours);
+
 
 const props = defineProps({
     id: String, 
     itemToOpenJSON: Object, 
 });
 
-onBeforeMount(() => {
-    selectedService.value = props.itemToOpenJSON as Item
+onBeforeMount(async () => {
+    selectedItem.value = props.itemToOpenJSON as Item
     selectedTeacher.value = props.itemToOpenJSON?.service?.teacher 
+    selectedService.value = selectedItem.value.service as Service
+
+    // Todo : On doit récupérer tous items d'un service (celui selectionner)
+    // selectedService.service
+    selectedService.value = extractData(await fetchData(Routes.SERVICES+`/${selectedService.value.id}`))
+
+
 })
 
 const returnServicePage = () => {
@@ -66,15 +77,6 @@ const downloadAsPDF = () => {
     flex-direction: column;
     min-height: 100vh;
 }
-
-.container-content {
-    margin-top: 80px;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 .container-hour {
     text-align: center;
     margin-top: 20px;
