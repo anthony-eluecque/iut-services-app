@@ -52,6 +52,9 @@ export const useAppStore = defineStore('app', {
     },
     getEditingIndex: (state) : number|null => {
       return state.editingIndex;
+    },
+    getServiceHours() : number {
+      return this.dataRows.reduce((acc, item) => acc + item.amountHours, 0)
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT

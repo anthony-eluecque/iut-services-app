@@ -46,6 +46,7 @@ const props = defineProps({
   }
 })
 
+
 onMounted(async () => {
   await AppStore.fetchItems(1)
   isLoading.value = true
@@ -54,7 +55,6 @@ onMounted(async () => {
 const toggleUpdate = (index : number) : void => {
   AppStore.setEditingIndex(index);
 }
-
 </script>
 
 

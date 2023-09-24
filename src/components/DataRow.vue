@@ -46,7 +46,7 @@ import router from '@/router';
 import { Routes, deleteItem } from '@/api';
 
 const AppStore = useAppStore();
-const showDetailsIndex = ref<number | null>(null);
+// const showDetailsIndex = ref<number | null>(null);
 
 const emit = defineEmits<{
   (e:'emitUpdate',index : number): void
@@ -72,29 +72,29 @@ const emitToggleUpdate = (index : number) => {
   emit('emitUpdate',index)
 }
 
-const closeDetails = () : void => {
-  const existingDetails = document.querySelector('.details-row');
-  if (existingDetails) {
-    existingDetails.remove();
-  }
-}
+// const closeDetails = () : void => {
+//   const existingDetails = document.querySelector('.details-row');
+//   if (existingDetails) {
+//     existingDetails.remove();
+//   }
+// }
 
-const toggleDetails = (item: Item, event: Event, index: number) : void => {
+// const toggleDetails = (item: Item, event: Event, index: number) : void => {
 
-  if (showDetailsIndex.value === index) {
-    showDetailsIndex.value = null;
-    closeDetails()
-    return;
-  }
+//   if (showDetailsIndex.value === index) {
+//     showDetailsIndex.value = null;
+//     closeDetails()
+//     return;
+//   }
 
-  showDetailsIndex.value = index;
-  const clickedTr = event.currentTarget as HTMLElement;
-  closeDetails()
-  const detailsTr = document.createElement('tr');
-  detailsTr.className = 'details-row';
-  detailsTr.innerHTML = `<td colspan="7">Contenu des détails ici</td>`;
-  clickedTr.insertAdjacentElement('afterend', detailsTr);
-}
+//   showDetailsIndex.value = index;
+//   const clickedTr = event.currentTarget as HTMLElement;
+//   closeDetails()
+//   const detailsTr = document.createElement('tr');
+//   detailsTr.className = 'details-row';
+//   detailsTr.innerHTML = `<td colspan="7">Contenu des détails ici</td>`;
+//   clickedTr.insertAdjacentElement('afterend', detailsTr);
+// }
 
 const removeItem = async (itemToDelete : Item) => {
   await deleteItem(Routes.ITEMS,itemToDelete.id);
@@ -102,7 +102,16 @@ const removeItem = async (itemToDelete : Item) => {
 }
 
 const openItem = (itemToOpen : Item) => {
-  router.push('/services/'+itemToOpen.service?.id)
+  const itemToOpenJSON = JSON.stringify(itemToOpen);
+  router.push({
+    name: 'ServicesDetails',
+    params: {
+      id: itemToOpen.service?.id,
+    },
+    query: {
+      itemToOpenJSON: itemToOpenJSON,
+    },
+  });
 }
 
 </script>
