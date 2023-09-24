@@ -1,1 +1,1 @@
-export type IdEntity = { Id : string }
+export type IdEntity = { id : string }
