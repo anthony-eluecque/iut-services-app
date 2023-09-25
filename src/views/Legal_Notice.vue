@@ -11,7 +11,7 @@
   <h3>Edition du projet</h3>
   <div class="container-edition-img d-flex">
 
-    <p>Le Fur Lucie : cheffe de projet <br />Bernard Laetitia : cheffe de projet <br /> Cumzain Houssam: chef de projet <br /> Eulecque Anthony: chef de projet </p>
+    <p>Le Fur Lucie : cheffe de projet <br />Bernard Laetitia : cheffe de projet <br /> Cumzain Houssam: chef de projet <br /> Eluecque Anthony: chef de projet </p>
 
   <img src="../assets/JrCanDev.png" alt="Logo de JrCanDev" />
 </div>
