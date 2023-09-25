@@ -1,9 +1,10 @@
 <template>
   <section class="container d-flex flex-column">
-    <div class="container-title d-flex">
+    <v-container class="container-title d-flex">
       <h2>Liste des Services prévisionnels</h2>
       <h2>logo</h2>
-    </div>
+    </v-container>
+    <Card/>
     <div class="container-actions d-flex">
       <v-row no-gutters>
         <v-col cols="7">
@@ -59,6 +60,7 @@
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
 import { onMounted, ref, computed } from 'vue';
+import Card from '@/components/Card.vue'
 
 const AppStore = useAppStore();
 const isCreatingItem = ref<boolean>(false)

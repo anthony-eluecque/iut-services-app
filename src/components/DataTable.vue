@@ -53,7 +53,8 @@ onMounted(async () => {
 })
 
 const toggleUpdate = (index : number) : void => {
-  AppStore.setEditingIndex(index);
+  AppStore.setStateDialog(true);
+  // AppStore.setEditingIndex(index);
 }
 </script>
 

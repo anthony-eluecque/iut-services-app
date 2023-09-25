@@ -18,6 +18,7 @@ interface RootState {
   pagination : Pagination,
   currentYear : number
   editingIndex : number | null
+  openUpdateCard : boolean
 }
 
 const initPagination = () : Pagination => {
@@ -37,7 +38,8 @@ const initStore = () : RootState => {
     editingIndex : null,
     token : undefined,
     pagination : initPagination(),
-    currentYear : new Date().getFullYear()
+    currentYear : new Date().getFullYear(),
+    openUpdateCard: false
   };
 }
 
@@ -55,6 +57,9 @@ export const useAppStore = defineStore('app', {
     },
     getServiceHours() : number {
       return this.dataRows.reduce((acc, item) => acc + item.amountHours, 0)
+    },
+    getOpenDialog(): boolean {
+      return this.openUpdateCard;
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -76,6 +81,9 @@ export const useAppStore = defineStore('app', {
         `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
       )
       this.dataRows = extractData(dataFromPage);
+    },
+    setStateDialog(newState : boolean){
+      this.openUpdateCard = newState;
     }
 
   }
