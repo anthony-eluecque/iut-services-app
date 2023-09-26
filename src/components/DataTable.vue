@@ -39,6 +39,10 @@ const AppStore = useAppStore();
 const isLoading = ref(false)
 const dataRows = computed(() => AppStore.getDataRows);
 
+const emit = defineEmits<{
+  (e:'emitUpdate',index : number): void
+}>();
+
 const props = defineProps({
   isCreatingItem: {
     type : Boolean,
@@ -53,7 +57,7 @@ onMounted(async () => {
 })
 
 const toggleUpdate = (index : number) : void => {
-  AppStore.setStateDialog(true);
+  emit('emitUpdate',index)
   // AppStore.setEditingIndex(index);
 }
 </script>
