@@ -19,6 +19,7 @@
         <div class="container-hour d-flex">
             <h3>TOTAL HEURES: {{ selectedItem?.amountHours }}</h3>
         </div>
+        <div class="return-action d-flex">
             <v-btn prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />
             <v-btn prepend-icon="mdi-download" text="Télécharger en PDF" color="green" @click="downloadAsPDF()" />
         </div>
