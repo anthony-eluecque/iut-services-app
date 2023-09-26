@@ -15,8 +15,8 @@
         <div class="container-hour d-flex">
             <h3>TOTAL HEURES: {{ totalHours }}</h3>
         </div>
-        <div class="return-action">
-            <v-btn height="55px" prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />
+        <div class="return-action d-flex">
+            <v-btn height="55px" prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />     
             <v-btn height="55px" prepend-icon="mdi-download" text="Télécharger en PDF" color="green" @click="downloadAsPDF()" />
         </div>
     </section>
@@ -30,14 +30,15 @@ import TeacherField from '@/components/TeacherField.vue';
 import { useAppStore } from '@/store'
 import { Ref, computed, ref, onMounted, onBeforeMount } from 'vue';
 import router from '@/router';
-import Axios, { Routes, fetchData, ResponseData, extractData } from '@/api';
 import { Item, Teacher } from '@/types';
-
+import Vue3Html2pdf from 'vue3-html2pdf'
+import { jsPDF } from 'jspdf'
 
 const AppStore = useAppStore();
 const selectedService : Ref<Item|null> = ref(null)
 const selectedTeacher : Ref<Teacher> = ref({firstName : '',givenId : '', id : '', lastName : ''})
 const totalHours = computed(() => AppStore.getServiceHours);
+const exportFilename = 'Service de nom.pdf';
 
 const props = defineProps({
     id: String, 
@@ -54,8 +55,22 @@ const returnServicePage = () => {
 }
 
 const downloadAsPDF = () => {
-    // do nothing
+    // this.refs.Vue3Html2pdf.generatePdf();
+
+    console.log("pdf")
+
+    const doc = new jsPDF({
+        orientation:"portrait",
+        unit: "px",
+        format: "a4"
+    });
+
+    doc.save(`Service.pdf`);
 }
+
+
+
+
 
 </script>
 
@@ -64,7 +79,6 @@ const downloadAsPDF = () => {
 .main-container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 .container-content {
@@ -124,5 +138,6 @@ const downloadAsPDF = () => {
 .return-action {
     justify-content: space-between;
     display: flex;
+    align-items: center;
 }
 </style>
