@@ -5,12 +5,18 @@
    
 
 <script lang="ts" setup>
-import { useAppStore } from '@/store'
+import { Item } from '@/types';
+import { Service } from '@/types/service.types';
 import { Ref } from 'vue';
-import { DeepReadonly, computed, onMounted, ref } from 'vue';
+import { DeepReadonly, computed, ref } from 'vue';
 
-const AppStore = useAppStore();
-const dataRows = computed(() => AppStore.getDataRows);
+const props = defineProps({
+  service: {
+    type : Object as () => Service, 
+    required : true
+  }
+});
+
 const itemsPerPageText = ref('Résultats par page');
 
 interface ServiceRow {
@@ -31,14 +37,15 @@ const headers: Ref<DeepReadonly<any[]>> = ref([
 
 const serviceData = computed(() => {
   const data: ServiceRow[] = [];
-  dataRows.value.forEach((value) => {
-    const id = value.lesson?.givenId!;
+  console.log(props.service)
+  props.service.items?.forEach((item : Item) => {
+    const id = item.lesson?.givenId ? item.lesson?.givenId : ""
     data.push({
       givenId: id,
-      name: value.lesson?.name!,
-      type: value.type!,
+      name: item.lesson?.name!,
+      type: item.type!,
       semester: parseSemester(id),
-      amountHours: value.amountHours,
+      amountHours: item.amountHours,
     });
   });
   return data;

@@ -8,7 +8,6 @@ export type Item = {
     type : string
     lesson? : Lesson
     service? : Service
-    teacher? : Teacher
 } & IdEntity
 
 

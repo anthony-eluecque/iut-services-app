@@ -12,15 +12,17 @@
         <v-col cols="5">
           <div class="content-v-select">
             <div class="content-v-select-title">
-              <h3 class="mr-2">Année Universitaire :</h3>
+              <h3 class="mr-2">
+                Année Universitaire :
+              </h3>
             </div>            
             <div class="container-component-select">
               <v-select 
-                hide-details 
+                v-model="currentYear" 
+                hide-details
                 variant="outlined"
-                v-model="currentYear"
                 :items="nextYears"
-                />
+              />
             </div>    
           </div>   
           <div class="add-action">
@@ -37,28 +39,30 @@
     </div>
 
     <div class="container-content">
-      <DataTable />
+      <DataTable :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
+        <div class="d-flex justify-end">
+          <h3 class="hours-text">Total Heures : {{  AppStore.getServiceHours }}</h3>
+        </div>
         <v-pagination 
+          v-model="page"
           active-color="primary"
           variant="elevated"
           :length="AppStore.getPages"
-          v-model="page"
-          >
-        </v-pagination>
+        />
       </div>
     </div>
-
   </section>
 </template>
   
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
-import { onMounted } from 'vue';
-import { computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 const AppStore = useAppStore();
+const isCreatingItem = ref<boolean>(false)
+const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
 const page = computed({
   get : () => AppStore.pagination.page,
@@ -75,25 +79,19 @@ const currentYear = computed({
   }
 })
 
-const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
-
-const addInputFields = () => {
-  AppStore.editIsCreatingItem(true)
-}
-
 onMounted(async () => {
   AppStore.paginationHandler(page.value);
 })
+
+const addInputFields = () => {
+  isCreatingItem.value = true
+}
 
 
 
 </script>
   
 <style>
-.container-pagination{
-  margin-top: 30px;
-}
-
 .container{
     width: 95%;
     margin: auto;
@@ -105,15 +103,23 @@ onMounted(async () => {
 
 .container-content {
     /* background-color: white; */
-    margin-top: 80px;
+    margin-top: 40px;
     display: flex;
+    height: 550px;
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
 }
 
+.hours-text{
+  font-family: 'Roboto',sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
 .container-actions{
-    margin-top: 80px;
+    margin-top: 10px;
     height: 8%;
     justify-content: flex-end;
     align-items: center;
