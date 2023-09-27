@@ -1,9 +1,10 @@
 <template>
   <section class="container d-flex flex-column">
-    <div class="container-title d-flex">
+    <v-container class="container-title d-flex">
       <h2>Liste des Services prévisionnels</h2>
       <h2>logo</h2>
-    </div>
+    </v-container>
+    <Card/>
     <div class="container-actions d-flex">
       <v-row no-gutters>
         <v-col cols="7">
@@ -39,7 +40,7 @@
     </div>
 
     <div class="container-content">
-      <DataTable :is-creating-item="isCreatingItem" />
+      <DataTable @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
         <div class="d-flex justify-end">
           <h3 class="hours-text">Total Heures : {{  AppStore.getServiceHours }}</h3>
@@ -58,10 +59,12 @@
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref,Ref, computed } from 'vue';
+import Card from '@/components/Card.vue'
+import { Item } from '@/types';
 
 const AppStore = useAppStore();
-const isCreatingItem = ref<boolean>(false)
+const isCreatingItem : Ref<boolean> = ref<boolean>(false)
 const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
 const page = computed({
@@ -82,6 +85,11 @@ const currentYear = computed({
 onMounted(async () => {
   AppStore.paginationHandler(page.value);
 })
+
+const openModalUpdate = (index : number) => {
+  AppStore.setUpdateItem(AppStore.getDataRows[index])
+  AppStore.setStateDialog(true);
+}
 
 const addInputFields = () => {
   isCreatingItem.value = true
