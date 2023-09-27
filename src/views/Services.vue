@@ -1,6 +1,6 @@
 <template>
   <section class="container d-flex flex-column">
-    <v-container class="container-title d-flex">
+    <v-container fluid class="d-flex container-title primary bg-background-container"  >
       <h2>Liste des Services prévisionnels</h2>
       <h2>logo</h2>
     </v-container>
@@ -140,7 +140,6 @@ const addInputFields = () => {
     align-items: center;
     width: 100%;
     height: 110px;
-    background: white;
 }
 
 .container-title h2{

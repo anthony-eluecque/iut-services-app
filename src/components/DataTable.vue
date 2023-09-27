@@ -87,4 +87,21 @@ const toggleUpdate = (index : number) : void => {
 .styled-table th {
     padding: 10px 15px;
 }
+
+.styled-table td {
+    padding: 15px 15px;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-of-type(odd) {
+    background-color: white;
+}
+.text-field-container {
+    display: flex;
+    align-items: center; 
+}
+
 </style>
