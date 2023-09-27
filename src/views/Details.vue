@@ -36,7 +36,7 @@ import router from '@/router';
 import { Routes, fetchData, extractData } from '@/api';
 import { Item, Teacher } from '@/types';
 import { Service } from '@/types/service.types';
-
+import { jsPDF } from "jspdf";
 
 const selectedItem: Ref<Item | null> = ref(null)
 const selectedTeacher: Ref<Teacher> = ref({ firstName: '', givenId: '', id: '', lastName: '' })
