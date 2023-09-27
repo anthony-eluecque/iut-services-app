@@ -1,5 +1,5 @@
 <template>
-  <section class="container d-flex flex-column">
+  <section class="container d-flex flex-column justify-space-between">
     <v-container fluid class="d-flex container-title primary bg-background-container"  >
       <h2>Liste des Services prévisionnels</h2>
       <h2>logo</h2>
@@ -103,9 +103,8 @@ const addInputFields = () => {
 .container{
     width: 95%;
     margin: auto;
-    /* height: 100vh; */
+    height: 100%;
     display: flex;
-    padding: 20px;
     justify-content: space-around;
 }
 
@@ -127,8 +126,6 @@ const addInputFields = () => {
 }
 
 .container-actions{
-    margin-top: 10px;
-    height: 8%;
     justify-content: flex-end;
     align-items: center;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class ="container-info d-flex">
+  <v-container fluid class ="container-info d-flex primary bg-background-container">
     <v-text-field
       class="flex-item"
       :model-value="props.teacher.givenId"
@@ -24,7 +24,7 @@
       hide-details
       readonly
     />
-  </div>
+  </v-container>
 </template>
 
 <script lang="ts" setup>

@@ -1,8 +1,8 @@
 <template>
     <section class="container d-flex flex-column justify-space-between">
-        <div class="container-title d-flex">
+        <v-container fluid class="container-title d-flex primary bg-background-container">
             <h2>Visualisation d'un Service Prévisionnel</h2>
-        </div>
+        </v-container>
         <section class="d-flex flex-column container-teacher mt-10">
             <div class="pl-4 pr-4 pt-2 pb-2">
                 <h2>Enseignant</h2>

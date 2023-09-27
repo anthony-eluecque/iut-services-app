@@ -6,7 +6,7 @@
       content-class="custom-dialog"
       height="100vh"
     >
-        <v-container fluid class="pa-0 d-flex container-edition"  >
+        <v-container fluid class="pa-0 d-flex container-edition primary bg-background-container"  >
             <div class="d-flex flex-column container-modal justify-space-between">
                 <div class="mt-8 d-flex container-title-edition justify-center">
                     <h1 class="pa-6 text-container-modal">Modification d'un enseignement</h1>
