@@ -40,7 +40,7 @@
                                 />
                             </div>
                             <div class="mt-12 teachers d-flex">
-                                <TeacherCard :teacher="testTeacher" v-for="i in 5">test</TeacherCard>
+                                <TeacherCard class="teacher-grow" :teacher="testTeacher" v-for="i in 5">test</TeacherCard>
                             </div>
                         </v-window-item>
 
@@ -100,4 +100,8 @@ const tab = ref(0)
     margin: auto;
     height: 100%;
 }   
+
+.teacher-grow{
+    flex-grow: 1;
+}
 </style>
