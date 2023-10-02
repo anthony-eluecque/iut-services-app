@@ -4,9 +4,8 @@
         <h2>Répertoire</h2>
         <h2>logo</h2>
         </v-container>
-
         <div class="container-content-tabs d-flex">
-            <v-card>
+            <v-card class="mb-4" >
                 <v-tabs
                 v-model="tab"
                 bg-color="primary"
@@ -19,28 +18,38 @@
                     <v-window v-model="tab">
                         <v-window-item class="" value="teachers">
                             <h1>Filtrer :</h1>
-                            <div class="mt-2 d-flex flex-row container-filters">
-                                <v-text-field
-                                    hide-details
-                                    label="Matricule Enseignant"
-                                    variant="outlined"
-                                    readonly
-                                />
-                                <v-text-field
-                                    hide-details
-                                    label="Prénom"
-                                    variant="outlined"
-                                    readonly
-                                />
-                                <v-text-field
-                                    hide-details
-                                    label="Nom"
-                                    variant="outlined"
-                                    readonly
-                                />
+                            <div class="mt-2 d-flex flex-row justify-space-between">
+                                <div class="pa-2 container-fields-filter flex-row d-flex">
+                                    <v-text-field
+                                        v-model="givenIdTeacher"
+                                        hide-details
+                                        label="Matricule Enseignant"
+                                        variant="outlined"
+                                    />
+                                    <v-text-field
+                                        v-model="firstnameTeacher"
+                                        hide-details
+                                        label="Prénom"
+                                        variant="outlined"
+                                    />
+                                    <v-text-field
+                                        v-model="lastnameTeacher"
+                                        hide-details
+                                        label="Nom"
+                                        variant="outlined"
+                                    />
+                                </div>
+                                <div class="pt-2 pb-2">
+                                    <v-btn
+                                        height="55px"
+                                        append-icon="mdi-plus"
+                                        text="Ajouter un professeur"
+                                        color="primary" 
+                                    />
+                                </div>
                             </div>
                             <div class="mt-12 teachers d-flex">
-                                <TeacherCard class="teacher-grow" :teacher="testTeacher" v-for="i in 5">test</TeacherCard>
+                                <TeacherCard class="teacher-grow" :teacher="t" v-for="(t,i) in teachers">test</TeacherCard>
                             </div>
                         </v-window-item>
 
@@ -59,23 +68,46 @@
 import { ref } from 'vue';
 import TeacherCard from '@/components/TeacherCard.vue';
 import { Teacher } from '@/types';
+import { Ref } from 'vue';
+import { useAppStore } from '@/store';
+import _ from 'lodash';
+import { watch } from 'vue';
+import { onBeforeMount } from 'vue';
 
-const testTeacher : Teacher = {
-    firstName : 'Anthony',
-    givenId : '123456789',
-    id : '',
-    lastName : 'ELUECQUE'
-}
-
+const AppStore = useAppStore();
+const teachers : Ref<Teacher[]> = ref([]);
+const givenIdTeacher : Ref<string> = ref('');
+const firstnameTeacher : Ref<string> = ref('');
+const lastnameTeacher : Ref<string> = ref('');
 const tab = ref(0)
+
+onBeforeMount(async() => {
+    await AppStore.fetchTeachers()
+    teachers.value = AppStore.getTeachers
+})
+
+const filterTeacher = () => {
+  teachers.value = AppStore.getTeachers.filter((teacher) => {
+    return (
+      teacher.givenId.includes(givenIdTeacher.value) &&
+      teacher.firstName.includes(firstnameTeacher.value) &&
+      teacher.lastName.includes(lastnameTeacher.value)
+    );
+  });
+};
+
+
+watch(givenIdTeacher,filterTeacher)
+watch(firstnameTeacher,filterTeacher)
+watch(lastnameTeacher,filterTeacher)
 
 </script>
 
 
 <style>
 
-.container-filters{
-    width: 60%;
+.container-fields-filter{
+    width: 600px;
     flex-wrap: wrap;
     gap: 12px;
     overflow: auto;

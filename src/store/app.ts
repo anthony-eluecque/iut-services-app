@@ -14,7 +14,8 @@ export interface RootState {
   currentYear : number
   editingIndex : number | null
   openUpdateCard : boolean
-  currentUpdateItem : Item|null
+  currentUpdateItem : Item|null,
+  teachers : Teacher[]
 }
 
 export const useAppStore = defineStore('app', {
@@ -37,6 +38,9 @@ export const useAppStore = defineStore('app', {
     },
     getUpdatingItem : (state) : Item|null => {
       return state.currentUpdateItem;
+    },
+    getTeachers: (state) : Teacher[] => {
+      return state.teachers;
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -61,6 +65,10 @@ export const useAppStore = defineStore('app', {
         `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
       )
       this.dataRows = extractData(dataFromPage);
+    },
+    async fetchTeachers(){
+      const data : ResponseData<Teacher[]> = await fetchData(Routes.TEACHERS)
+      this.teachers = extractData(data)
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;
