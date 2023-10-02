@@ -1,5 +1,5 @@
 <template>
-    <v-card width="400">
+    <v-card variant="outlined" width="400">
         <template v-slot:title>
             {{ props.teacher.firstName }} {{ props.teacher.lastName }}
         </template>
@@ -9,10 +9,10 @@
         </template>
 
         <v-card-actions>
-            <v-btn>
+            <v-btn color="primary">
                 Button
             </v-btn>
-            <v-btn>
+            <v-btn color="primary">
                 Button2
             </v-btn>
         </v-card-actions> </v-card>
