@@ -15,6 +15,7 @@ import {
   VDataTableVirtual,
   VDataTableServer,
 } from 'vuetify/labs/components'
+import { VInfiniteScroll } from 'vuetify/labs/VInfiniteScroll'
 
 const lightTheme = {
   dark: false,
@@ -62,6 +63,7 @@ export default createVuetify({
     VDataTable,
     VDataTableServer,
     VDataTableVirtual,
+    VInfiniteScroll
   },
   theme: {
     defaultTheme: 'lightTheme',

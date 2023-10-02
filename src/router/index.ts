@@ -29,7 +29,12 @@ const routes: RouteRecordRaw[] = [
       id: route.params.id,
       itemToOpenJSON: route.query.itemToOpenJSON ? JSON.parse(route.query.itemToOpenJSON as string) : null,
     }),
-  }
+  },
+  {
+    path: '/directory',
+    name : 'Directory',
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Directory.vue'),
+  },
 ]
 
 const router = createRouter({

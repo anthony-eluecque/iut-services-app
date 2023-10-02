@@ -105,7 +105,6 @@ const addInputFields = () => {
     margin: auto;
     height: 100%;
     display: flex;
-    justify-content: space-around;
 }
 
 .container-content {
