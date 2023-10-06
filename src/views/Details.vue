@@ -42,8 +42,9 @@ import { Item, Teacher } from '@/types';
 import { Service } from '@/types/service.types';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { useAppStore } from '@/store';
 
-
+const AppStore = useAppStore();
 const selectedItem: Ref<Item | null> = ref(null)
 const selectedTeacher: Ref<Teacher> = ref({ firstName: '', givenId: '', id: '', lastName: '' })
 const selectedService: Ref<Service> = ref({ id: '', year: 0 });
@@ -76,70 +77,74 @@ const downloadAsPDF = () => {
 
     // header
 
-const leftText = `Année Universitaire: ${selectedService.value.year}-${selectedService.value.year + 1}`;
-const rightText = `Service prévisionnel de ${selectedTeacher.value.lastName} ${selectedTeacher.value.firstName}`;
+    const leftText = `Année Universitaire: ${selectedService.value.year}-${selectedService.value.year + 1}`;
+    const rightText = `Service prévisionnel de ${selectedTeacher.value.lastName} ${selectedTeacher.value.firstName}`;
 
-const headerBlockX = 50;
-const headerBlockY = 50;
-const headerBlockWidth = doc.internal.pageSize.getWidth() - headerBlockX * 2;
-const headerBlockHeight = 40;
+    const headerBlockX = 50;
+    const headerBlockY = 50;
+    const headerBlockWidth = doc.internal.pageSize.getWidth() - headerBlockX * 2;
+    const headerBlockHeight = 40;
 
-doc.rect(headerBlockX, headerBlockY, headerBlockWidth, headerBlockHeight);
+    doc.rect(headerBlockX, headerBlockY, headerBlockWidth, headerBlockHeight);
 
-doc.setFontSize(12);
+    doc.setFontSize(12);
 
-const rightTextWidth = doc.getTextWidth(rightText);
-const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10; // 10 is a padding from the right edge
+    const rightTextWidth = doc.getTextWidth(rightText);
+    const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
 
-doc.text(leftText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3); // The +3 is to adjust the vertical centering of the text
-doc.text(rightText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); // The +3 is to adjust the vertical centering of the text
+    doc.text(leftText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
+    doc.text(rightText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); 
+
+
 
 //  semestre
 
-const id = selectedItem.value?.lesson?.givenId ? selectedItem.value?.lesson?.givenId : ""
+    const TotalBlockX = 500;
+
+    selectedService.value.items?.forEach((item : Item) => {
+
+        const id = item.lesson?.givenId ? item.lesson?.givenId : ""
+        const Semestre = parseInt(id.split('.')[0].slice(1));
+
+        const CenterText = `Semestre ${Semestre}`;
+
+        const Block1X = 50;
+        const Block1Y = 125;
+        const Bloc1kWidth = doc.internal.pageSize.getWidth() - Block1X * 2;
+        const Block1Height = 40;
+
+        doc.rect(Block1X, Block1Y, Bloc1kWidth, Block1Height);
+
+        doc.setFontSize(12);
+        const textWidth = doc.getTextWidth(CenterText);
+        const centerX = Block1X + (Bloc1kWidth - textWidth) / 2;
+
+        doc.text(CenterText, centerX, Block1Y + Block1Height / 2 + 3);
 
 
-const Semestre = parseInt(id.split('.')[0].slice(1));
+    // tableau semestre
 
-const CenterText = `Semestre ${Semestre}`;
+        const tableSemestres = [
+            ['Enseignements', 'Type', 'Volume'],
+            [Semestre+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours],
+        ];
+    
+        const startY = 225; 
 
+        const tablePosition = {
+        startY: startY, 
+        };
 
-const Block1X = 50;
-const Block1Y = 125;
-const Bloc1kWidth = doc.internal.pageSize.getWidth() - Block1X * 2;
-const Block1Height = 40;
+        autoTable(doc,{
+        head: [tableSemestres[0]], 
+        body: tableSemestres.slice(1),
+        ...tablePosition, 
+        });
 
-doc.rect(Block1X, Block1Y, Bloc1kWidth, Block1Height);
-
-doc.setFontSize(12);
-const textWidth = doc.getTextWidth(CenterText);
-const centerX = Block1X + (Bloc1kWidth - textWidth) / 2;
-
-doc.text(CenterText, centerX, Block1Y + Block1Height / 2 + 3);
-
-
-// tableau semestre
-
-    const tableSemestres = [
-        ['Enseignements', 'Type', 'Volume'],
-        [selectedItem.value?.lesson?.givenId + ' ' + selectedItem.value?.lesson?.name, selectedItem.value?.type + ' 1h30', selectedItem.value?.amountHours],
-   
-];
-    const startY = 225; 
-
-
-const tablePosition = {
-  startY: startY, 
-};
-
-
-autoTable(doc,{
-  head: [tableSemestres[0]], 
-  body: tableSemestres.slice(1),
-  ...tablePosition, 
+    doc.text("Total:" +  AppStore.getServiceHours , TotalBlockX, 300);
 });
 
-    doc.save('Service  ' +(selectedTeacher.value.lastName) + ' ' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
+    doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
 }
 
 </script>
