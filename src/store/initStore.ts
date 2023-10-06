@@ -21,6 +21,7 @@ export const initStore = () : RootState => {
         pagination : initPagination(),
         currentYear : new Date().getFullYear(),
         openUpdateCard: false,
-        teachers : []
+        teachers : [],
+        lessons : []
     };
 }

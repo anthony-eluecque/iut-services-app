@@ -16,6 +16,7 @@ export interface RootState {
   openUpdateCard : boolean
   currentUpdateItem : Item|null,
   teachers : Teacher[]
+  lessons : Lesson[]
 }
 
 export const useAppStore = defineStore('app', {
@@ -41,6 +42,9 @@ export const useAppStore = defineStore('app', {
     },
     getTeachers: (state) : Teacher[] => {
       return state.teachers;
+    },
+    getLessons: (state) : Lesson[] => {
+      return state.lessons
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -69,6 +73,10 @@ export const useAppStore = defineStore('app', {
     async fetchTeachers(){
       const data : ResponseData<Teacher[]> = await fetchData(Routes.TEACHERS)
       this.teachers = extractData(data)
+    },
+    async fetchLessons(){
+      const data : ResponseData<Lesson[]> = await fetchData(Routes.LESSONS)
+      this.lessons = extractData(data)
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;

@@ -4,6 +4,7 @@
         <h2>Répertoire</h2>
         <h2>logo</h2>
         </v-container>
+        {{  lessons }}
         <div class="container-content-tabs d-flex">
             <v-card class="mb-4" >
                 <v-tabs
@@ -54,7 +55,7 @@
                         </v-window-item>
 
                         <v-window-item class="lessons d-flex" value="lessons">
-
+                            <LessonsTab :lessons="lessons" />
                         </v-window-item>
                     </v-window>
                 </v-card-text>
@@ -65,17 +66,16 @@
 
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import TeacherCard from '@/components/TeacherCard.vue';
-import { Teacher } from '@/types';
-import { Ref } from 'vue';
+import { Lesson, Teacher } from '@/types';
 import { useAppStore } from '@/store';
 import _ from 'lodash';
-import { watch } from 'vue';
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref, watch, Ref } from 'vue';
+import LessonsTab from '../components/directory/lessons/LessonsTab.vue'
 
 const AppStore = useAppStore();
 const teachers : Ref<Teacher[]> = ref([]);
+const lessons : Ref<Lesson[]> = ref([]);
 const givenIdTeacher : Ref<string> = ref('');
 const firstnameTeacher : Ref<string> = ref('');
 const lastnameTeacher : Ref<string> = ref('');
@@ -83,7 +83,9 @@ const tab = ref(0)
 
 onBeforeMount(async() => {
     await AppStore.fetchTeachers()
+    await AppStore.fetchLessons()
     teachers.value = AppStore.getTeachers
+    lessons.value = AppStore.getLessons 
 })
 
 const filterTeacher = () => {
