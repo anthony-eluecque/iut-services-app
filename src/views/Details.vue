@@ -100,6 +100,7 @@ const downloadAsPDF = () => {
 //  semestre
 
     const TotalBlockX = 500;
+    let BlockY = 125
 
     selectedService.value.items?.forEach((item : Item) => {
 
@@ -109,30 +110,29 @@ const downloadAsPDF = () => {
         const CenterText = `Semestre ${Semestre}`;
 
         const Block1X = 50;
-        const Block1Y = 125;
         const Bloc1kWidth = doc.internal.pageSize.getWidth() - Block1X * 2;
         const Block1Height = 40;
 
-        doc.rect(Block1X, Block1Y, Bloc1kWidth, Block1Height);
+        doc.rect(Block1X, BlockY, Bloc1kWidth, Block1Height);
 
         doc.setFontSize(12);
         const textWidth = doc.getTextWidth(CenterText);
         const centerX = Block1X + (Bloc1kWidth - textWidth) / 2;
 
-        doc.text(CenterText, centerX, Block1Y + Block1Height / 2 + 3);
+        doc.text(CenterText, centerX, BlockY + Block1Height / 2 + 3);
 
 
     // tableau semestre
 
         const tableSemestres = [
             ['Enseignements', 'Type', 'Volume'],
-            [Semestre+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours],
+            [item.lesson?.givenId+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours],
         ];
     
-        const startY = 225; 
+        const tabY = BlockY + 50; 
 
         const tablePosition = {
-        startY: startY, 
+        startY: tabY, 
         };
 
         autoTable(doc,{
@@ -140,8 +140,10 @@ const downloadAsPDF = () => {
         body: tableSemestres.slice(1),
         ...tablePosition, 
         });
+        const TotalY = tabY + 100;
 
-    doc.text("Total:" +  AppStore.getServiceHours , TotalBlockX, 300);
+    doc.text("Total:" +  AppStore.getServiceHours , TotalBlockX, TotalY);
+    BlockY = TotalY + 50;
 });
 
     doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
