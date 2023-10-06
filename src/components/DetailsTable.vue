@@ -37,7 +37,6 @@ const headers: Ref<DeepReadonly<any[]>> = ref([
 
 const serviceData = computed(() => {
   const data: ServiceRow[] = [];
-  console.log(props.service)
   props.service.items?.forEach((item : Item) => {
     const id = item.lesson?.givenId ? item.lesson?.givenId : ""
     data.push({

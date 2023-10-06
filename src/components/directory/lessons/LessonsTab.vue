@@ -18,6 +18,10 @@
                     />
                 </div>
             </div>
+            <div class="mt-5">
+                <v-data-table :headers="headers" :items="lessonData" :items-per-page-text="itemsPerPageText" class="styled-table primary bg-background-container">
+                </v-data-table>
+            </div>
         </v-container>
     </v-window-item>
 </template>
@@ -27,8 +31,17 @@
 import { DeepReadonly, Ref, computed, ref } from 'vue';
 import { Lesson } from "../../../types";
 import { useAppStore } from "../../../store"
+const itemsPerPageText = ref('Résultats par page');
 
 const AppStore = useAppStore(); // Init un store avec pinia
+
+
+interface RowDataTable {
+    givenId : string
+    name : string
+    amountHours : number
+}
+
 
 const props = defineProps({
   lessons: {
@@ -43,9 +56,8 @@ const headers: Ref<DeepReadonly<any[]>> = ref([
   { title: 'Total Heures', align: 'start', sortable: true, key: 'amountHours' },
 ]);
 
-
 const lessonData = computed(() => {
-    return props.lessons?.map((lesson : Lesson) => {
+    return props.lessons?.map((lesson : Lesson) : RowDataTable => {
         const totalAmountHours = lesson.items?.reduce((acc, item) => {
             return acc + (item.amountHours || 0); 
         }, 0) || 0;
