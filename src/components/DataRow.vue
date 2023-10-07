@@ -97,8 +97,7 @@ const emitToggleUpdate = (index : number) => {
 // }
 
 const removeItem = async (itemToDelete : Item) => {
-  await deleteItem(Routes.ITEMS,itemToDelete.id);
-  await AppStore.fetchItems(AppStore.pagination.page)
+  await AppStore.removeItem(itemToDelete);
 }
 
 const openItem = (itemToOpen : Item) => {

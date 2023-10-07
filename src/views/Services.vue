@@ -5,6 +5,8 @@
       <h2>logo</h2>
     </v-container>
     <Card/>
+
+    <v-alert v-if="AppStore.getMessage" type="success" closable class="message-success">{{ AppStore.getMessage }}</v-alert>
     <div class="container-actions d-flex">
       <v-row no-gutters>
         <v-col cols="7">
@@ -26,20 +28,23 @@
               />
             </div>    
           </div>   
-          <div class="add-action">
-            <v-btn
-              height="55px"
-              append-icon="mdi-plus"
-              text="Ajouter un enseignement"
-              color="primary"
-              @click="addInputFields"
-            />
-          </div>
+
         </v-col>
       </v-row>
     </div>
 
     <div class="container-content">
+      <div class="search-content">
+        <SearchFields></SearchFields>
+        <v-btn
+          height="55px"
+          append-icon="mdi-plus"
+          text="Ajouter un enseignement"
+          color="primary"
+          @click="addInputFields"
+        />
+      </div>
+
       <DataTable @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
         <div class="d-flex justify-end">
@@ -57,6 +62,7 @@
 </template>
   
 <script lang="ts" setup>
+import SearchFields from '@/components/SearchFields.vue';
 import DataTable from '@/components/DataTable.vue'
 import { useAppStore } from '@/store'
 import { onMounted, ref,Ref, computed } from 'vue';
@@ -69,16 +75,14 @@ const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + i
 
 const page = computed({
   get : () => AppStore.pagination.page,
-  set: async (newValue) => {
-    await AppStore.fetchItems(newValue)
-  }
+  set: (newValue) => AppStore.pagination.page = newValue
 })
 
 const currentYear = computed({
   get : () => AppStore.currentYear,
   set: async (newValue) => {
     AppStore.currentYear = newValue
-    await AppStore.fetchItems(1)
+    await AppStore.fetchItems()
   }
 })
 
@@ -109,13 +113,20 @@ const addInputFields = () => {
 }
 
 .container-content {
-    /* background-color: white; */
-    margin-top: 40px;
+    margin-top: 24px;
     display: flex;
-    height: 550px;
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.message-success {
+  margin-top: 32px;
+}
+
+.search-content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .hours-text{
@@ -126,6 +137,7 @@ const addInputFields = () => {
 }
 
 .container-actions{
+    margin-top: 24px;
     justify-content: flex-end;
     align-items: center;
 }

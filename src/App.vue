@@ -15,3 +15,9 @@ import BtnTheme from './components/BtnTheme.vue';
 
 </script>
 
+<style>
+  .v-main {
+    flex: unset !important;
+  }
+</style>
+

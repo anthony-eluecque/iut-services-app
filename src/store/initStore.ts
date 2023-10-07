@@ -14,12 +14,16 @@ export const initStore = () : RootState => {
     // const fakeData = generateFakerArrayItem()
     return {
         dataRows : [],
+        dataRowsFiltres: [],
         currentUpdateItem : null,
         // inputField : initInputField(), 
         editingIndex : null,
         token : undefined,
         pagination : initPagination(),
         currentYear : new Date().getFullYear(),
-        openUpdateCard: false
+        openUpdateCard: false,
+        criterias: {id: null, nom: null, prenom: null, ressource: null, libelle: null},
+        message: null,
+        loadInProgress: false
     };
 }

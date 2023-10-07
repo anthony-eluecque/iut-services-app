@@ -2,7 +2,7 @@ import { useUserStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 export { postItem } from './helpers';
 
-const API_ORIGIN = "http://localhost:4000";
+const API_ORIGIN = "http://localhost:8080";
 
 export const Axios = axios.create({
   baseURL: API_ORIGIN

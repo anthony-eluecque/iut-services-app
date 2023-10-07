@@ -27,17 +27,19 @@
       />
     </tbody>
   </table>
+  <NotFoundData v-if="dataRows.length == 0 && AppStore.getLoadInProgress == false"></NotFoundData>
 </template>
 
 <script lang="ts" setup>
 import DataRow from './DataRow.vue'
+import NotFoundData from './NotFoundData.vue'
 import { useAppStore } from '@/store'
 import InputField from './InputField.vue';
 import { computed, onMounted, ref} from 'vue';
 
 const AppStore = useAppStore();
 const isLoading = ref(false)
-const dataRows = computed(() => AppStore.getDataRows);
+const dataRows = computed(() => AppStore.getDataRowsFiltres);
 
 const emit = defineEmits<{
   (e:'emitUpdate',index : number): void
@@ -52,7 +54,7 @@ const props = defineProps({
 
 
 onMounted(async () => {
-  await AppStore.fetchItems(1)
+  await AppStore.fetchItems()
   isLoading.value = true
 })
 

@@ -1,5 +1,5 @@
 import { Lesson, Teacher, Item } from "@/types"
-import { ResponseData, Routes, fetchData, postData, updateData } from "..";
+import { ResponseData, Routes, extractData, fetchData, postData, updateData } from "..";
 import { Service } from "@/types/service.types";
 
 interface Identifiable {
@@ -32,7 +32,7 @@ const createItem = (amountHours : number, idLesson : string, idService : string)
     }
 }
 
-export const postItem = async (item : Item,currentYear : number) => {
+export const postItem = async (item : Item,currentYear : number): Promise<Item> => {
     try {
         const teacher = item.service?.teacher as Teacher;
         const lesson = item.lesson as Lesson;
@@ -62,15 +62,17 @@ export const postItem = async (item : Item,currentYear : number) => {
         
         const url = `/teacher/${idTeacher}/year/${currentYear}`;
         const serviceIsExisting : ResponseData<Service> = await fetchData(Routes.SERVICES + url);
+        let newItem = null;
         if (serviceIsExisting.status == statusCode.NOT_FOUND){
             const newService = createService(idTeacher, currentYear);
             const postService : ResponseData<Service> = await postData(Routes.SERVICES, newService);
-            const newItem = createItem(item.amountHours, idLesson, postService.data.id);
-            await postData(Routes.ITEMS, newItem);
+            newItem = createItem(item.amountHours, idLesson, postService.data.id);
         } else {
-            const newItem = createItem(item.amountHours, idLesson, serviceIsExisting.data.id);
-            await postData(Routes.ITEMS, newItem);
+            newItem = createItem(item.amountHours, idLesson, serviceIsExisting.data.id);
         }
+
+        const responseItem = await postData<Item>(Routes.ITEMS, newItem);
+        return extractData(responseItem);
     } catch (error : any) {
         throw new Error(`Error in postItem: ${error.message}`);
     }
