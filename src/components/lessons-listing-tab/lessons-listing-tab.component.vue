@@ -28,20 +28,13 @@
 
 
 <script setup lang="ts">
-import { DeepReadonly, Ref, computed, ref } from 'vue';
-import { Lesson } from "../../../types";
-import { useAppStore } from "../../../store"
-const itemsPerPageText = ref('Résultats par page');
-
-const AppStore = useAppStore(); // Init un store avec pinia
-
-
-interface RowDataTable {
-    givenId : string
-    name : string
-    amountHours : number
-}
-
+import { computed } from 'vue';
+import { Lesson } from "../../types";
+import {
+    RowDataTable,
+    headers,
+    itemsPerPageText
+} from './lessons-listing-tab.component'
 
 const props = defineProps({
   lessons: {
@@ -49,12 +42,6 @@ const props = defineProps({
     required: true 
   }
 })
-
-const headers: Ref<DeepReadonly<any[]>> = ref([
-  { title: 'ID Ressource', align: 'start', sortable: false, key: 'givenId' },
-  { title: 'Enseignement', align: 'start', sortable: true, key: 'name' },
-  { title: 'Total Heures', align: 'start', sortable: true, key: 'amountHours' },
-]);
 
 const lessonData = computed(() => {
     return props.lessons?.map((lesson : Lesson) : RowDataTable => {
