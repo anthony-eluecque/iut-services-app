@@ -8,23 +8,23 @@ const routes: RouteRecordRaw[] = [
     path: '/home',
     name: 'Home',
     beforeEnter: authGuard,
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+    component: () => import('@/pages/Home.page.vue'),
   },
   {
     path: '/services',
     name : 'Services',
     beforeEnter: authGuard,
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Services.vue'),
+    component: () => import('@/pages/Services.page.vue'),
   },
   {
     path: '/login',
     name : 'Login',
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Login.vue'),
+    component: () => import('@/pages/Login.page.vue'),
   },
   {
     path : '/services/:id',
     name : 'ServicesDetails',
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Details.vue'),
+    component: () => import('@/pages/Details.page.vue'),
     props: route => ({
       id: route.params.id,
       itemToOpenJSON: route.query.itemToOpenJSON ? JSON.parse(route.query.itemToOpenJSON as string) : null,
@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/directory',
     name : 'Directory',
-    component: () => import(/* webpackChunkName: "home" */ '@/views/Directory.vue'),
+    component: () => import(/* webpackChunkName: "home" */ '@/pages/Directory.page.vue'),
   },
 ]
 
