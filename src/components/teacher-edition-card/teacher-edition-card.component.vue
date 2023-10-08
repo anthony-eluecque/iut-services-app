@@ -114,32 +114,18 @@
 </template>
 
 <script setup lang="ts">
-import { useAppStore } from '@/store';
-import { Item } from '@/types';
-import { computed } from 'vue';
-import { onBeforeUpdate } from 'vue';
-
+import { useAppStore } from '../../store';
+import { 
+    removeModal, 
+    currentTeacherId,
+    currentTeacherFirstname,
+    currentTeacherLastname,
+    currentLessonGivenId,
+    currentLessonName,
+    initializeComponent
+} from './teacher-edition-card.component'
 const AppStore = useAppStore();
-
-const currentItem = computed(() => AppStore.getUpdatingItem)
-const currentTeacher = computed(() => currentItem.value?.service?.teacher)
-const currentTeacherId = computed(() => currentTeacher.value?.givenId ? currentTeacher.value?.givenId : '')
-const currentTeacherFirstname = computed(() => currentTeacher.value?.firstName ? currentTeacher.value?.firstName : '')
-const currentTeacherLastname = computed(() => currentTeacher.value?.lastName ? currentTeacher.value?.lastName : '')
-const currentLesson = computed(() => currentItem.value?.lesson)
-const currentLessonGivenId = computed(() => currentLesson.value?.givenId ? currentItem.value?.lesson?.givenId : '')
-const currentLessonName = computed(() => currentLesson.value?.name ? currentItem.value?.lesson?.name : '')
-
-
-
-onBeforeUpdate(() => {
-    // console.log(AppStore.getUpdatingItem);
-})
-
-
-const removeModal = () => {
-    AppStore.setStateDialog(false)
-}
+initializeComponent();
 </script>
 
 <style>
