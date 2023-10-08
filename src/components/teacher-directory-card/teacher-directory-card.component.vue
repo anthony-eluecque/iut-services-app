@@ -7,7 +7,6 @@
         <template v-slot:subtitle>
             Professeur
         </template>
-
         <v-card-actions>
             <v-btn color="warning">
                 Modifier
@@ -15,7 +14,8 @@
             <v-btn color="error">
                 Supprimer
             </v-btn>
-        </v-card-actions> </v-card>
+        </v-card-actions> 
+    </v-card>
 </template>
 
 
@@ -29,6 +29,5 @@ const props = defineProps({
     }
 })
 </script>
-
 
 <style></style>
