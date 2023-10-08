@@ -7,14 +7,14 @@
             <div class="pl-4 pr-4 pt-2 pb-2">
                 <h2>Enseignant</h2>
             </div>
-            <TeacherField :teacher="selectedTeacher" />
+            <TeacherInformations :teacher="selectedTeacher" />
         </section>
         <section class="d-flex flex-column justify-space-between">
             <div class="container-text d-flex  justify-space-between">
                 <h3>TABLEAU RÉCAPITULATIF DU SERVICE PRÉVISIONNEL</h3>
                 <h3>ANNÉE UNIVERSITAIRE {{ selectedItem?.service?.year }}-{{ selectedItem?.service?.year! + 1 }} </h3>
             </div>
-            <DetailsTable :service="selectedService" />
+            <DetailsServiceTable :service="selectedService" />
         </section>
         <div class="container-hour d-flex">
             <h3>TOTAL HEURES: {{ selectedItem?.amountHours }}</h3>
@@ -29,8 +29,8 @@
   
 <script lang="ts" setup>
 
-import DetailsTable from '@/components/DetailsTable.vue';
-import TeacherField from '@/components/TeacherField.vue';
+import DetailsServiceTable from '@/components/details-service-table/details-service-table.vue'
+import TeacherInformations from '@/components/teacher-informations/teacher-informations.component.vue';
 import { Ref, ref, onBeforeMount } from 'vue';
 import router from '@/router';
 import { Routes, fetchData, extractData } from '@/api';

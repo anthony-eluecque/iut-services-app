@@ -64,12 +64,11 @@
 
 
 <script setup lang="ts">
-import TeacherCard from '@/components/TeacherCard.vue';
+import TeacherCard from '@/components/teacher-directory-card/teacher-directory-card.component.vue';
 import { Lesson, Teacher } from '@/types';
 import { useAppStore } from '@/store';
-import _ from 'lodash';
 import { onBeforeMount, ref, watch, Ref } from 'vue';
-import LessonsTab from '../components/directory/lessons/LessonsTab.vue'
+import LessonsTab from '@/components/lessons-listing-tab/lessons-listing-tab.component.vue'
 
 const AppStore = useAppStore();
 const teachers : Ref<Teacher[]> = ref([]);
