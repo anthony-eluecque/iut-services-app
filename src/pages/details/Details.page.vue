@@ -77,5 +77,5 @@ const downloadAsPDF = () => {
 </script>
 
 <style lang="scss">
-@import '@/styles/pages/details';
+@import './details';
 </style>

@@ -52,5 +52,5 @@ const login = () => {
 
 
 <style lang="scss">
-@import '@/styles/pages/login';
+@import './login';
 </style>

@@ -97,5 +97,5 @@
 </script>
 
 <style lang="scss">
-@import '@/styles/pages/services';
+@import './services';
 </style>

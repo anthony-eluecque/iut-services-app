@@ -104,5 +104,5 @@ watch(lastnameTeacher,filterTeacher)
 
 
 <style lang="scss">
-@import '@/styles/pages/directory';
+@import './directory';
 </style>

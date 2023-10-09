@@ -8,5 +8,5 @@
 
 
 <style lang="scss">
-@import '@/styles/pages/home';
+@import './home';
 </style>
