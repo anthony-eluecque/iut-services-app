@@ -57,10 +57,10 @@
   </template>
     
   <script lang="ts" setup>
-  import DataTableService from '@/components/data-table-service/data-table-service.component.vue'
+  import DataTableService from '@/components/services/data-table-service/data-table-service.component.vue'
   import { useAppStore } from '@/store'
   import { onMounted, ref,Ref, computed } from 'vue';
-  import TeacherEditionCard from '@/components/teacher-edition-card/teacher-edition-card.component.vue'
+  import TeacherEditionCard from '@/components/services/teacher-edition-card/teacher-edition-card.component.vue'
   
   const AppStore = useAppStore();
   const isCreatingItem : Ref<boolean> = ref<boolean>(false)

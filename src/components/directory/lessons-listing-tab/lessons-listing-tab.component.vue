@@ -25,12 +25,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Lesson } from "../../types";
+import { Lesson } from "@/types";
 import {
     RowDataTable,
     headers,
     itemsPerPageText
-} from './lessons-listing-tab.component'
+} from './lessons-listing-tab.component';
 
 const props = defineProps({
   lessons: {

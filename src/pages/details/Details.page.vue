@@ -29,8 +29,8 @@
   
 <script lang="ts" setup>
 
-import DetailsServiceTable from '@/components/details-service-table/details-service-table.vue'
-import TeacherInformations from '@/components/teacher-informations/teacher-informations.component.vue';
+import DetailsServiceTable from '@/components/details/details-service-table/details-service-table.vue'
+import TeacherInformations from '@/components/details/teacher-informations/teacher-informations.component.vue';
 import { Ref, ref, onBeforeMount } from 'vue';
 import router from '@/router';
 import { Routes, fetchData, extractData } from '@/api';

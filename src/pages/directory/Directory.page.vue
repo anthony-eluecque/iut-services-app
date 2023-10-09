@@ -64,13 +64,13 @@
 
 
 <script setup lang="ts">
-import TeacherCard from '@/components/teacher-directory-card/teacher-directory-card.component.vue';
+import TeacherCard from '@/components/directory/teacher-directory-card/teacher-directory-card.component.vue';
 import { Lesson, Teacher } from '@/types';
 import { useAppStore } from '@/store';
 import { onBeforeMount, ref, watch, Ref } from 'vue';
-import LessonsTab from '@/components/lessons-listing-tab/lessons-listing-tab.component.vue'
-import EditionCard from '@/components/directory/teachers/EditionCard.vue';
-import DeletionCard from '@/components/directory/teachers/DeletionCard.vue';
+import LessonsTab from '@/components/directory/lessons-listing-tab/lessons-listing-tab.component.vue'
+import EditionCard from '@/components/directory/teacher-edition-modal/teacher-edition-modal.component.vue'
+import DeletionCard from '@/components/directory/teacher-delete-modal/teacher-delete-modal.component.vue'
 
 const AppStore = useAppStore();
 const teachers: Ref<Teacher[]> = ref([]);
