@@ -15,6 +15,7 @@ export interface RootState {
   editingIndex : number | null
   openUpdateCard : boolean
   currentUpdateItem : Item|null,
+  currentDeleteTeacher : Teacher|null,
   teachers : Teacher[]
   lessons : Lesson[]
 }
@@ -43,6 +44,9 @@ export const useAppStore = defineStore('app', {
     getTeachers: (state) : Teacher[] => {
       return state.teachers;
     },
+    getDeletingTeacher: (state): Teacher|null => {
+      return state.currentDeleteTeacher;
+    },
     getLessons: (state) : Lesson[] => {
       return state.lessons
     }
@@ -53,6 +57,9 @@ export const useAppStore = defineStore('app', {
     },
     setUpdateItem(newValue : Item | null){
       this.currentUpdateItem = newValue;
+    },
+    setDeleteTeacher(newValue: Teacher | null) {
+      this.currentDeleteTeacher = newValue;
     },
     async addItem(item : Item){
       await postItem(item,this.currentYear)
