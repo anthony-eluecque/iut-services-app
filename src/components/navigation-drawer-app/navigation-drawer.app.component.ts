@@ -1,6 +1,6 @@
-import Directory from '../../pages/Directory.page.vue';
-import Home from '../../pages/Home.page.vue';
-import Services from '../../pages/Services.page.vue';
+import Directory from '@/pages/directory/Directory.page.vue';
+import Home from '@/pages/home/Home.page.vue';
+import Services from '@/pages/services/Services.page.vue';
 
 export const menuItems = [
   { text: 'Accueil', path:'/home', icon: 'mdi-home-outline', component: Home },

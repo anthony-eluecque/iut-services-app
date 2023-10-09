@@ -49,3 +49,8 @@ const login = () => {
   userStore.login('rerez', '24h');
 }
 </script>
+
+
+<style lang="scss">
+@import './login';
+</style>

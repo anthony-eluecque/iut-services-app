@@ -95,4 +95,7 @@
   }
   
 </script>
-    
+
+<style lang="scss">
+@import './services';
+</style>
