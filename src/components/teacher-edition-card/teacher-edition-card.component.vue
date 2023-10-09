@@ -127,34 +127,3 @@ import {
 const AppStore = useAppStore();
 initializeComponent();
 </script>
-
-<style>
-.custom-dialog {
-  position: absolute;
-  right: 0  ;
-  margin: 0;
-  min-height: 100%;
-}
-
-.container-edition{
-    height: 100vh;
-    background-color: white;
-}
-
-.container-title-edition{
-    background-color: #4663F8;
-}
-
-.container-modal{
-    width: 100%;
-}
-
-.text-container-modal{
-    color: white;
-    font-family: 'Montserrat',sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-    text-align: center;
-}
-</style>
