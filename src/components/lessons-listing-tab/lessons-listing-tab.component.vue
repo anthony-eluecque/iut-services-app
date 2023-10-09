@@ -1,5 +1,3 @@
-
-
 <template>
     <v-window-item :value="2">
         <v-container fluid>
@@ -56,7 +54,3 @@ const lessonData = computed(() => {
     })
 })
 </script>
-
-<style>
-
-</style>
