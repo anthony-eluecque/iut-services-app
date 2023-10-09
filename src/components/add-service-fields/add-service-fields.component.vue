@@ -116,10 +116,3 @@ const props = defineProps({
     </td>
   </tr>
 </template>
-
-
-<style>
-tr td  .text-field-container {
-    padding: 15px;
-}
-</style>
