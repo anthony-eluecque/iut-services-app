@@ -71,12 +71,3 @@ const emitToggleUpdate = (index : number) => {
 
 initializeComponent()
 </script>
-
-  
-<style scoped> 
-
-.styled-table td {
-    padding: 15px 15px;
-}
-
-</style>
