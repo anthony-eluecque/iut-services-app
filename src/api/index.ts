@@ -16,6 +16,8 @@ Axios.interceptors.request.use(request => {
     request.headers.Authorization = `Baerer ${token}`;
   }
 
+  // Ajouter la gestion des status 404;
+
   return request;
     
 });
@@ -89,6 +91,22 @@ export const deleteItem = async (
   config = {}
 ) => {
   return await performRequest('delete',`${route}/${id}`,undefined,config);
+}
+
+export const deleteTeacher = async (
+  route : Routes|string, 
+  id: string, 
+  config = {}
+) => {
+  return await performRequest('delete',`${route}/${id}`,undefined,config);
+}
+
+export const updateTeacher = async (
+  route : Routes|string, 
+  id: string, 
+  config = {}
+) => {
+  return await performRequest('put',`${route}`, id, config);
 }
 
 export const updateData = async <T>(

@@ -20,6 +20,8 @@ export const initStore = () : RootState => {
         token : undefined,
         pagination : initPagination(),
         currentYear : new Date().getFullYear(),
-        openUpdateCard: false
+        openUpdateCard: false,
+        teachers : [],
+        lessons : []
     };
 }

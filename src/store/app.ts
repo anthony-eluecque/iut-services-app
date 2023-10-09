@@ -14,7 +14,11 @@ export interface RootState {
   currentYear : number
   editingIndex : number | null
   openUpdateCard : boolean
-  currentUpdateItem : Item|null
+  currentUpdateItem : Item|null,
+  currentUpdateTeacher : Teacher|null,
+  currentDeleteTeacher : Teacher|null,
+  teachers : Teacher[]
+  lessons : Lesson[]
 }
 
 export const useAppStore = defineStore('app', {
@@ -37,6 +41,21 @@ export const useAppStore = defineStore('app', {
     },
     getUpdatingItem : (state) : Item|null => {
       return state.currentUpdateItem;
+    },
+    getTeachers: (state) : Teacher[] => {
+      return state.teachers;
+    },
+    getUpdatingTeacher: (state): Teacher|null => {
+      return state.currentUpdateTeacher || null;
+    },
+    getDeletingTeacher: (state): Teacher|null => {
+      return state.currentDeleteTeacher;
+    },
+    getLessons: (state) : Lesson[] => {
+      return state.lessons
+    },
+    getCurrentIndexPage: (state) : number => {
+      return state.pagination.page
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -45,6 +64,12 @@ export const useAppStore = defineStore('app', {
     },
     setUpdateItem(newValue : Item | null){
       this.currentUpdateItem = newValue;
+    },
+    setUpdateTeacher(newValue: Teacher | null) {
+      this.currentUpdateTeacher = newValue;
+    },
+    setDeleteTeacher(newValue: Teacher | null) {
+      this.currentDeleteTeacher = newValue;
     },
     async addItem(item : Item){
       await postItem(item,this.currentYear)
@@ -61,6 +86,14 @@ export const useAppStore = defineStore('app', {
         `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
       )
       this.dataRows = extractData(dataFromPage);
+    },
+    async fetchTeachers(){
+      const data : ResponseData<Teacher[]> = await fetchData(Routes.TEACHERS)
+      this.teachers = extractData(data)
+    },
+    async fetchLessons(){
+      const data : ResponseData<Lesson[]> = await fetchData(Routes.LESSONS)
+      this.lessons = extractData(data)
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;

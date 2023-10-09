@@ -1,0 +1,43 @@
+// Components
+@import '../row-table-services/rowTableService';
+@import '../add-service-fields/addServiceFields';
+
+.styled-table{
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+        background-color: $primary;
+        font-family: $title-font;
+        font-weight: 500;
+        font-size: $size-24;
+
+        tr {
+            color: $white;
+            text-align: left;
+        }
+    }
+
+    th {
+        padding: 10px 15px;
+    }
+
+    td {
+        padding: 15px 15px;
+    }
+
+    tbody{
+        tr:nth-of-type(even){
+            background-color: $trEven;
+        }
+        tr:nth-of-type(odd) {
+            background-color: $white;
+        }
+    }
+
+}
+
+.text-field-container {
+    display: flex;
+    align-items: center; 
+}
