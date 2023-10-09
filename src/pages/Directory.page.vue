@@ -101,3 +101,8 @@ watch(firstnameTeacher,filterTeacher)
 watch(lastnameTeacher,filterTeacher)
 
 </script>
+
+
+<style lang="scss">
+@import '@/styles/pages/directory';
+</style>

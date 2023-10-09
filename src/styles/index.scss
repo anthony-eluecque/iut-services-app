@@ -7,21 +7,5 @@
 // Settings 
 @import './settings';
 
-// Components
-@import './components/addServiceFields';
-@import './components/dataTableService';
-@import './components/detailsServiceTable';
-@import './components/lessonsListingTab';
+// Nav Component
 @import './components/navigationDrawer';
-@import './components/rowTableService';
-@import './components/teacherEditionCard';
-@import './components/teacherDirectoryCard';
-@import './components/teacherInformations';
-
-
-// Pages 
-@import './pages/details';
-@import './pages/directory';
-@import './pages/login';
-@import './pages/home';
-@import './pages/services';

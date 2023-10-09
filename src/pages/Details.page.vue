@@ -75,3 +75,7 @@ const downloadAsPDF = () => {
     doc.save(`Service.pdf`);
 }
 </script>
+
+<style lang="scss">
+@import '@/styles/pages/details';
+</style>
