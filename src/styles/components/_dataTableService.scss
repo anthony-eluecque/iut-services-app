@@ -4,10 +4,10 @@
     border-collapse: collapse;
 
     thead {
-        background-color: #4663F8;
-        font-family: 'Montserrat',sans-serif;
+        background-color: $primary;
+        font-family: $title-font;
         font-weight: 500;
-        font-size: 25px;
+        font-size: $size-24;
 
         tr {
             color: $white;

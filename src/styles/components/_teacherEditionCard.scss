@@ -14,7 +14,7 @@
             justify-content: space-between;
 
             .container-title-edition{
-                background-color: #4663F8;
+                background-color: $primary;
                 margin-top: 8px;
                 display: flex;
                 justify-content: center;
@@ -23,9 +23,9 @@
 
                 h1{
                     color: white;
-                    font-family: 'Montserrat',sans-serif;
+                    font-family: $title-font;
                     font-weight: bold;
-                    font-size: 24px;
+                    font-size: $size-24;
                     text-transform: uppercase;
                     text-align: center;
                 }
@@ -36,28 +36,18 @@
                 padding: 4px;
                 justify-content: space-between;
 
-                .about-teacher {
-                    h2 {
-                        padding: 4px;
-                    }
-
-                    .container-v-fields {
-                        display: flex;
-                        flex-direction: row;
-                    }
+                h2 {
+                    padding: 4px;
                 }
+
+                .container-v-fields {
+                    display: flex;
+                    flex-direction: row;
+                }
+
     
                 .about-lesson {
                     margin-top: 10px;
-
-                    h2{
-                        padding: 4px;
-                    }
-
-                    .container-v-fields {
-                        display: flex;
-                        flex-direction: row;
-                    }
 
                     .container-lesson-types {
                         display: flex;
