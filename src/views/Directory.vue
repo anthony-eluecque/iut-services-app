@@ -4,7 +4,8 @@
             <h2>Répertoire</h2>
             <h2>logo</h2>
         </v-container>
-        <DeletionCard />
+        <EditionCard v-if="isUpdatingTeacher" />
+        <DeletionCard v-if="isDeletingTeacher" />
         <div class="container-content-tabs d-flex">
             <v-card>
                 <v-tabs v-model="tab" color="primary" align-tabs="start">
@@ -29,7 +30,9 @@
                                 </div>
                             </div>
                             <div class="mt-12 teachers d-flex">
-                                <TeacherCard @emit-delete="openModalDelete" :is-deleting-teacher="isDeletingTeacher"
+                                <TeacherCard
+                                    @emitUpdate="openModalUpdate" :is-updating-teacher="isUpdatingTeacher"
+                                    @emitDelete="openModalDelete" :is-deleting-teacher="isDeletingTeacher"
                                     class="teacher-grow" :teacher="t" :index="i" v-for="(t, i) in teachers">test
                                 </TeacherCard>
                             </div>
@@ -50,6 +53,7 @@ import { useAppStore } from '@/store';
 import _ from 'lodash';
 import { onBeforeMount, ref, watch, Ref } from 'vue';
 import LessonsTab from '../components/directory/lessons/LessonsTab.vue'
+import EditionCard from '@/components/directory/teachers/EditionCard.vue';
 import DeletionCard from '@/components/directory/teachers/DeletionCard.vue';
 
 const AppStore = useAppStore();
@@ -59,6 +63,7 @@ const givenIdTeacher: Ref<string> = ref('');
 const firstnameTeacher: Ref<string> = ref('');
 const lastnameTeacher: Ref<string> = ref('');
 const tab = ref("1")
+const isUpdatingTeacher: Ref<boolean> = ref(false)
 const isDeletingTeacher: Ref<boolean> = ref(false)
 
 onBeforeMount(async () => {
@@ -78,9 +83,17 @@ const filterTeacher = () => {
     });
 };
 
+const openModalUpdate = (index: number) => {
+    isUpdatingTeacher.value = true
+    isDeletingTeacher.value = false
+    AppStore.setUpdateTeacher(AppStore.getTeachers[index])
+    AppStore.setStateDialog(true);
+}
+
 const openModalDelete = (index: number) => {
+    isDeletingTeacher.value = true
+    isUpdatingTeacher.value = false
     AppStore.setDeleteTeacher(AppStore.getTeachers[index])
-    console.log(AppStore.getDeletingTeacher)
     AppStore.setStateDialog(true);
 }
 
