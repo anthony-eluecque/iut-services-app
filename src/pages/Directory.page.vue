@@ -41,7 +41,7 @@
                                             variant="outlined"
                                         />
                                     </div>
-                                    <div class="pt-2 pb-2">
+                                    <div class="addTeacher">
                                         <v-btn
                                             height="55px"
                                             append-icon="mdi-plus"
