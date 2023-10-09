@@ -37,19 +37,3 @@ const props = defineProps({
 }
 })
 </script>
-  
-<style>
-
-.container-info{
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100px;
-    background-color: white;
-}
-
-.flex-item {
-    flex: 1;
-    margin: 5px 20px;
-    align-self: center;
-}
-</style>
