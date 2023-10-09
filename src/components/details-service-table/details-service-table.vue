@@ -33,30 +33,3 @@ const serviceData = computed(() => {
     return data;
 });
 </script>
-
-
-<style scoped>
-.styled-table {
-    padding-left: 20px;
-    padding-right: 20px;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background: white;
-}
-
-.styled-table td {
-    border-bottom: 1px solid grey;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.styled-table th {
-    border-bottom: 1px solid grey;
-    text-align: center;
-}
-</style>
