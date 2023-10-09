@@ -99,6 +99,14 @@ export const deleteTeacher = async (
   return await performRequest('delete',`${route}/${id}`,undefined,config);
 }
 
+export const updateTeacher = async (
+  route : Routes|string, 
+  id: string, 
+  config = {}
+) => {
+  return await performRequest('put',`${route}`, id, config);
+}
+
 export const updateData = async <T>(
     route : Routes|string, 
     data: any, 
