@@ -9,7 +9,7 @@ import { menuItems } from './navigation-drawer.app.component'
       permanent
     >
       <div class="section-container">
-        <h1 class="mx-auto title-app pa-5">
+        <h1>
           IUT SERVICES APP
         </h1>
 
@@ -22,7 +22,7 @@ import { menuItems } from './navigation-drawer.app.component'
             <v-list-item
               v-for="(item, index) in menuItems"
               :key="index"
-              class="ml-4 list-item"
+              class="list-item"
               :class="{ 'bottom-border': index < menuItems.length - 1 }"
               :to="item.path"
             >
@@ -36,7 +36,7 @@ import { menuItems } from './navigation-drawer.app.component'
 
 
       <template #append>
-        <div class="pa-2">
+        <div class="section-bottom-nav">
           <v-btn
             block
             color="button-logout"

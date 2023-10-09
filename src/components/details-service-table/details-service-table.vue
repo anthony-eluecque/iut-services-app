@@ -1,7 +1,7 @@
 <template>
-    <v-data-table :headers="headers" :items="serviceData" :items-per-page-text="itemsPerPageText" class="styled-table primary bg-background-container">
+    <v-data-table :headers="headers" :items="serviceData" :items-per-page-text="itemsPerPageText" class="styled-table-details primary bg-background-container">
     </v-data-table>
-  </template>
+</template>
      
   
 <script lang="ts" setup>

@@ -1,0 +1,10 @@
+.container-lessons-titles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .container-fields-filter{
+        display: flex;
+        flex-direction: row;
+    }
+}

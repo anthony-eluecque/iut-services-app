@@ -2,8 +2,8 @@
     <v-window-item :value="2">
         <v-container fluid>
             <h1>Filtrer :</h1>
-            <div class="mt-2 d-flex flex-row justify-space-between">
-                <div class="pa-2 container-fields-filter flex-row d-flex">
+            <div class="container-lessons-titles">
+                <div class="container-fields-filter">
                     <v-text-field
                         hide-details
                         label="Matricule Enseignant"
@@ -16,10 +16,8 @@
                     />
                 </div>
             </div>
-            <div class="mt-5">
-                <v-data-table :headers="headers" :items="lessonData" :items-per-page-text="itemsPerPageText" class="styled-table primary bg-background-container">
-                </v-data-table>
-            </div>
+            <v-data-table :headers="headers" :items="lessonData" :items-per-page-text="itemsPerPageText" class="primary bg-background-container">
+            </v-data-table>
         </v-container>
     </v-window-item>
 </template>
