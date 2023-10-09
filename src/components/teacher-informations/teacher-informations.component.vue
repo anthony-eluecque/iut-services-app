@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class ="container-info d-flex primary bg-background-container">
+    <v-container fluid class ="container-info primary bg-background-container">
       <v-text-field
         class="flex-item"
         :model-value="props.teacher.givenId"

@@ -6,14 +6,14 @@
       content-class="custom-dialog"
       height="100vh"
     >
-        <v-container fluid class="pa-0 d-flex container-edition primary bg-background-container"  >
-            <div class="d-flex flex-column container-modal justify-space-between">
-                <div class="mt-8 d-flex container-title-edition justify-center">
-                    <h1 class="pa-6 text-container-modal">Modification d'un enseignement</h1>
+        <v-container fluid class="container-edition primary bg-background-container"  >
+            <div class="container-modal">
+                <div class="container-title-edition">
+                    <h1>Modification d'un enseignement</h1>
                   </div>
-                <section class="container-content-modal pa-4 justify-space-between">
-                    <div class="content-about">
-                        <h2 class="pa-3">A propos du professeur :</h2>
+                <section class="container-content-modal">
+                    <div class="about-teacher">
+                        <h2>A propos du professeur :</h2>
                         <v-text-field
                             v-model="currentTeacherId"
                             hide-details
@@ -22,7 +22,7 @@
                             variant="outlined"
                             readonly
                         />
-                        <div class="d-flex flex-row">
+                        <div class="container-v-fields">
                             <v-text-field
                                 v-model="currentTeacherFirstname"
                                 hide-details
@@ -41,10 +41,10 @@
                             />
                         </div>
                     </div>
-                    <div class="content-about mt-10">
-                        <h2 class="pa-3">Information sur la leçon</h2>
+                    <div class="about-lesson">
+                        <h2>Information sur la leçon</h2>
 
-                        <div class="d-flex flex-row">
+                        <div class="container-v-fields">
                             <v-text-field
                                 v-model="currentLessonGivenId"
                                 hide-details
@@ -62,7 +62,7 @@
                             />
                         </div>
 
-                        <div class="d-flex flex-row pa-2">                           
+                        <div class="container-lesson-types">                           
                             <v-checkbox hide-details label="Cours en CM"></v-checkbox>
                             <v-text-field
                                 hide-details
@@ -70,7 +70,7 @@
                                 variant="outlined"
                             />  
                         </div>
-                        <div class="d-flex flex-row pa-2">                           
+                        <div class="container-lesson-types">                           
                             <v-checkbox hide-details label="Cours en TD"></v-checkbox>
                             <v-text-field
                                 hide-details
@@ -78,7 +78,7 @@
                                 variant="outlined"
                             />
                         </div>
-                        <div class="d-flex flex-row pa-2">                           
+                        <div class="container-lesson-types">                           
                             <v-checkbox hide-details label="Cours en TP"></v-checkbox>
                             <v-text-field
                                 hide-details
@@ -89,8 +89,8 @@
                     </div>
                 </section>
 
-                <section class="container-actions-modal pa-4">
-                    <div class="d-flex justify-space-between">
+                <section class="container-actions">
+                    <div class="actions">
                         <v-btn
                             color="error"
                             width="40%"

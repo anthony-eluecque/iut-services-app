@@ -1,28 +1,84 @@
 .custom-dialog {
-    position: absolute;
-    right: 0  ;
-    margin: 0;
-    min-height: 100%;
-  }
-  
-.container-edition{
-    height: 100vh;
-    background-color: white;
-}
+    right: 0;
+    min-height: 100vh;
 
-.container-title-edition{
-    background-color: #4663F8;
-}
+    .container-edition{
+        height: 100vh;
+        padding: 0;
+        display: flex;
+ 
+        .container-modal {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: space-between;
 
-.container-modal{
-    width: 100%;
-}
+            .container-title-edition{
+                background-color: #4663F8;
+                margin-top: 8px;
+                display: flex;
+                justify-content: center;
+                padding: 16px;
 
-.text-container-modal{
-    color: white;
-    font-family: 'Montserrat',sans-serif;
-    font-weight: bold;
-    font-size: 24px;
-    text-transform: uppercase;
-    text-align: center;
+
+                h1{
+                    color: white;
+                    font-family: 'Montserrat',sans-serif;
+                    font-weight: bold;
+                    font-size: 24px;
+                    text-transform: uppercase;
+                    text-align: center;
+                }
+            }
+
+            .container-content-modal {
+                
+                padding: 4px;
+                justify-content: space-between;
+
+                .about-teacher {
+                    h2 {
+                        padding: 4px;
+                    }
+
+                    .container-v-fields {
+                        display: flex;
+                        flex-direction: row;
+                    }
+                }
+    
+                .about-lesson {
+                    margin-top: 10px;
+
+                    h2{
+                        padding: 4px;
+                    }
+
+                    .container-v-fields {
+                        display: flex;
+                        flex-direction: row;
+                    }
+
+                    .container-lesson-types {
+                        display: flex;
+                        flex-direction: row;
+                        padding: 4px;
+                    }
+                }
+            }
+            .container-actions {
+                padding: 4px;
+                
+                .actions {
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+            }
+        }
+
+    }
+
+
+    
 }
