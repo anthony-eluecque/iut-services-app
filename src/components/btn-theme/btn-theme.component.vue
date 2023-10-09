@@ -8,11 +8,3 @@
 import { toggleTheme, initializeTheme, theme } from './btn-theme.component'
 initializeTheme();
 </script>
-
-<style>
-/* .btn-theme{
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-} */
-</style>
