@@ -1,11 +1,11 @@
 <template>
-    <section class="container d-flex flex-column justify-space-between">
-      <v-container fluid class="d-flex container-title primary bg-background-container"  >
+    <section class="container-services">
+      <v-container fluid class="container-title-services primary bg-background-container"  >
         <h2>Liste des Services prévisionnels</h2>
         <h2>logo</h2>
       </v-container>
       <TeacherEditionCard/>
-      <div class="container-actions d-flex">
+      <div class="container-actions-services">
         <v-row no-gutters>
           <v-col cols="7">
             <!-- Ajouter ici les filtres (GL :))-->
@@ -13,7 +13,7 @@
           <v-col cols="5">
             <div class="content-v-select">
               <div class="content-v-select-title">
-                <h3 class="mr-2">
+                <h3>
                   Année Universitaire :
                 </h3>
               </div>            
@@ -42,7 +42,7 @@
       <div class="container-content">
         <DataTableService @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
         <div class="container-pagination">
-          <div class="d-flex justify-end">
+          <div class="title-hours">
             <h3 class="hours-text">Total Heures : {{  AppStore.getServiceHours }}</h3>
           </div>
           <v-pagination 
@@ -94,85 +94,5 @@
     isCreatingItem.value = true
   }
   
-  
-  
-  </script>
+</script>
     
-  <style>
-  .container{
-      width: 95%;
-      margin: auto;
-      height: 100%;
-      display: flex;
-  }
-  
-  .container-content {
-      /* background-color: white; */
-      margin-top: 40px;
-      display: flex;
-      height: 550px;
-      width: 100%;
-      flex-direction: column;
-      justify-content: space-between;
-  }
-  
-  .hours-text{
-    font-family: 'Roboto',sans-serif;
-    font-weight: 800;
-    font-size: 20px;
-    text-transform: uppercase;
-  }
-  
-  .container-actions{
-      justify-content: flex-end;
-      align-items: center;
-  }
-  
-  .container-title{
-      padding-left: 20px;
-      padding-right: 20px;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: 110px;
-  }
-  
-  .container-title h2{
-      font-family: 'Montserrat',sans-serif;
-      font-weight: bold;
-      font-size: 32px;
-  }
-  
-  .add-action{
-      margin-top: 20px;
-      display: flex;
-      justify-content: end;
-  }
-  
-  .content-v-select-title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .content-v-select-title h3{
-    font-family: 'Roboto',sans-serif;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-  
-  }
-  
-  .content-v-select{
-    display: flex;
-    justify-content: end;
-  }
-  
-  .container-component-select{
-    width: 20%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  </style>

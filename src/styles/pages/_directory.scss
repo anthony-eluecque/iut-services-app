@@ -1,0 +1,59 @@
+.container-directory{
+    width: 95%;
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .container-title{
+        display: flex;
+    }
+
+    .container-content-tabs {
+        display: flex;
+        margin-top: 60px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .container-filters-tabs {
+            margin-top: 2px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;   
+
+            .addTeacher{
+                padding: 2px 0;
+            }
+
+            .container-fields-filter{
+                display: flex;
+                width: 600px;
+                gap: 12px;
+                overflow: auto;
+                padding: 2px;
+                flex-direction: row;
+            }
+
+        }
+
+        .teachers{
+            flex-wrap: wrap;
+            gap: 50px;
+            overflow: auto;
+            margin-top: 12px;
+            display: flex;
+
+            .teacher-grow{
+                flex-grow: 1;
+            }
+        }
+        
+
+    }
+
+}
+
+
+

@@ -6,3 +6,8 @@
 html {
     scroll-behavior: smooth;
 }
+
+
+.v-dialog > .v-overlay__content {
+    margin: 0;
+}

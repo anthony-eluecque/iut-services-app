@@ -1,10 +1,10 @@
 <template>
-    <section class="container d-flex flex-column">
-        <v-container fluid class="d-flex container-title primary bg-background-container"  >
-        <h2>Répertoire</h2>
-        <h2>logo</h2>
+    <section class="container-directory">
+        <v-container fluid class="container-title primary bg-background-container"  >
+            <h2>Répertoire</h2>
+            <h2>logo</h2>
         </v-container>
-        <div class="container-content-tabs d-flex">
+        <div class="container-content-tabs">
             <v-card>
                 <v-tabs
                 v-model="tab"
@@ -20,8 +20,8 @@
                     >
                         <v-container fluid>
                             <h1>Filtrer :</h1>
-                                <div class="mt-2 d-flex flex-row justify-space-between">
-                                    <div class="pa-2 container-fields-filter flex-row d-flex">
+                                <div class="container-filters-tabs">
+                                    <div class="container-fields-filter">
                                         <v-text-field
                                             v-model="givenIdTeacher"
                                             hide-details
@@ -50,7 +50,7 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="mt-12 teachers d-flex">
+                                <div class="teachers">
                                     <TeacherCard class="teacher-grow" :teacher="t" v-for="(t,i) in teachers">test</TeacherCard>
                                 </div>
                         </v-container>
@@ -101,38 +101,3 @@ watch(firstnameTeacher,filterTeacher)
 watch(lastnameTeacher,filterTeacher)
 
 </script>
-
-
-<style>
-
-.container-fields-filter{
-    width: 600px;
-    flex-wrap: wrap;
-    gap: 12px;
-    overflow: auto;
-}
-
-.teachers{
-    flex-wrap: wrap;
-    gap: 50px;
-    overflow: auto;
-}
-
-.container-content-tabs{
-    margin-top: 60px;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.container{
-    width: 95%;
-    margin: auto;
-    height: 100%;
-}   
-
-.teacher-grow{
-    flex-grow: 1;
-}
-</style>
