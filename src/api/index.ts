@@ -16,6 +16,8 @@ Axios.interceptors.request.use(request => {
     request.headers.Authorization = `Baerer ${token}`;
   }
 
+  // Ajouter la gestion des status 404;
+
   return request;
     
 });
