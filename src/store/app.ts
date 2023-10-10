@@ -2,8 +2,9 @@
 import { InputFieldType, Item, Lesson, Teacher,Pagination } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
-import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
+import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, fetchDataFilter, postData, postItem} from '@/api'
 import { initStore } from './initStore'
+import { Criterias } from '@/types/criterias.types';
 
 // L'interface du store
 export interface RootState {
@@ -61,6 +62,11 @@ export const useAppStore = defineStore('app', {
         `${Routes.ITEMS}/${this.pagination.page.toString()}?year=${this.currentYear}`
       )
       this.dataRows = extractData(dataFromPage);
+    },
+    async sendCriteria(criterias : Criterias) {
+      const dataFromPage : ResponseData<Item[]> = await fetchDataFilter(
+        `${Routes.ITEMS}/search`, {year: 2023, criterias}
+      );
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;

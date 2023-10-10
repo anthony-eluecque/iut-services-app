@@ -26,20 +26,23 @@
               />
             </div>    
           </div>   
-          <div class="add-action">
-            <v-btn
-              height="55px"
-              append-icon="mdi-plus"
-              text="Ajouter un enseignement"
-              color="primary"
-              @click="addInputFields"
-            />
-          </div>
+
         </v-col>
       </v-row>
     </div>
 
     <div class="container-content">
+      <div class="search-content">
+        <SearchField></SearchField>
+        <v-btn
+          height="55px"
+          append-icon="mdi-plus"
+          text="Ajouter un enseignement"
+          color="primary"
+          @click="addInputFields"
+        />
+      </div>
+
       <DataTable @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
       <div class="container-pagination">
         <div class="d-flex justify-end">
@@ -58,12 +61,16 @@
   
 <script lang="ts" setup>
 import DataTable from '@/components/DataTable.vue'
+import SearchField from '@/components/SearchField.vue'
+import Card from '@/components/Card.vue'
 import { useAppStore } from '@/store'
 import { onMounted, ref,Ref, computed } from 'vue';
-import Card from '@/components/Card.vue'
+
 import { Item } from '@/types';
 
 const AppStore = useAppStore();
+AppStore.sendCriteria({id: null, nom: "Lu", prenom: null, libelle: null, ressource: null});
+
 const isCreatingItem : Ref<boolean> = ref<boolean>(false)
 const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
@@ -94,9 +101,6 @@ const openModalUpdate = (index : number) => {
 const addInputFields = () => {
   isCreatingItem.value = true
 }
-
-
-
 </script>
   
 <style>
@@ -109,13 +113,20 @@ const addInputFields = () => {
 }
 
 .container-content {
-    /* background-color: white; */
-    margin-top: 40px;
+    margin-top: 24px;
     display: flex;
-    height: 550px;
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.message-success {
+  margin-top: 32px;
+}
+
+.search-content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .hours-text{
@@ -126,6 +137,7 @@ const addInputFields = () => {
 }
 
 .container-actions{
+    margin-top: 24px;
     justify-content: flex-end;
     align-items: center;
 }

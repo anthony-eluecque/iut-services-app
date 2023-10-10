@@ -2,7 +2,7 @@ import { useUserStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 export { postItem } from './helpers';
 
-const API_ORIGIN = "http://localhost:4000";
+const API_ORIGIN = "http://localhost:8080";
 
 export const Axios = axios.create({
   baseURL: API_ORIGIN
@@ -74,6 +74,15 @@ export const fetchData = async <T>(
 ) : Promise<ResponseData<T>> => {
   return await performRequest<T>('get', route, undefined, config);
 }
+
+export const fetchDataFilter = async <T>(
+  route : Routes|string, 
+  data: any, 
+  config = {}
+) : Promise<ResponseData<T>> => {
+  return await performRequest<T>('post', route, data, config);
+}
+
 
 export const postData = async <T>(
   route : Routes|string, 
