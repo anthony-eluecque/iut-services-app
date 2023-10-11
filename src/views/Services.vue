@@ -69,7 +69,6 @@ import { onMounted, ref,Ref, computed } from 'vue';
 import { Item } from '@/types';
 
 const AppStore = useAppStore();
-AppStore.sendCriteria({id: null, nom: "Lu", prenom: null, libelle: null, ressource: null});
 
 const isCreatingItem : Ref<boolean> = ref<boolean>(false)
 const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
@@ -77,15 +76,15 @@ const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + i
 const page = computed({
   get : () => AppStore.pagination.page,
   set: async (newValue) => {
-    await AppStore.fetchItems(newValue)
+    await AppStore.fetchItemsPage(newValue)
   }
 })
 
 const currentYear = computed({
   get : () => AppStore.currentYear,
   set: async (newValue) => {
-    AppStore.currentYear = newValue
-    await AppStore.fetchItems(1)
+    AppStore.currentYear = newValue;
+    await AppStore.fetchItemsPage(1)
   }
 })
 

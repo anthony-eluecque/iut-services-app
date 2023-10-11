@@ -29,7 +29,7 @@ const labelLessonValue = ref<string>(props.item?.lesson?.name ?? '');
 const removeOrCancelInput = async () => {
   if (props.item){ // remove de la bdd
     await deleteItem(Routes.ITEMS,props.item.id);
-    await AppStore.fetchItems(AppStore.pagination.page)
+    await AppStore.fetchItemsPage(AppStore.pagination.page)
     AppStore.setEditingIndex(null)
     // AppStore.editIsCreatingItem(false)
     // AppStore.clearInputField()

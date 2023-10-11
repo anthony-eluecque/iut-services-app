@@ -67,22 +67,12 @@ const performRequest = async<T>(
   }
 }
 
-
 export const fetchData = async <T>(
   route : Routes|string, 
   config = {}
 ) : Promise<ResponseData<T>> => {
   return await performRequest<T>('get', route, undefined, config);
 }
-
-export const fetchDataFilter = async <T>(
-  route : Routes|string, 
-  data: any, 
-  config = {}
-) : Promise<ResponseData<T>> => {
-  return await performRequest<T>('post', route, data, config);
-}
-
 
 export const postData = async <T>(
   route : Routes|string, 

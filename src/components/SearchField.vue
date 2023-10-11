@@ -16,6 +16,7 @@ const password = ''
   
 const search = () => {
     const criterias: Criterias = {id: id.value, nom: nom.value, prenom: prenom.value, ressource: ressource.value, libelle: libelle.value};
+    appStore.sendCriteria(criterias)
 }
 </script>
 
@@ -69,13 +70,9 @@ const search = () => {
           >
             Filtrer
     </v-btn>
-
-
   </v-form>
         
 </template>
-
-
 
 <style>
 

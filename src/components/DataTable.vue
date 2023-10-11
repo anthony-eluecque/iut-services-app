@@ -52,7 +52,7 @@ const props = defineProps({
 
 
 onMounted(async () => {
-  await AppStore.fetchItems(1)
+  await AppStore.fetchItemsPage(1)
   isLoading.value = true
 })
 
