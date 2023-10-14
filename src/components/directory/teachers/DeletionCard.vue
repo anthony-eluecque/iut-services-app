@@ -50,7 +50,7 @@ const removeModal = () => {
 const removeTeacher = async (teacherToDelete: Teacher) => {
     await deleteTeacher(Routes.TEACHERS, teacherToDelete.id);
     await AppStore.fetchTeachers();
-    AppStore.setStateDialog(false)
+    removeModal();
 }
 </script>
 
