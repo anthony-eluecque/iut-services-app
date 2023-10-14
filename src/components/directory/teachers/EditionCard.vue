@@ -35,7 +35,7 @@
 import { computed } from 'vue';
 import { useAppStore } from "@/store"
 import { Teacher } from '@/types/teacher.types';
-import { Routes, updateTeacher } from '@/api';
+import { Routes, updateData } from '@/api';
 
 const AppStore = useAppStore();
 const currentTeacher = computed(() => AppStore.getUpdatingTeacher!)
@@ -62,9 +62,9 @@ const editTeacher = async (teacherToUpdate: Teacher) => {
         firstName: currentTeacherFirstname.value,
         lastName: currentTeacherLastname.value
     }
-    await updateTeacher(Routes.TEACHERS, teacherToUpdate.id, updatedData);
+    await updateData(Routes.TEACHERS, updatedData, teacherToUpdate.id);
     await AppStore.fetchTeachers();
-    AppStore.setStateDialog(false)
+    removeModal();
 }
 </script>
 
