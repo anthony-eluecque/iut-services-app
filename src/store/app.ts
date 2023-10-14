@@ -2,7 +2,7 @@
 import { InputFieldType, Item, Lesson, Teacher,Pagination } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
-import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, fetchDataFilter, postData, postItem} from '@/api'
+import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
 import { initStore } from './initStore'
 import { Criterias } from '@/types/criterias.types';
 import { ReponseItemsPage } from '@/types/response-items-page'
