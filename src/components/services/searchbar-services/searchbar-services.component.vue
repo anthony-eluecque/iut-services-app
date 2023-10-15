@@ -20,6 +20,9 @@ initializeComponent();
           class="field-id"
           label="Id"
           variant="outlined"
+          clearable
+          @click:clear="id = ''"
+          persistent-clear
         />
 
         <v-text-field
@@ -28,6 +31,9 @@ initializeComponent();
           class="field-text"
           label="Nom"
           variant="outlined"
+          @click:clear="nom = ''"
+          clearable
+          persistent-clear
         />
 
         <v-text-field
@@ -36,6 +42,9 @@ initializeComponent();
           class="field-text"
           label="Prénom"
           variant="outlined"
+          @click:clear="prenom = ''"
+          clearable
+          persistent-clear
         />
 
         <v-text-field
@@ -44,6 +53,9 @@ initializeComponent();
           class="field-text"
           label="Ressource"
           variant="outlined"
+          @click:clear="ressource = ''"
+          clearable
+          persistent-clear
         />
 
         <v-text-field
@@ -52,6 +64,9 @@ initializeComponent();
           class="field-text"
           label="Libéllé"
           variant="outlined"
+          @click:clear="libelle = ''"
+          clearable
+          persistent-clear
         />
         <v-btn
             type="submit"
