@@ -58,11 +58,15 @@
             }
         }
 
-        .add-action{
-            margin-top: 20px;
-            display: flex;
-            justify-content: end;
-        }
+    }
+    .container-actions{
+        display: flex;
+        justify-content: space-between
+    }
+
+    .add-action{
+        display: flex;
+        justify-content: end;
     }
 
     .container-content {

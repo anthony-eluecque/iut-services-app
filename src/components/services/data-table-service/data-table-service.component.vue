@@ -57,9 +57,8 @@ const props = defineProps({
 const dataRows = computed(() => AppStore.getDataRows);
 
 onMounted(async () => {
-    // await displayDataTable()
-    await AppStore.fetchItems(1)
-    isLoading.value = true;
+  await AppStore.fetchItemsPage(1)
+  isLoading.value = true
 })
 
 // onBeforeMount(async () => await displayDataTable())
