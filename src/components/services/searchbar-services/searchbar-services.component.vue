@@ -1,28 +1,20 @@
 <script lang="ts" setup>
-    import { Criterias } from '@/types/criterias.types';
-    import { computed, ref } from 'vue'
-    import { useAppStore } from '@/store'
+import { 
+    search, 
+    initializeComponent,
+    id,
+    nom,
+    prenom,
+    ressource,
+    libelle  
+} from './searchbar-services.component';
 
-    const id = ref<string>('');
-    const nom = ref<string>('');
-    const prenom = ref<string>('');
-    const ressource = ref<string>('');
-    const libelle = ref<string>('');
-
-const appStore = useAppStore()
-
-const email = ''
-const password = ''
-  
-const search = () => { 
-    const criterias: Criterias = {id: id.value, nom: nom.value, prenom: prenom.value, ressource: ressource.value, libelle: libelle.value};
-    appStore.sendCriteria(criterias)
-}
+initializeComponent();
 </script>
 
 <template>
     <v-form @submit.prevent="search" class="container-criteres">
-      <v-text-field
+        <v-text-field
           v-model="id"
           hide-details
           class="field-id"
@@ -67,23 +59,9 @@ const search = () => {
             class="search-button"
             append-icon="mdi-magnify"
             block
-          >
+        >
             Filtrer
-    </v-btn>
-  </v-form>
+        </v-btn>
+    </v-form>
         
 </template>
-
-<style>
-
-.container-criteres {
-    display: grid;
-    grid-template-columns: 1fr 2fr 2fr 1fr 2fr 1.5fr;
-    column-gap: 10px;
-}
-
-.search-button {
-  height: 100% !important;
-}
-
-</style>

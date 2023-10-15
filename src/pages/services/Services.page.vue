@@ -65,7 +65,8 @@
   import { useAppStore } from '@/store'
   import { onMounted, ref,Ref, computed } from 'vue';
   import TeacherEditionCard from '@/components/services/teacher-edition-card/teacher-edition-card.component.vue'
-  import SearchField from '@/components/SearchField.vue';
+  import SearchField from '@/components/services/searchbar-services/searchbar-services.component.vue';
+  
   const AppStore = useAppStore();
   const isCreatingItem : Ref<boolean> = ref<boolean>(false)
   const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
