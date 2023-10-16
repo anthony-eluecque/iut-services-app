@@ -11,12 +11,10 @@
                         <h2 class="pa-3">A propos du professeur :</h2>
                         <v-text-field v-model="currentTeacherId" hide-details class="pa-2" label="Matricule Enseignant"
                             variant="outlined" />
-                        <div class="d-flex flex-row">
-                            <v-text-field v-model="currentTeacherFirstname" hide-details class="pa-2" label="Prénom"
-                                variant="outlined" />
-                            <v-text-field v-model="currentTeacherLastname" hide-details class="pa-2" label="Nom"
-                                variant="outlined" />
-                        </div>
+                        <v-text-field v-model="currentTeacherFirstname" hide-details class="pa-2" label="Prénom"
+                            variant="outlined" />
+                        <v-text-field v-model="currentTeacherLastname" hide-details class="pa-2" label="Nom"
+                            variant="outlined" />
                     </div>
                 </section>
                 <section class="container-actions-modal pa-4">
