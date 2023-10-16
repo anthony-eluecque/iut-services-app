@@ -13,7 +13,7 @@ enum statusCode {
 interface ObjectWithGivenId {
     givenId : string
     id : string
-} 
+}
 
 const createService = (idTeacher : string,currentYear : number) => {
     return {
@@ -29,6 +29,25 @@ const createItem = (amountHours : number, idLesson : string, idService : string)
         type : '',
         lesson : idLesson,
         service : idService
+    }
+}
+
+export const postTeacher = async (teacher: Teacher) => {
+    try {
+        const teacherResponse: ResponseData<Teacher> | null = await getOrCreateObject<Teacher>(
+            teacher,
+            Routes.TEACHERS,
+            (teacher) => ({
+                roleName: "admin",
+                firstName: teacher.firstName,
+                lastName: teacher.lastName,
+                givenId: teacher.givenId,
+                id: '',
+            })
+        );
+        return teacherResponse;
+    } catch (error: any) {
+        throw new Error(`Error in postTeacher: ${error.message}`);
     }
 }
 
