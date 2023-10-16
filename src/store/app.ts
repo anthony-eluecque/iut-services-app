@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
 import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
 import { initStore } from './initStore'
+import { postTeacher } from '@/api/helpers/Item'
 
 // L'interface du store
 export interface RootState {
@@ -71,6 +72,10 @@ export const useAppStore = defineStore('app', {
     async addItem(item : Item){
       await postItem(item,this.currentYear)
       this.fetchItems(this.pagination.page)
+    },
+    async addTeacher(teacher : Teacher){
+      await postTeacher(teacher)
+      this.fetchTeachers()
     },
     paginationHandler(pageNumber : number){
       this.pagination.page = pageNumber ;     
