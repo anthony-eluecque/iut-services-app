@@ -1,11 +1,9 @@
 <template>
-    <v-app>
-        <NavigationDrawer />
-        <BtnTheme></BtnTheme>
-        <DefaultView>
-            
-        </DefaultView>
-    </v-app>
+  <v-app>
+    <NavigationDrawer />
+    <BtnTheme />
+    <DefaultView />
+  </v-app>
 </template>
 
 
