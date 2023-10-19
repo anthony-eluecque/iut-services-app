@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import { menuItems } from './navigation-drawer.app.component'
-</script>
+
 
 <template>
   <v-card class="rounded-0">
@@ -40,6 +38,7 @@ import { menuItems } from './navigation-drawer.app.component'
           <v-btn
             block
             color="button-logout"
+            @click="loggout"
           >
             <p class="custom-text text-title-button-logout">
               Se déconnecter
@@ -50,3 +49,13 @@ import { menuItems } from './navigation-drawer.app.component'
     </v-navigation-drawer>
   </v-card>
 </template>
+
+
+<script setup lang="ts">
+import {fetchData, postData } from '@/api';
+import { menuItems } from './navigation-drawer.app.component'
+
+const loggout = async () => {
+  await postData('/users/logout',{});
+}
+</script>
