@@ -1,3 +1,4 @@
+import router from '@/router';
 import { useUserStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 export { postItem } from './helpers';
@@ -5,21 +6,29 @@ export { postItem } from './helpers';
 const API_ORIGIN = import.meta.env.VITE_API_ORIGIN
 
 export const Axios = axios.create({
-  baseURL: API_ORIGIN
+  baseURL: API_ORIGIN,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials : true
 });
 
-Axios.interceptors.request.use(request => {
-  const userStore = useUserStore();
-  const token = userStore.getToken;
-
-  if (token) {
-    request.headers.Authorization = `Baerer ${token}`;
+Axios.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    if (error.response){
+      if (error.response.status === 401){
+        router.push('/login')
+      }
+    }
+    return Promise.reject(error);
   }
+)
 
-  // Ajouter la gestion des status 404;
-
+Axios.interceptors.request.use(request => {
   return request;
-    
 });
 
 export default Axios
