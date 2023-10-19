@@ -1,11 +1,12 @@
 <template>
-  <v-app>
+  <!-- <v-app>
     <NavigationDrawer />
     <BtnTheme></BtnTheme>
     <v-main>
       <router-view />
     </v-main>
-  </v-app>
+  </v-app> -->
+  <router-view />
 </template>
 
 <script lang="ts" setup>
