@@ -3,6 +3,7 @@
     <section class="container d-flex flex-column justify-space-between">
         <div class="container-title d-flex">
             <h2>Visualisation d'un Service Prévisionnel</h2>
+           
         </div>
         <section class="d-flex flex-column container-teacher mt-10">
             <div class="pl-4 pr-4 pt-2 pb-2">
@@ -27,9 +28,6 @@
        
     </section>
 </template>
-
-
-
   
 <script lang="ts" setup>
 
@@ -48,6 +46,8 @@ const AppStore = useAppStore();
 const selectedItem: Ref<Item | null> = ref(null)
 const selectedTeacher: Ref<Teacher> = ref({ firstName: '', givenId: '', id: '', lastName: '' })
 const selectedService: Ref<Service> = ref({ id: '', year: 0 });
+const selectedServiceByOrder: Ref<Service> = ref({ id: '', year: 0 });
+
 
 const props = defineProps({
     id: String,
@@ -58,13 +58,15 @@ onBeforeMount(async () => {
     selectedItem.value = props.itemToOpenJSON as Item
     selectedTeacher.value = props.itemToOpenJSON?.service?.teacher
     selectedService.value = selectedItem.value.service as Service
+    selectedServiceByOrder.value = selectedItem.value.service as Service
 
-    // Todo : On doit récupérer tous items d'un service (celui selectionner)
-    // selectedService.service
     selectedService.value = extractData(await fetchData(Routes.SERVICES + `/${selectedService.value.id}`))
+    selectedServiceByOrder.value = extractData(await fetchData(Routes.SERVICES + `/${selectedService.value.id}/ascending`))[0]
+   
+   
+    // Todo : On doit récupérer tous items d'un service (celui selectionner)
+    // selectedService.service 
 })
-
-console.log(selectedItem.value?.lesson?.givenId)
 
 const returnServicePage = () => {
     router.push('/services/')
@@ -74,10 +76,8 @@ const downloadAsPDF = () => {
 
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
 
-
     // header
-
-    const leftText = `Année Universitaire: ${selectedService.value.year}-${selectedService.value.year + 1}`;
+    const leftText = `Année Universitaire: ${selectedServiceByOrder.value.year}-${selectedServiceByOrder.value.year + 1}`;
     const rightText = `Service prévisionnel de ${selectedTeacher.value.lastName} ${selectedTeacher.value.firstName}`;
 
     const headerBlockX = 50;
@@ -87,22 +87,18 @@ const downloadAsPDF = () => {
 
     doc.rect(headerBlockX, headerBlockY, headerBlockWidth, headerBlockHeight);
 
-    doc.setFontSize(12);
-
     const rightTextWidth = doc.getTextWidth(rightText);
     const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
 
     doc.text(leftText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
     doc.text(rightText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); 
 
-
-
 //  semestre
 
-    const TotalBlockX = 500;
+    const TotalSBlockX = 500;
     let BlockY = 125
 
-    selectedService.value.items?.forEach((item : Item) => {
+    selectedServiceByOrder.value.items?.forEach((item : Item) => {
 
         const id = item.lesson?.givenId ? item.lesson?.givenId : ""
         const Semestre = parseInt(id.split('.')[0].slice(1));
@@ -114,13 +110,9 @@ const downloadAsPDF = () => {
         const Block1Height = 40;
 
         doc.rect(Block1X, BlockY, Bloc1kWidth, Block1Height);
-
-        doc.setFontSize(12);
         const textWidth = doc.getTextWidth(CenterText);
         const centerX = Block1X + (Bloc1kWidth - textWidth) / 2;
-
         doc.text(CenterText, centerX, BlockY + Block1Height / 2 + 3);
-
 
     // tableau semestre
 
@@ -142,15 +134,30 @@ const downloadAsPDF = () => {
         });
         const TotalY = tabY + 100;
 
-    doc.text("Total:" +  AppStore.getServiceHours , TotalBlockX, TotalY);
+    doc.text("Total:" +  AppStore.getServiceHours , TotalSBlockX, TotalY);
     BlockY = TotalY + 50;
 });
+
+const TotalBlockX = 350;
+const TotalBlockY = BlockY + 50;
+const TotalBlockWidth = doc.internal.pageSize.getWidth() - TotalBlockX * 2;
+const TotalBlockHeight = 40;
+
+const TotalText = "Total" + AppStore.getServiceHours
+
+doc.rect(TotalBlockX, TotalBlockY, TotalBlockWidth, TotalBlockHeight);
+
+doc.setFontSize(12);
+
+const rightTotalWidth = doc.getTextWidth(TotalText);
+const rightTotalX = TotalBlockX + headerBlockWidth - rightTotalWidth - 10;
+
+doc.text(TotalText, rightTotalX, TotalBlockY + headerBlockHeight); 
 
     doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
 }
 
 </script>
-
 
 <style>
 .container {
