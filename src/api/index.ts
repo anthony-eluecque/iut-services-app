@@ -37,7 +37,8 @@ export enum Routes {
     ITEMS = "/items",
     LESSONS = "/lessons",
     TEACHERS = "/teachers",
-    SERVICES = "/services"
+    SERVICES = "/services",
+    USERS = "/users"
 }
 
 export type ResponseData<T> = {

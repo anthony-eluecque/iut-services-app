@@ -41,7 +41,7 @@ const routes: RouteRecordRaw[] = [
   {
     path : '/',
     component : () => import('@/layouts/Default.layout.vue'),
-    beforeEnter:authGuard,
+    beforeEnter: authGuard,
     children : [
       {
         path: '/home',
@@ -72,7 +72,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name : 'Auth',
-    component : () => import('@/layouts/NoSideBar.layout.vue'),
+    component : () => import('@/layouts/NoSidebar.layout.vue'),
     children : [
       {
         path: '',
