@@ -54,8 +54,10 @@
 <script setup lang="ts">
 import {fetchData, postData } from '@/api';
 import { menuItems } from './navigation-drawer.app.component'
+import router from '@/router';
 
 const loggout = async () => {
   await postData('/users/logout',{});
+  router.push('/login')
 }
 </script>

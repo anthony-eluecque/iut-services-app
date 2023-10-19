@@ -52,16 +52,21 @@
 
 
 <script setup lang="ts">
-import { extractData, postData, fetchData } from '@/api';
+import { extractData, postData, fetchData, Routes, ResponseData } from '@/api';
 import router from '@/router';
+import { useUserStore } from '@/store';
 import { ref } from 'vue';
+import { User } from '@/types'
 const password = ref('');
 const email = ref('');
 
 
 const postAuth = async() => {
-    const data = await postData('/users/login',{email : email.value, password : password.value})
-    router.push('/')
+  useUserStore()
+  const res : ResponseData<User> = await postData(Routes.USERS + '/login',{
+    email : email.value, password : password.value
+  })
+  router.push('/')
 }
 
 </script>
