@@ -1,10 +1,10 @@
 <template>
     <v-dialog v-model="AppStore.getOpenDialog" width="500" transition="slide-x-transition" content-class="custom-dialog"
         height="100vh">
-        <v-container fluid class="pa-0 d-flex container-edition primary bg-background-container">
+        <v-container fluid class="pa-0 d-flex container-creation primary bg-background-container">
             <div class="d-flex flex-column container-modal justify-space-between">
-                <div class="mt-8 d-flex container-title-edition justify-center">
-                    <h1 class="pa-6 text-container-modal">Modification d'un enseignant</h1>
+                <div class="mt-8 d-flex container-title-creation justify-center">
+                    <h1 class="pa-6 text-container-modal">Ajout d'un enseignant</h1>
                 </div>
                 <section class="container-content-modal pa-4 justify-space-between">
                     <div class="content-about">
@@ -20,7 +20,7 @@
                 <section class="container-actions-modal pa-4">
                     <div class="d-flex justify-space-between">
                         <v-btn color="error" width="40%" text="ANNULER" @click="removeModal()" />
-                        <v-btn color="green" width="40%" text="METTRE À JOUR" @click="editTeacher(currentTeacher)" />
+                        <v-btn color="green" width="40%" text="AJOUTER" @click="createTeacher()" />
                     </div>
                 </section>
             </div>
@@ -30,37 +30,28 @@
 
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useAppStore } from "@/store"
+import { ref } from 'vue';
+import { useAppStore } from "@/store";
 import { Teacher } from '@/types/teacher.types';
-import { Routes, updateData } from '@/api';
 
 const AppStore = useAppStore();
-const currentTeacher = computed(() => AppStore.getUpdatingTeacher!)
-const currentTeacherId = computed({
-    get: () => currentTeacher.value?.givenId ? currentTeacher.value?.givenId : '',
-    set: (value) => currentTeacher.value!.givenId = value
-})
-const currentTeacherFirstname = computed({
-    get: () => currentTeacher.value?.firstName ? currentTeacher.value?.firstName : '',
-    set: (value) => currentTeacher.value!.firstName = value
-})
-const currentTeacherLastname = computed({
-    get: () => currentTeacher.value?.lastName ? currentTeacher.value?.lastName : '',
-    set: (value) => currentTeacher.value!.lastName = value
-})
+
+const currentTeacherId = ref<string>('');
+const currentTeacherFirstname = ref<string>('');
+const currentTeacherLastname = ref<string>('');
 
 const removeModal = () => {
-    AppStore.setStateDialog(false)
+    AppStore.setStateDialog(false);
 }
 
-const editTeacher = async (teacherToUpdate: Teacher) => {
-    const updatedData = {
+const createTeacher = async () => {
+    const newTeacher: Teacher = {
+        id: '',
         givenId: currentTeacherId.value,
         firstName: currentTeacherFirstname.value,
-        lastName: currentTeacherLastname.value
-    }
-    await updateData(Routes.TEACHERS, updatedData, teacherToUpdate.id);
+        lastName: currentTeacherLastname.value,
+    };
+    await AppStore.addTeacher(newTeacher);
     await AppStore.fetchTeachers();
     removeModal();
 }
@@ -72,7 +63,16 @@ const editTeacher = async (teacherToUpdate: Teacher) => {
     border-radius: 0px !important;
 }
 
-.container-edition {
+.container-creation {
+    height: 100vh;
+    background-color: white;
+}
+
+.container-title-creation {
+    background-color: #4663F8;
+}
+
+.container-creation {
     height: 100vh;
 }
 
