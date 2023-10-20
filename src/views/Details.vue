@@ -77,8 +77,8 @@ const downloadAsPDF = () => {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
 
     // header
-    const leftText = `Année Universitaire: ${selectedServiceByOrder.value.year}-${selectedServiceByOrder.value.year + 1}`;
-    const rightText = `Service prévisionnel de ${selectedTeacher.value.lastName} ${selectedTeacher.value.firstName}`;
+    const yearText = `Année Universitaire: ${selectedServiceByOrder.value.year}-${selectedServiceByOrder.value.year + 1}`;
+    const serviceText = `Service prévisionnel de ${selectedTeacher.value.lastName} ${selectedTeacher.value.firstName}`;
 
     const headerBlockX = 50;
     const headerBlockY = 50;
@@ -87,56 +87,89 @@ const downloadAsPDF = () => {
 
     doc.rect(headerBlockX, headerBlockY, headerBlockWidth, headerBlockHeight);
 
-    const rightTextWidth = doc.getTextWidth(rightText);
+    const rightTextWidth = doc.getTextWidth(serviceText);
     const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
 
-    doc.text(leftText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
-    doc.text(rightText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); 
+    doc.text(yearText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
+    doc.text(serviceText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); 
 
 //  semestre
 
     const TotalSBlockX = 500;
     let BlockY = 125
+    let semestrePrecedent = 0;
+
+    const tableSemestres = [
+                ['Enseignements', 'Type', 'Volume'],
+                
+
+            ];
 
     selectedServiceByOrder.value.items?.forEach((item : Item) => {
 
         const id = item.lesson?.givenId ? item.lesson?.givenId : ""
-        const Semestre = parseInt(id.split('.')[0].slice(1));
+        const semestre = parseInt(id.split('.')[0].slice(1));
 
-        const CenterText = `Semestre ${Semestre}`;
 
-        const Block1X = 50;
-        const Bloc1kWidth = doc.internal.pageSize.getWidth() - Block1X * 2;
-        const Block1Height = 40;
+        if (semestre !== semestrePrecedent) {
 
-        doc.rect(Block1X, BlockY, Bloc1kWidth, Block1Height);
-        const textWidth = doc.getTextWidth(CenterText);
-        const centerX = Block1X + (Bloc1kWidth - textWidth) / 2;
-        doc.text(CenterText, centerX, BlockY + Block1Height / 2 + 3);
 
-    // tableau semestre
+            const CenterText = `Semestre ${semestre}`;
 
-        const tableSemestres = [
-            ['Enseignements', 'Type', 'Volume'],
-            [item.lesson?.givenId+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours],
-        ];
-    
+            const block1X = 50;
+            const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X * 2;
+            const block1Height = 40;
+
+            doc.rect(block1X, BlockY, bloc1kWidth, block1Height);
+            const textWidth = doc.getTextWidth(CenterText);
+            const centerX = block1X + (bloc1kWidth - textWidth) / 2;
+            doc.text(CenterText, centerX, BlockY + block1Height / 2 + 3);
+
+            tableSemestres.length = 1
+
+           
+            tableSemestres.push( [item.lesson?.givenId+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours])
+                 
+
+        }
+
+        else{
+
+         
+                tableSemestres.push([item.lesson?.givenId+ ' ' + item.lesson?.name!, item.type!+ ' 1h30', item.amountHours])
+                
+
+        
+
+
+
+     
+        }
+
         const tabY = BlockY + 50; 
 
-        const tablePosition = {
-        startY: tabY, 
-        };
-
-        autoTable(doc,{
-        head: [tableSemestres[0]], 
-        body: tableSemestres.slice(1),
-        ...tablePosition, 
-        });
-        const TotalY = tabY + 100;
-
-    doc.text("Total:" +  AppStore.getServiceHours , TotalSBlockX, TotalY);
-    BlockY = TotalY + 50;
+const tablePosition = {
+    startY: tabY, 
+    };
+autoTable(doc,{
+head: [tableSemestres[0]], 
+body: tableSemestres.slice(1),
+...tablePosition, 
 });
+
+
+const TotalY = tabY + 100;
+
+
+doc.text("Total:" +  AppStore.getServiceHours , TotalSBlockX, TotalY);
+BlockY = TotalY + 50;  
+
+        
+
+        semestrePrecedent = semestre;
+       
+});
+
 
 const TotalBlockX = 350;
 const TotalBlockY = BlockY + 50;
