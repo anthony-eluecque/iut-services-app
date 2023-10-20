@@ -1,6 +1,7 @@
 // Components
-@import '@/components/teacher-edition-card/teacherEditionCard';
-@import '@/components/data-table-service/dataTableService';
+@import '@/components/services/teacher-edition-card/teacherEditionCard';
+@import '@/components/services/data-table-service/dataTableService';
+@import '@/components/services/searchbar-services/searchbarServices';
 
 .container-services{
     width: 95%;
@@ -58,11 +59,15 @@
             }
         }
 
-        .add-action{
-            margin-top: 20px;
-            display: flex;
-            justify-content: end;
-        }
+    }
+    .container-actions{
+        display: flex;
+        justify-content: space-between
+    }
+
+    .add-action{
+        display: flex;
+        justify-content: end;
     }
 
     .container-content {

@@ -1,8 +1,8 @@
-import { useAppStore } from '../../store'
+import { useAppStore } from '@/store'
 import InputField from '../InputField.vue';
-import { Item } from '../../types';
-import router from '../../router';
-import { Routes, deleteItem } from '../../api';
+import { Item } from '@/types';
+import router from '@/router';
+import { Routes, deleteItem } from '@/api';
   
 interface AppStore {
     getUpdatingItem: () => ReturnType<typeof useAppStore>['getUpdatingItem'],
@@ -17,7 +17,7 @@ export const initializeComponent = () => {
     appStoreInstance = {
         getUpdatingItem: () => useAppStore().getUpdatingItem,
         setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
-        fetchItems: async (pageNumber: number) => await useAppStore().fetchItems(pageNumber),
+        fetchItems: async (pageNumber: number) => await useAppStore().fetchItemsPage(pageNumber),
         getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
     };
 }  

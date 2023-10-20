@@ -8,7 +8,6 @@
       <div class="container-actions-services">
         <v-row no-gutters>
           <v-col cols="7">
-            <!-- Ajouter ici les filtres (GL :))-->
           </v-col>
           <v-col cols="5">
             <div class="content-v-select">
@@ -26,19 +25,24 @@
                 />
               </div>    
             </div>   
-            <div class="add-action">
-              <v-btn
-                height="55px"
-                append-icon="mdi-plus"
-                text="Ajouter un enseignement"
-                color="primary"
-                @click="addInputFields"
-              />
-            </div>
           </v-col>
         </v-row>
       </div>
-  
+
+      <div class="container-actions">
+        <SearchField/>
+        <div class="add-action">
+            <v-btn
+              height="55px"
+              append-icon="mdi-plus"
+              text="Ajouter un enseignement"
+              color="primary"
+              @click="addInputFields"
+            />
+        </div>
+      </div>
+
+      
       <div class="container-content">
         <DataTableService @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
         <div class="container-pagination">
@@ -57,10 +61,11 @@
   </template>
     
   <script lang="ts" setup>
-  import DataTableService from '@/components/data-table-service/data-table-service.component.vue'
+  import DataTableService from '@/components/services/data-table-service/data-table-service.component.vue'
   import { useAppStore } from '@/store'
   import { onMounted, ref,Ref, computed } from 'vue';
-  import TeacherEditionCard from '@/components/teacher-edition-card/teacher-edition-card.component.vue'
+  import TeacherEditionCard from '@/components/services/teacher-edition-card/teacher-edition-card.component.vue'
+  import SearchField from '@/components/services/searchbar-services/searchbar-services.component.vue';
   
   const AppStore = useAppStore();
   const isCreatingItem : Ref<boolean> = ref<boolean>(false)
@@ -69,7 +74,7 @@
   const page = computed({
     get : () => AppStore.pagination.page,
     set: async (newValue) => {
-      await AppStore.fetchItems(newValue)
+      await AppStore.fetchItemsPage(newValue)
     }
   })
   
@@ -77,7 +82,7 @@
     get : () => AppStore.currentYear,
     set: async (newValue) => {
       AppStore.currentYear = newValue
-      await AppStore.fetchItems(1)
+      await AppStore.fetchItemsPage(1)
     }
   })
   

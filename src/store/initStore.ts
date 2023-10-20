@@ -21,7 +21,10 @@ export const initStore = () : RootState => {
         pagination : initPagination(),
         currentYear : new Date().getFullYear(),
         openUpdateCard: false,
+        criterias: {id: '', prenom: '', nom: '', ressource: '', libelle: ''},
         teachers : [],
-        lessons : []
+        lessons : [],
+        currentDeleteTeacher : null,
+        currentUpdateTeacher : null
     };
 }

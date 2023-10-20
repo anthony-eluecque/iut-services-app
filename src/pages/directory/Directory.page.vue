@@ -6,6 +6,7 @@
         </v-container>
         <EditionCard v-if="isUpdatingTeacher" />
         <DeletionCard v-if="isDeletingTeacher" />
+        <CreationCard v-if="isCreatingTeacher" />
         <div class="container-content-tabs d-flex">
             <v-card>
                 <v-tabs v-model="tab" color="primary" align-tabs="start">
@@ -37,13 +38,9 @@
                                         variant="outlined"
                                     />
                                 </div>
-                                <div class="addTeacher">
-                                    <v-btn
-                                        height="55px"
-                                        append-icon="mdi-plus"
-                                        text="Ajouter un professeur"
-                                        color="primary" 
-                                    />
+                                <div class="pt-2 pb-2">
+                                    <v-btn height="55px" append-icon="mdi-plus" text="Ajouter un professeur" @click="openModalCreate"
+                                        color="primary" />
                                 </div>
                             </div>
                             <div class="teachers">
@@ -64,16 +61,18 @@
 
 
 <script setup lang="ts">
-import TeacherCard from '@/components/teacher-directory-card/teacher-directory-card.component.vue';
+import TeacherCard from '@/components/directory/teacher-directory-card/teacher-directory-card.component.vue';
 import { Lesson, Teacher } from '@/types';
 import { useAppStore } from '@/store';
-import { onBeforeMount, ref, watch, Ref } from 'vue';
-import LessonsTab from '@/components/lessons-listing-tab/lessons-listing-tab.component.vue'
-import EditionCard from '@/components/directory/teachers/EditionCard.vue';
-import DeletionCard from '@/components/directory/teachers/DeletionCard.vue';
+import { onBeforeMount, ref, watch, Ref, computed } from 'vue';
+import LessonsTab from '@/components/directory/lessons-listing-tab/lessons-listing-tab.component.vue'
+import EditionCard from '@/components/directory/teacher-edition-modal/teacher-edition-modal.component.vue'
+import DeletionCard from '@/components/directory/teacher-delete-modal/teacher-delete-modal.component.vue'
+import CreationCard from '@/components/directory/teacher-creation-modal/teacher-create-modal.component.vue'
 
 const AppStore = useAppStore();
-const teachers: Ref<Teacher[]> = ref([]);
+//const teachers: Ref<Teacher[]> = ref([]);
+const teachers = computed(() => AppStore.getTeachers);
 const lessons: Ref<Lesson[]> = ref([]);
 const givenIdTeacher: Ref<string> = ref('');
 const firstnameTeacher: Ref<string> = ref('');
@@ -81,27 +80,28 @@ const lastnameTeacher: Ref<string> = ref('');
 const tab = ref("1")
 const isUpdatingTeacher: Ref<boolean> = ref(false)
 const isDeletingTeacher: Ref<boolean> = ref(false)
+const isCreatingTeacher: Ref<boolean> = ref(false)
 
 onBeforeMount(async () => {
     await AppStore.fetchTeachers()
     await AppStore.fetchLessons()
-    teachers.value = AppStore.getTeachers
     lessons.value = AppStore.getLessons
 })
 
-const filterTeacher = () => {
-    teachers.value = AppStore.getTeachers.filter((teacher) => {
-        return (
-            teacher.givenId.includes(givenIdTeacher.value) &&
-            teacher.firstName.includes(firstnameTeacher.value) &&
-            teacher.lastName.includes(lastnameTeacher.value)
-        );
-    });
-};
+// const filterTeacher = () => {
+//     teachers.value = AppStore.getTeachers.filter((teacher) => {
+//         return (
+//             teacher.givenId.includes(givenIdTeacher.value) &&
+//             teacher.firstName.includes(firstnameTeacher.value) &&
+//             teacher.lastName.includes(lastnameTeacher.value)
+//         );
+//     });
+// };
 
 const openModalUpdate = (index: number) => {
     isUpdatingTeacher.value = true
     isDeletingTeacher.value = false
+    isCreatingTeacher.value = false
     AppStore.setUpdateTeacher(AppStore.getTeachers[index])
     AppStore.setStateDialog(true);
 }
@@ -109,13 +109,21 @@ const openModalUpdate = (index: number) => {
 const openModalDelete = (index: number) => {
     isDeletingTeacher.value = true
     isUpdatingTeacher.value = false
+    isCreatingTeacher.value = false
     AppStore.setDeleteTeacher(AppStore.getTeachers[index])
     AppStore.setStateDialog(true);
 }
 
-watch(givenIdTeacher, filterTeacher)
-watch(firstnameTeacher, filterTeacher)
-watch(lastnameTeacher, filterTeacher)
+const openModalCreate = () => {
+    isCreatingTeacher.value = true
+    isDeletingTeacher.value = false
+    isUpdatingTeacher.value = false
+    AppStore.setStateDialog(true);
+}
+
+// watch(givenIdTeacher, filterTeacher)
+// watch(firstnameTeacher, filterTeacher)
+// watch(lastnameTeacher, filterTeacher)
 </script>
 
 

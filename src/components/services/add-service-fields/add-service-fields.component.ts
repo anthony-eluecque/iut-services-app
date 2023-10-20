@@ -18,7 +18,7 @@ export const initializeComponent = () => {
     appStoreInstance = {
         getUpdatingItem: () => useAppStore().getUpdatingItem,
         setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
-        fetchItems: async (pageNumber: number) => await useAppStore().fetchItems(pageNumber),
+        fetchItems: async (pageNumber: number) => await useAppStore().fetchItemsPage(pageNumber),
         getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
         addItem: async (item: Item) => await useAppStore().addItem(item),
         setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),

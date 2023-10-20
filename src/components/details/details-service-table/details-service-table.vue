@@ -5,8 +5,8 @@
      
   
 <script lang="ts" setup>
-import { Item } from '../../types';
-import { Service } from '../../types/service.types';
+import { Item } from '../../../types';
+import { Service } from '../../../types/service.types';
 import { computed } from 'vue';
 import { parseSemester, headers, itemsPerPageText, ServiceRow } from './details-service-table';
 
