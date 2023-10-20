@@ -1,8 +1,11 @@
 <template>
     <h1>Home page</h1>
+    {{  userStore.getUser }}
 </template>
       
 <script lang="ts" setup>
+import { useUserStore } from '@/store';
+const userStore = useUserStore()
 </script>
 
 
