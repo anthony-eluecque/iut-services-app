@@ -65,8 +65,20 @@ const routes: RouteRecordRaw[] = [
       {
         path: '/directory',
         name : 'Directory',
-        component: () => import('@/pages/directory/Directory.page.vue'),
+        component: () => import('@/pages/directory/Directory.page.vue')
       },
+    ]
+  },
+  {
+    path : '',
+    component : () => import('@/layouts/Default.layout.vue'),
+    beforeEnter: authGuard,
+    children : [
+      {
+        path : '/users',
+        name : 'Users',
+        component : () => import('@/pages/admin/Admin.page.vue')
+      }
     ]
   },
   {
