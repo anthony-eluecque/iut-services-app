@@ -4,6 +4,10 @@ import { useUserStore } from "@/store"
 import { User } from "@/types";
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 
+const commonPermissions = ['']
+
+const adminPermissions = [...commonPermissions,'users']
+const usersPermissions = [...commonPermissions,'services','directory']
 
 export const authGuard = async (
   to: RouteLocationNormalized,
@@ -15,7 +19,12 @@ export const authGuard = async (
     const userData : ResponseData<User> = await fetchData(Routes.USERS + '/auth');
     userStore.setUser(extractData(userData));
 
-    next();
+    let userPerm = null
+    if (useUserStore().getUser.isAdmin) userPerm = adminPermissions
+    else userPerm = usersPermissions
+    if (userPerm.includes(to.path.split('/')[1])) next();
+    else next('/denied');
+
   } catch (error) {
     console.error('Erreur dans l\'authGuard :', error);
     next('/error');
