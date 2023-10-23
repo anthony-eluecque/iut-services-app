@@ -1,0 +1,18 @@
+  
+ .dialog-bottom-transition-enter-active,
+ .dialog-bottom-transition-leave-active {
+    transition: transform .2s ease-in-out;
+}
+
+.theme-container, .parameter-password-container, .remove-account-container {
+    width: 600px;
+    margin: 20px;
+}
+
+.theme-container {
+    margin-bottom: 0;
+}
+
+.change-password-title, .remove-account-title {
+    margin-bottom: 20px;
+}
