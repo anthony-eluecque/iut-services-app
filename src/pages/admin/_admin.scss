@@ -1,0 +1,27 @@
+// Component 
+@import '@/components/admin/users-table/usersTable';
+
+
+.container {
+    height: 95%;
+    width:95%;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .container-title-page {
+        padding: 20px;
+        align-items: center;
+        width: 100%;
+        height: 110px;
+        background: $white;
+        display: flex;
+
+        h2 {
+            font-size: $size-32;
+            font-family: $title-font;
+            font-weight: bold;
+        }
+    }
+}
