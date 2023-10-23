@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <NavigationDrawer />
-    <BtnTheme />
+    <NavigationDrawer/>
     <DefaultView />
+    <Settings v-if="AppStore.getDisplayParam"/>
   </v-app>
 </template>
 
@@ -10,6 +10,11 @@
 
 <script lang="ts" setup>
 import NavigationDrawer from '@/components/navigation-drawer-app/navigation-drawer-app.component.vue';
-import BtnTheme from '@/components/btn-theme/btn-theme.component.vue';
 import DefaultView from './View.layout.vue';
+import  Settings  from '@/components/setting/setting.component.vue';
+import { ref } from 'vue';
+
+import { useAppStore } from "@/store";
+    const AppStore = useAppStore();
+
 </script>

@@ -23,6 +23,7 @@ export interface RootState {
   teachers : Teacher[]
   lessons : Lesson[]
   criterias: Criterias
+  isDisplayParams: boolean;
 }
 
 export const useAppStore = defineStore('app', {
@@ -60,7 +61,10 @@ export const useAppStore = defineStore('app', {
     },
     getCurrentIndexPage: (state) : number => {
       return state.pagination.page
-    }
+    },
+    getDisplayParam: (state) : boolean => {
+      return state.isDisplayParams
+    },
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
     setEditingIndex(index : number|null){
@@ -109,6 +113,9 @@ export const useAppStore = defineStore('app', {
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;
+    },
+    setDisplayParams(isDisplayParams: boolean) {
+      this.isDisplayParams = isDisplayParams;
     }
   }
 })

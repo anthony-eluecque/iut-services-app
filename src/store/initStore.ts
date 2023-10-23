@@ -25,6 +25,7 @@ export const initStore = () : RootState => {
         teachers : [],
         lessons : [],
         currentDeleteTeacher : null,
-        currentUpdateTeacher : null
+        currentUpdateTeacher : null,
+        isDisplayParams: false,
     };
 }
