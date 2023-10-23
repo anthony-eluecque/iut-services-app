@@ -18,7 +18,7 @@
             </v-list-subheader>
 
             <v-list-item
-              v-for="(item, index) in menuItems"
+              v-for="(item, index) in getItemsForRole"
               :key="index"
               class="list-item"
               :class="{ 'bottom-border': index < menuItems.length - 1 }"
@@ -55,6 +55,10 @@
 import {fetchData, postData } from '@/api';
 import { menuItems } from './navigation-drawer.app.component'
 import router from '@/router';
+import { useUserStore } from '@/store';
+import { computed } from 'vue';
+
+const getItemsForRole = computed(() => menuItems.filter((item : any) => item.isAdmin === useUserStore().getUser.isAdmin))
 
 const loggout = async () => {
   await postData('/users/logout',{});
