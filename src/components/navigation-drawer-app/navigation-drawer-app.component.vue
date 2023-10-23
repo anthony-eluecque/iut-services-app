@@ -32,8 +32,12 @@
         </div>
       </div>
 
-
       <template #append>
+        <v-icon class="change-theme-icon"
+            @click="displayParams()"
+          >
+          mdi-cog-outline
+          </v-icon>
         <div class="section-bottom-nav">
           <v-btn
             block
@@ -55,6 +59,12 @@
 import {fetchData, postData } from '@/api';
 import { menuItems } from './navigation-drawer.app.component'
 import router from '@/router';
+import { useAppStore } from "@/store";
+const AppStore = useAppStore();
+
+const displayParams = () => {
+  AppStore.setDisplayParams(true);
+}
 
 const loggout = async () => {
   await postData('/users/logout',{});
