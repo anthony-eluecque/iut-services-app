@@ -1,0 +1,44 @@
+.table-wrap{
+    overflow-x: scroll;
+}
+
+.table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0px;
+
+    .thead{
+        width: auto;
+        background-color: $primary;
+        color: $white;
+        
+        tr {
+            th {
+                font-size: $size-28;
+                text-align: left;
+            }
+        }
+    }
+
+    tbody{
+        width: auto;
+        tr:nth-of-type(even){
+            background-color: $trEven;
+        }
+        tr:nth-of-type(odd) {
+            background-color: $white;
+        }
+        tr{
+            font-size: $size-18;
+        }
+
+        td{
+            border: none;
+            padding: 20px;
+        }
+    }
+}
+
+th, td {
+    padding: 10px;
+}
