@@ -89,7 +89,7 @@ export const useAppStore = defineStore('app', {
     async fetchItemsPage(pageNumber : number) {
       this.paginationHandler(pageNumber);
       const itemsPageResponse : ResponseData<ReponseItemsPage> = await fetchData(
-        `${Routes.ITEMS}/${pageNumber}?year=${this.currentYear}&id=${this.criterias.id}&lastName=${this.criterias.prenom}&firstName=${this.criterias.nom}&givenId=${this.criterias.ressource}&nameLesson=${this.criterias.libelle}`
+        `${Routes.ITEMS}/${pageNumber}?year=${this.currentYear}&id=${this.criterias.id}&lastName=${this.criterias.nom}&firstName=${this.criterias.prenom}&givenId=${this.criterias.ressource}&nameLesson=${this.criterias.libelle}`
       )
       const itemsPage = extractData(itemsPageResponse);
       this.dataRows = itemsPage.items;
