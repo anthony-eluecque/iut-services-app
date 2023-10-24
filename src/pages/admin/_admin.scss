@@ -1,6 +1,7 @@
 // Component 
 @import '@/components/admin/users-table/usersTable';
-
+@import '@/components/admin/add-user/addUser';
+@import '@/components/admin/search-bar/searchBar';
 
 .container {
     height: 95%;
@@ -24,4 +25,9 @@
             font-weight: bold;
         }
     }
+}
+
+.container-actions{
+    display: flex;
+    justify-content: space-between;
 }
