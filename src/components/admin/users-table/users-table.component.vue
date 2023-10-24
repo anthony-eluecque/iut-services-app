@@ -1,6 +1,6 @@
 <template>
     <div class="table-wrap">
-
+        <h2>Liste des utilisateurs de l’Application</h2>
         <table class="table">
             <thead class="thead">
                 <tr>
@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <userRowTableComponent v-for="(i) in 5"/>
+                <userRowTableComponent :item="user" v-for="(i) in 5"/>
             </tbody>
         </table>
     </div>
@@ -21,4 +21,13 @@
 
 <script setup lang="ts">
 import userRowTableComponent from '../user-row-table/user-row-table.component.vue';
+import { User } from '@/types';
+const user : User = {
+    email : 'test@gmail.com',
+    firstName : 'prénom',
+    isAdmin : false,
+    lastName : "nom",
+    password : "oui"
+}
+
 </script>

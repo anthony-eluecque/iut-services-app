@@ -1,5 +1,6 @@
 .table-wrap{
     overflow-x: scroll;
+    margin-top: 20px;   
 }
 
 .table{
@@ -41,4 +42,12 @@
 
 th, td {
     padding: 10px;
+}
+
+
+.table-wrap h2 {
+    font-family: $title-font;
+    font-size: $size-18;
+    font-weight: bold;
+    text-transform: uppercase;
 }
