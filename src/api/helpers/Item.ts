@@ -15,23 +15,6 @@ interface ObjectWithGivenId {
     id : string
 }
 
-const createService = (idTeacher : string,currentYear : number) => {
-    return {
-        teacher :  idTeacher,
-        itemsIds : [],
-        year: currentYear
-    }
-}
-
-const createItem = (amountHours : number, idLesson : string, idService : string) => {
-    return {
-        amountHours : amountHours,
-        type : '',
-        lesson : idLesson,
-        service : idService
-    }
-}
-
 export const postTeacher = async (teacher: Teacher) => {
     try {
         const teacherResponse: ResponseData<Teacher> | null = await getOrCreateObject<Teacher>(
@@ -52,47 +35,7 @@ export const postTeacher = async (teacher: Teacher) => {
 }
 
 export const postItem = async (item : Item,currentYear : number) => {
-    try {
-        const teacher = item.service?.teacher as Teacher;
-        const lesson = item.lesson as Lesson;
-        const teacherResponse : ResponseData<Teacher> | null = await getOrCreateObject<Teacher>(
-            teacher,
-            Routes.TEACHERS,
-            (teacher) => ({
-                roleName: "admin",
-                firstName: teacher.firstName,
-                lastName: teacher.lastName,
-                givenId: teacher.givenId,
-                id: '',
-            })
-        );
-        const lessonResponse : ResponseData<Lesson> | null = await getOrCreateObject<Lesson>(
-            lesson,
-            Routes.LESSONS,
-            (lesson) => ({
-                givenId: lesson.givenId,
-                name: lesson.name,
-                id: '',
-            })
-        );
-
-        const idTeacher = teacherResponse?.data.id || '';
-        const idLesson = lessonResponse?.data.id || '';
-        
-        const url = `/teacher/${idTeacher}/year/${currentYear}`;
-        const serviceIsExisting : ResponseData<Service> = await fetchData(Routes.SERVICES + url);
-        if (serviceIsExisting.status == statusCode.NOT_FOUND){
-            const newService = createService(idTeacher, currentYear);
-            const postService : ResponseData<Service> = await postData(Routes.SERVICES, newService);
-            const newItem = createItem(item.amountHours, idLesson, postService.data.id);
-            await postData(Routes.ITEMS, newItem);
-        } else {
-            const newItem = createItem(item.amountHours, idLesson, serviceIsExisting.data.id);
-            await postData(Routes.ITEMS, newItem);
-        }
-    } catch (error : any) {
-        throw new Error(`Error in postItem: ${error.message}`);
-    }
+    await postData(Routes.ITEMS, item);
 }
 
 const handleResponse = async <T extends Identifiable>(
