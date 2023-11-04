@@ -61,31 +61,31 @@
                                 variant="outlined"
                             />
                         </div>
+                        <div class="container-lesson">
+                            <v-btn
+                                type="submit"
+                                color="primary"
+                                class="search-button"
+                                append-icon="mdi-plus"
+                                block
+                                @click="add"
+                            >
+                                Ajouter un type de cours
+                            </v-btn>
+                        </div>
+                        <v-list>
+                            <v-list-subheader class="menu-title">
+                            Types
+                            </v-list-subheader>
 
-                        <div class="container-lesson-types">                           
-                            <v-checkbox hide-details label="Cours en CM"></v-checkbox>
-                            <v-text-field
-                                hide-details
-                                label="Nombre d'heures"
-                                variant="outlined"
-                            />  
-                        </div>
-                        <div class="container-lesson-types">                           
-                            <v-checkbox hide-details label="Cours en TD"></v-checkbox>
-                            <v-text-field
-                                hide-details
-                                label="Nombre d'heures"
-                                variant="outlined"
-                            />
-                        </div>
-                        <div class="container-lesson-types">                           
-                            <v-checkbox hide-details label="Cours en TP"></v-checkbox>
-                            <v-text-field
-                                hide-details
-                                label="Nombre d'heures"
-                                variant="outlined"
-                            />
-                        </div>
+                            <v-list-item
+                            v-for="(item, index) in children"
+                            :key="index"
+                            >   
+                                <lessonTypesField :name="item.name" :amountHours="item.amountHours"/>
+                                <!-- <component :is="item" :name="''" :hours="0"></component> -->
+                            </v-list-item>
+                        </v-list>
                     </div>
                 </section>
 
@@ -101,7 +101,7 @@
                             color="green"
                             width="40%"
                             text="METTRE à JOUR"
-                            
+                            @click="updateItem()"
                         />
 
                     </div>
@@ -122,8 +122,16 @@ import {
     currentTeacherLastname,
     currentLessonGivenId,
     currentLessonName,
-    initializeComponent
+    initializeComponent,
+    children,
+    add,
+    updateDatas,
+    updateItem
 } from './teacher-edition-card.component'
+import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
+import { onUpdated } from 'vue';
+
 const AppStore = useAppStore();
 initializeComponent();
+onUpdated(() => updateDatas())
 </script>
