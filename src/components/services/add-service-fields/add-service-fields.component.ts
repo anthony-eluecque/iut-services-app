@@ -43,7 +43,7 @@ export const cancelInput = async () => {
 export const AddOrUpdateItem = async () => {
 
     const newItem : Item = {
-        amountHours : 0,
+        lessonTypes : [],
         lesson : {
             givenId : givenIdLessonValue.value,
             id : "",
@@ -62,7 +62,6 @@ export const AddOrUpdateItem = async () => {
             }
         }   
     }
-
     await appStoreInstance?.addItem(newItem)
 }
 

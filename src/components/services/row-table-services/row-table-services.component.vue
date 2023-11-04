@@ -6,7 +6,7 @@
       <td>{{ props.item.service?.teacher?.firstName }}</td>
       <td>{{ props.item.lesson?.givenId }}</td>
       <td>{{ props.item.lesson?.name }}</td>
-      <td>{{ props.item.amountHours }}</td>
+      <td>{{ calculateTotalHours(props.item) }}</td>
       <td>
         <v-btn
           icon="mdi-trash-can-outline"
@@ -67,6 +67,10 @@ const emit = defineEmits<{
 
 const emitToggleUpdate = (index : number) => {
     emit('emitUpdate',index)
+}
+
+const calculateTotalHours = (item : Item) => {
+  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
 }
 
 initializeComponent()
