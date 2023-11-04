@@ -38,7 +38,10 @@ export const useAppStore = defineStore('app', {
       return state.editingIndex;
     },
     getServiceHours() : number {
-      return this.dataRows.reduce((acc, item) => acc + item.amountHours, 0)
+      return this.dataRows.reduce((acc, item) => acc + 
+        item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
+        ,0)
+      ,0)
     },
     getOpenDialog(): boolean {
       return this.openUpdateCard;
