@@ -9,6 +9,7 @@ import { Item } from '../../../types';
 import { Service } from '../../../types/service.types';
 import { computed } from 'vue';
 import { parseSemester, headers, itemsPerPageText, ServiceRow } from './details-service-table';
+import { id } from '@/components/services/searchbar-services/searchbar-services.component';
 
 const props = defineProps({
     service: {
@@ -17,19 +18,20 @@ const props = defineProps({
     }
 });
 
-
 const serviceData = computed(() => {
-    const data: ServiceRow[] = [];
-    props.service.items?.forEach((item : Item) => {
-        const id = item.lesson?.givenId ? item.lesson?.givenId : ""
-        data.push({
-        givenId: id,
-        name: item.lesson?.name!,
-        type: item.type!,
-        semester: parseSemester(id),
-        amountHours: item.amountHours,
-        });
-    });
+    const data : ServiceRow[]|undefined = props.service.items?.map((item : Item) => {
+        return {
+            givenId: item.lesson?.givenId ?? "",
+            name: item.lesson?.name ?? "",
+            types : item.lessonTypes.map(lesson => lesson.lessonType.name + " "),
+            semester : parseSemester(item.lesson?.givenId ?? ""),
+            amountHours : calculateTotalHours(item)
+        }
+    })
     return data;
 });
+
+const calculateTotalHours = (item : Item) => {
+  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
+}
 </script>

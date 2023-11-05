@@ -7,7 +7,7 @@ export const parseSemester = (semester: string): number => {
 export const headers: Ref<DeepReadonly<any[]>> = ref([
     { title: 'Ressource', align: 'start', sortable: false, key: 'givenId' },
     { title: 'Enseignement', align: 'start', sortable: false, key: 'name' },
-    { title: 'Type', align: 'start', sortable: false, key: 'type' },
+    { title: 'Types', align: 'start', sortable: false, key: 'types' },
     { title: 'Semestre', align: 'start', sortable: false, key: 'semester' },
     { title: 'Heures', align: 'start', sortable: false, key: 'amountHours' },
 ]);
@@ -18,7 +18,7 @@ export const itemsPerPageText = ref('Résultats par page');
 export interface ServiceRow {
     givenId: string;
     name: string;
-    type: string;
+    types: string[];
     semester: number;
     amountHours: number;
 }
