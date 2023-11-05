@@ -11,7 +11,7 @@
                 <div class="container-title-edition">
                     <h1>Modification d'un enseignement</h1>
                   </div>
-                <section class="container-content-modal">
+                 <section class="container-content-modal">
                     <div class="about-teacher">
                         <h2>A propos du professeur :</h2>
                         <v-text-field
@@ -82,7 +82,12 @@
                             v-for="(item, index) in children"
                             :key="index"
                             >   
-                                <lessonTypesField :name="item.name" :amountHours="item.amountHours"/>
+                                <lessonTypesField 
+                                    :index="index" 
+                                    :name="item.name" 
+                                    :amountHours="item.amountHours"
+                                    @emitUpdate="updateValues"
+                                />
                                 <!-- <component :is="item" :name="''" :hours="0"></component> -->
                             </v-list-item>
                         </v-list>
@@ -133,5 +138,11 @@ import { onUpdated } from 'vue';
 
 const AppStore = useAppStore();
 initializeComponent();
-onUpdated(() => updateDatas())
+onUpdated(() => updateDatas());
+const updateValues = (
+    index : number, name : string, hours : number
+) => {
+    children.value[index].name = name
+    children.value[index].amountHours = hours
+}
 </script>

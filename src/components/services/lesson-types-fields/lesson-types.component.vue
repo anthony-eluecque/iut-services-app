@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted,ref,Ref } from 'vue';
+import { onMounted,ref,Ref, watch } from 'vue';
 
 const items = ['CM','TP','TD']
 
@@ -38,12 +38,25 @@ const props = defineProps({
         type : Number,
         required: true,
         default: 0
+    },
+    index: {
+        type : Number,
+        required: true
     }
 });
 
+const emit = defineEmits<{
+    (e:'emitUpdate',index : number, name : string, hours: number)
+}>();
+
 const name : Ref<string> = ref(props.name)
-const hours : Ref<Number> = ref(props.amountHours)
+const hours : Ref<number> = ref(props.amountHours)
 
-
+watch(name, () => {
+    emit('emitUpdate',props.index,name.value,parseInt(hours.value))
+})
+watch(hours, () => {
+    emit('emitUpdate',props.index,name.value,parseInt(hours.value))
+})
 </script>
 

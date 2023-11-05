@@ -8,6 +8,8 @@ import { Routes, updateData } from '@/api';
 interface AppStore {
     getUpdatingItem: () => ReturnType<typeof useAppStore>['getUpdatingItem'],
     setStateDialog: (value: boolean) => void,
+    fetchItemsPage: (pageNumber : number) => Promise<void>
+    getCurrentIndexPage: () => ReturnType<typeof useAppStore>['getCurrentIndexPage']
 }
 
 let appStoreInstance: AppStore | null = null;
@@ -16,6 +18,8 @@ export const initializeComponent = () => {
     appStoreInstance = {
         getUpdatingItem: () => useAppStore().getUpdatingItem,
         setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
+        fetchItemsPage: async (pageNumber : number) => await useAppStore().fetchItemsPage(pageNumber),
+        getCurrentIndexPage: () => useAppStore().getCurrentIndexPage
     };
 }
 
@@ -67,6 +71,8 @@ export const updateItem = async () => {
         ...rest
     }
     await updateData(Routes.ITEMS,itemToUpdate)
+    await appStoreInstance?.fetchItemsPage(appStoreInstance.getCurrentIndexPage())
+    removeModal()
 }
 
 export const add = () => {
