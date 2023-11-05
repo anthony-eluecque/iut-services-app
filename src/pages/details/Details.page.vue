@@ -153,7 +153,11 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         const tabY = BlockY + 50; 
         const res = []
         for (const item of semester.items) {
-            res.push([item.lesson?.givenId as string,"TD","0"])
+            res.push([
+                item.lesson?.givenId as string,
+                item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
+                item.lessonTypes.map((lessonType) => lessonType.amountHours.toString() + " ")
+            ])
         }
 
 
