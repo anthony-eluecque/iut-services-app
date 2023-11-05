@@ -32,6 +32,6 @@ const serviceData = computed(() => {
 });
 
 const calculateTotalHours = (item : Item) => {
-  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
+    return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
 }
 </script>

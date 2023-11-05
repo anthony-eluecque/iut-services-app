@@ -17,7 +17,7 @@
             <DetailsServiceTable :service="selectedService" />
         </section>
         <div class="container-hours">
-            <h3>TOTAL HEURES: {{ selectedItem?.amountHours }}</h3>
+            <h3>TOTAL HEURES: {{ getServiceHours() }}</h3>
         </div>
         <div class="return-action">
             <v-btn prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />
@@ -153,7 +153,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         const tabY = BlockY + 50; 
         const res = []
         for (const item of semester.items) {
-            res.push([item.lesson?.givenId as string,"TD",item.amountHours.toString()])
+            res.push([item.lesson?.givenId as string,"TD","0"])
         }
 
 
@@ -167,7 +167,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         });
 
         const TotalY = tabY + 100;
-        doc.text("Total:" +  AppStore.getServiceHours , TotalSBlockX, TotalY);
+        doc.text("Total:" +  getServiceHours(), TotalSBlockX, TotalY);
         BlockY = TotalY + 50;  
     }
 
@@ -189,6 +189,14 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
 
     doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
 
+}
+
+
+const getServiceHours = () : number => {
+    return selectedService.value.items?.reduce((acc, item) => acc + 
+        item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
+        ,0)
+    ,0) as number;
 }
 </script>
 
