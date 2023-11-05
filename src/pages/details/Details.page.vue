@@ -130,7 +130,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
 
 
     const tableSemestres = [
-        ['Enseignements', 'Type', 'Volume'],
+        ['Enseignements', 'Types de Cours', 'Volume (en Heures)'],
     ];
 
     const TotalSBlockX = 500;
@@ -160,7 +160,6 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
             ])
         }
 
-
         const tablePosition = {
             startY: tabY, 
             };
@@ -171,7 +170,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         });
 
         const TotalY = tabY + 100;
-        doc.text("Total:" +  getServiceHours(), TotalSBlockX, TotalY);
+        doc.text("Total Heures du Semestre: " +  getSemesterHours(semester), TotalSBlockX - 180, TotalY);
         BlockY = TotalY + 50;  
     }
 
@@ -195,6 +194,12 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
 
 }
 
+const getSemesterHours = (semester : SemesterTable) : number => {
+    return semester.items?.reduce((acc, item) => acc + 
+        item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
+        ,0)
+    ,0) as number;
+}
 
 const getServiceHours = () : number => {
     return selectedService.value.items?.reduce((acc, item) => acc + 
