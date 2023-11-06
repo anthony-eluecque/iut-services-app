@@ -11,6 +11,8 @@ import {
     cancelInput,
     AddOrUpdateItem  
 } from './add-service-fields.component'
+import { ref } from 'vue';
+import { getCurrentInstance } from 'vue';
 
 initializeComponent()
 
@@ -52,12 +54,21 @@ const deleteComponent = () => {
   emit('removeCreateComponent')
 }
 
+const form = ref(null)
+const validateFormBeforeCallback = async () => {
+  const res = await form.value.validate()
+  const { errors, valid } = res
+  if (valid) {
+    await AddOrUpdateItem()
+  }
+}
+
 </script>
 
 <template>
   <tr v-if="props.isCreatingItem" >
     <td colspan="7">
-      <v-form>
+      <v-form ref="form" >
         <v-row>
           <v-col>
             <div class="text-field-container">
@@ -142,7 +153,7 @@ const deleteComponent = () => {
               icon="mdi-check-circle-outline"
               color="green"
               variant="plain"
-              @click="AddOrUpdateItem"
+              @click="validateFormBeforeCallback"
             />
           </v-col>
         </v-row>
