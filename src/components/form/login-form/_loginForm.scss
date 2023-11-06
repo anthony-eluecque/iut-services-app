@@ -3,6 +3,11 @@
     display: flex;
 }
 
+.error_authentification {
+    color: red;
+    margin-left: 20px;
+}
+
 @media (min-width: 600px) {
     .login-form-container {
       width: 100%;
