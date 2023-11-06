@@ -23,6 +23,7 @@
             <v-btn prepend-icon="mdi-arrow-left" text="Retour" color="red" @click="returnServicePage()" />
             <v-btn prepend-icon="mdi-download" text="Télécharger en PDF" color="green" @click="generatePDFObject()" />
         </div>
+      
        
     </section>
 </template>
@@ -68,8 +69,8 @@ const returnServicePage = () => {
     router.push('/services/')
 }
 
-const generatePDFObject = () => {
 
+const generatePDFObject = () => {
 
     const pdfSemester: PDFSemesters = {
         semesters : [],
@@ -78,6 +79,7 @@ const generatePDFObject = () => {
     }
 
     const Items = selectedServiceByOrder.value.items as Item[]
+
     let lastNumSemester = 0
 
     for (const item of Items ) {
@@ -113,6 +115,7 @@ const generatePDFObject = () => {
 
 const downloadPDF = (pdfSemester : PDFSemesters) => {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    
 
     const yearText = `Année Universitaire: ${pdfSemester.year}`;
     const serviceText = `Service prévisionnel de ${pdfSemester.teacher.firstName} ${pdfSemester.teacher.lastName}`;
@@ -120,24 +123,25 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
     const headerBlockY = 50;
     const headerBlockWidth = doc.internal.pageSize.getWidth() - headerBlockX * 2;
     const headerBlockHeight = 40;
-    doc.rect(headerBlockX, headerBlockY, headerBlockWidth, headerBlockHeight);
+    doc.rect(headerBlockX, headerBlockY + 3, headerBlockWidth, headerBlockHeight);
 
     const rightTextWidth = doc.getTextWidth(serviceText);
     const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
 
-    doc.text(yearText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
-    doc.text(serviceText, rightTextX, headerBlockY + headerBlockHeight / 2 + 3); 
+    doc.text(serviceText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
+    doc.text(yearText, rightTextX, headerBlockY + headerBlockHeight ); 
 
 
     const tableSemestres = [
         ['Enseignements', 'Types de Cours', 'Volume (en Heures)'],
     ];
 
-    const TotalSBlockX = 500;
+    const totalSBlockX = 500;
     let BlockY = 125
 
 
     for (const semester of pdfSemester.semesters) {
+       
         const CenterText = `Semestre ${semester.numSemester}`;
 
         const block1X = 50;
@@ -153,11 +157,13 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         const tabY = BlockY + 50; 
         const res = []
         for (const item of semester.items) {
+            let Total = 0
             res.push([
-                item.lesson?.givenId as string,
-                item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
+                item.lesson?.givenId as string + ' ' + item.lesson?.name,
+                "1H30 " + item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
                 item.lessonTypes.map((lessonType) => lessonType.amountHours.toString() + " ")
             ])
+            Total = Total + AppStore.getServiceHours
         }
 
         const tablePosition = {
@@ -169,26 +175,25 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
             ...tablePosition,   
         });
 
+
+        
+
         const TotalY = tabY + 100;
-        doc.text("Total Heures du Semestre: " +  getSemesterHours(semester), TotalSBlockX - 180, TotalY);
+        doc.text("Total:" + Total , totalSBlockX, TotalY);
         BlockY = TotalY + 50;  
     }
 
-    const TotalBlockX = 350;
+    const totalText = `Total ${AppStore.getServiceHours}`;
+
+    const block1X = 500;
+    const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X;
     const TotalBlockY = BlockY + 50;
-    const TotalBlockWidth = doc.internal.pageSize.getWidth() - TotalBlockX * 2;
-    const TotalBlockHeight = 40;
+    const block1Height = 40;
 
-    const TotalText = "Total" + AppStore.getServiceHours
-
-    doc.rect(TotalBlockX, TotalBlockY, TotalBlockWidth, TotalBlockHeight);
-
-    doc.setFontSize(12);
-
-    const rightTotalWidth = doc.getTextWidth(TotalText);
-    const rightTotalX = TotalBlockX + headerBlockWidth - rightTotalWidth - 10;
-
-    doc.text(TotalText, rightTotalX, TotalBlockY + headerBlockHeight); 
+    doc.rect(block1X, TotalBlockY, bloc1kWidth, block1Height);
+    const textWidth = doc.getTextWidth(totalText);
+    const totalX = block1X + (bloc1kWidth - textWidth) / 2;
+    doc.text(totalText, totalX, TotalBlockY + block1Height / 2 + 3);
 
     doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
 
