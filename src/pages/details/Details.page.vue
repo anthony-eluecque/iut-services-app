@@ -157,13 +157,11 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         const tabY = BlockY + 50; 
         const res = []
         for (const item of semester.items) {
-            let Total = 0
             res.push([
                 item.lesson?.givenId as string + ' ' + item.lesson?.name,
                 "1H30 " + item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
                 item.lessonTypes.map((lessonType) => lessonType.amountHours.toString() + " ")
             ])
-            Total = Total + AppStore.getServiceHours
         }
 
         const tablePosition = {
@@ -179,11 +177,11 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
         
 
         const TotalY = tabY + 100;
-        doc.text("Total:" + Total , totalSBlockX, TotalY);
+        doc.text("Total:" + getSemesterHours(semester) , totalSBlockX, TotalY);
         BlockY = TotalY + 50;  
     }
 
-    const totalText = `Total ${AppStore.getServiceHours}`;
+    const totalText = `Total ${getServiceHours()}`;
 
     const block1X = 500;
     const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X;
