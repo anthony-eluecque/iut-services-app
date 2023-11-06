@@ -14,6 +14,10 @@ import {
 
 initializeComponent()
 
+const emit = defineEmits<{
+    (e:'removeCreateComponent'): void
+}>();
+
 const props = defineProps({
   item: {
     type: Object as () => Item, 
@@ -41,6 +45,11 @@ const rules = {
     return regex.test(value) || 'Format [A-Z][xx]';
   },
   counter: (value:string) => value.length <= 20 || 'Max 20 characters'
+}
+
+const deleteComponent = () => {
+  cancelInput()
+  emit('removeCreateComponent')
 }
 
 </script>
@@ -127,7 +136,7 @@ const rules = {
               icon="mdi-trash-can-outline"
               color="red"
               variant="plain"
-              @click="cancelInput"
+              @click="deleteComponent()"
             />
             <v-btn
               icon="mdi-check-circle-outline"

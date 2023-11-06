@@ -2,6 +2,10 @@
 @import '../row-table-services/rowTableService';
 @import '../add-service-fields/addServiceFields';
 
+.table-wrap {
+    overflow-x: scroll;
+}
+
 .styled-table{
     width: 100%;
     border-collapse: collapse;

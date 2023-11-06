@@ -44,7 +44,11 @@
 
       
       <div class="container-content">
-        <DataTableService @emit-update="openModalUpdate" :is-creating-item="isCreatingItem" />
+        <DataTableService 
+          @emit-update="openModalUpdate" 
+          :is-creating-item="isCreatingItem"
+          @remove-create-component="removeInputFields" 
+        />
         <div class="container-pagination">
           <div class="title-hours">
             <h3 class="hours-text">Total Heures : {{  AppStore.getServiceHours }}</h3>
@@ -97,6 +101,10 @@
   
   const addInputFields = () => {
     isCreatingItem.value = true
+  }
+
+  const removeInputFields = () => {
+    isCreatingItem.value = false
   }
   
 </script>

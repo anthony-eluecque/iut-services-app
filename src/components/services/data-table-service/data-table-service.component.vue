@@ -1,4 +1,5 @@
 <template>
+  <div class="table-wrap">
     <table
       v-if="isLoading"
       class="styled-table"
@@ -17,6 +18,7 @@
       <tbody>
         <addServiceFields 
           :is-creating-item="isCreatingItem" 
+          @removeCreateComponent="removeAddRow"
         />
         <rowTableServices
           v-for="(item,index) in dataRows"
@@ -27,7 +29,8 @@
         />
       </tbody>
     </table>
-  </template>
+  </div>
+</template>
   
 <script lang="ts" setup>
 import rowTableServices from '../row-table-services/row-table-services.component.vue'
@@ -44,7 +47,8 @@ import { onBeforeMount } from 'vue';
 const AppStore = useAppStore()
 
 const emit = defineEmits<{
-    (e:'emitUpdate',index : number): void
+    (e:'emitUpdate',index : number): void,
+    (e:'removeCreateComponent'): void
 }>();
   
 const props = defineProps({
@@ -55,6 +59,10 @@ const props = defineProps({
 })
 
 const dataRows = computed(() => AppStore.getDataRows);
+
+const removeAddRow = () => {
+  emit('removeCreateComponent')
+}
 
 onMounted(async () => {
   await AppStore.fetchItemsPage(1)

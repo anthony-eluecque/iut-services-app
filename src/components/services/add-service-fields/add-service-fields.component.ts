@@ -32,13 +32,14 @@ export const givenIdLessonValue = ref<string>('');
 export const labelLessonValue = ref<string>('');
 
 
-export const cancelInput = async () => {
+export const cancelInput = () => {
     firstnameTeacherValue.value = '';
     labelLessonValue.value = '';  
     givenIdLessonValue.value = '';
     lastnameTeacherValue.value = '';
     givenIdTeacherValue.value = '';
 }
+
 
 export const AddOrUpdateItem = async () => {
 
