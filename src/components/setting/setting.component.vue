@@ -27,42 +27,41 @@
             <div class="parameter-password-container">
                 <p class="change-password-title">Changement mot de passe</p>
                 <v-text-field
-                    v-model="passwordOld"
-                    :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    :rules="[rules.required, rules.min]"
-                    :type="showOldPassword ? 'text' : 'password'"
+                    v-model="password"
+                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="showPassword ? 'text' : 'password'"
                     name="password"
-                    label="Ancien mot de passe"
-                    hint="At least 8 characters"
+                    label="Mot de passe"
                     counter
-                    @click:append="showOldPassword = !showOldPassword"
+                    @click:append="showPassword = !showPassword"
                 ></v-text-field>
-        
-                <v-btn color="blue" text="Changer de mot de passe" class="change" />
+
+                <p v-if="errorChangePassword" class="error-change-password">
+                    {{errorChangePassword }}
+                </p>
+
+                <v-btn color="blue" text="Changer de mot de passe" class="change" @click="sendResetPassword(password)"/>
         </div>    
 
             <v-divider class="line-separor"></v-divider>
 
             <div class="remove-account-container">
                 <p class="remove-account-title">Suppression du compte</p>
-                <v-btn color="red" text="supprimer mon compte" />
+                <v-btn color="red" text="Supprimer mon compte" />
             </div>
         </v-card>
     </v-dialog>
-   </template>
+    <boxDialogueSendEmail v-if="isDisplaySendMail" @resend-mail = "sendResetPassword(password)" @close-dialog="isDisplaySendMail = false"></boxDialogueSendEmail>
+    </template>
   
   <script setup>
     import { ref } from 'vue'
-    import { initializeTheme, theme, hiddenParams} from './setting.component'
+    import { initializeTheme, theme, hiddenParams, isDisplaySendMail, errorChangePassword, sendResetPassword} from './setting.component'
+    import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
 
-    let showOldPassword = ref(false)
-    let passwordOld = ref('')
+    let showPassword = ref(false)
+    let password = ref('')
     let dialog = ref(true)
-    let rules = {
-      required: (value) => !!value || 'La saisie est obligatoire',
-      min: (v) => v.length >= 8 || 'Min 8 characters',
-    }
-
     
     initializeTheme();
   </script>

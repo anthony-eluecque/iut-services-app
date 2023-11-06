@@ -1,5 +1,6 @@
 // Composables
 import { authGuard } from '@/guards/auth.guard'
+import { changePasswordGuard } from '@/guards/change-password.guard'
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 
 // const routes: RouteRecordRaw[] = [
@@ -81,6 +82,17 @@ const routes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+      path: '/changePassword',
+      name : 'ChangePassword',
+      beforeEnter: changePasswordGuard,
+      component: () => import('@/pages/change-password/change-password.page.vue'),
+  },
+  {
+    path: '/changePasswordExpirate',
+    name : 'changePasswordExpirate',
+    component: () => import('@/pages/expirate-not-found/Expirate-not-found.page.vue'),
+},
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

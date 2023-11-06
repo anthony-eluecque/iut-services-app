@@ -14,7 +14,6 @@ export const authGuard = async (
     const userStore = useUserStore();
     const userData : ResponseData<User> = await fetchData(Routes.USERS + '/auth');
     userStore.setUser(extractData(userData));
-
     next();
   } catch (error) {
     console.error('Erreur dans l\'authGuard :', error);

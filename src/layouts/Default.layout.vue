@@ -15,6 +15,6 @@ import  Settings  from '@/components/setting/setting.component.vue';
 import { ref } from 'vue';
 
 import { useAppStore } from "@/store";
-    const AppStore = useAppStore();
+const AppStore = useAppStore();
 
 </script>
