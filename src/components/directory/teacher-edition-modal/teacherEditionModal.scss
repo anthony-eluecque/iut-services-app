@@ -1,0 +1,46 @@
+.container-edition {
+    display: flex;
+    padding: 0;
+
+
+    .container-modal{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+
+
+        .container-title-edition {
+            justify-content: center;
+            margin-top: 8px;
+            display: flex;
+        }
+
+        .container-content-modal {
+            padding: 4px;
+            justify-content: space-between;
+        }
+
+
+        .container-actions-modal {
+            padding: 4px;
+
+            .container-actions {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.custom-dialog {
+    border-radius: 0px !important;
+}
+
+.container-edition {
+    height: 100vh;
+}
+
+.container-modal {
+    width: 100%;
+}
