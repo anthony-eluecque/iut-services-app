@@ -67,6 +67,12 @@ export const useAppStore = defineStore('app', {
     getDeletingTeacher: (state): Teacher|null => {
       return state.currentDeleteTeacher;
     },
+    getDeletingUser: (state): User|null => {
+      return state.currentDeleteUser;
+    },
+    getUpdatingUser: (state): User|null => {
+      return state.currentUpdateUser;
+    },
     getLessons: (state) : Lesson[] => {
       return state.lessons
     },
@@ -87,6 +93,12 @@ export const useAppStore = defineStore('app', {
     setDeleteTeacher(newValue: Teacher | null) {
       this.currentDeleteTeacher = newValue;
     },
+    setUpdateUser(newValue: User | null) {
+      this.currentUpdateUser = newValue;
+    },
+    setDeleteUser(newValue: User | null) {
+      this.currentDeleteUser = newValue;
+    },
     async addItem(item : Item){
       await postItem(item,this.currentYear)
       this.fetchItemsPage(this.pagination.page)
@@ -94,6 +106,10 @@ export const useAppStore = defineStore('app', {
     async addTeacher(teacher : Teacher){
       await postTeacher(teacher)
       this.fetchTeachers()
+    },
+    async addUser(user : User){
+      await postData<User>(Routes.USERS,user)
+      this.fetchUsersPage(this.pagination.page)
     },
     paginationHandler(pageNumber : number){
       this.pagination.page = pageNumber ;     
@@ -107,9 +123,22 @@ export const useAppStore = defineStore('app', {
       this.dataRows = itemsPage.items;
       this.pagination.totalItems =  itemsPage.count;
     },
+    async fetchUsersPage(pageNumber : number) {
+      this.paginationHandler(pageNumber);
+      const usersPageResponse : ResponseData<ResponseUsersPage> = await fetchData(
+        `${Routes.USERS}/${pageNumber}?lastName=${this.userCriterias.nom}&firstName=${this.userCriterias.prenom}&email=${this.userCriterias.email}`
+      )
+      const usersPage = extractData(usersPageResponse);
+      this.users = usersPage.users;
+      this.pagination.totalItems =  usersPage.count;
+    },
     async sendCriteria(criterias : Criterias) {
       this.criterias = criterias;
       this.fetchItemsPage(1);
+    },
+    async sendUserCriterias(userCriterias : UserCriterias) {
+      this.userCriterias = userCriterias;
+      this.fetchUsersPage(1);
     },
     async fetchTeachers(){
       const data : ResponseData<Teacher[]> = await fetchData(Routes.TEACHERS)

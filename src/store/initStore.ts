@@ -22,9 +22,13 @@ export const initStore = () : RootState => {
         currentYear : new Date().getFullYear(),
         openUpdateCard: false,
         criterias: {id: '', prenom: '', nom: '', ressource: '', libelle: ''},
+        userCriterias: { nom: '', prenom: '', email: ''},
         teachers : [],
         lessons : [],
+        users: [],
         currentDeleteTeacher : null,
-        currentUpdateTeacher : null
+        currentUpdateTeacher : null,
+        currentDeleteUser : null,
+        currentUpdateUser : null,
     };
 }
