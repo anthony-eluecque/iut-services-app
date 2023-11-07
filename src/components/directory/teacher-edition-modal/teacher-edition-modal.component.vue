@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="AppStore.getOpenDialog" width="500" transition="slide-x-transition" content-class="custom-dialog"
+    <v-dialog v-model="useAppStore().getOpenDialog" width="500" transition="slide-x-transition" content-class="custom-dialog"
         height="100vh">
         <v-container fluid class="pa-0 d-flex container-edition primary bg-background-container">
             <div class="d-flex flex-column container-modal justify-space-between">
@@ -9,18 +9,18 @@
                 <section class="container-content-modal pa-4 justify-space-between">
                     <div class="content-about">
                         <h2 class="pa-3">A propos du professeur :</h2>
-                        <v-text-field v-model="currentTeacherGivenId" hide-details class="pa-2" label="Matricule Enseignant"
+                        <v-text-field v-model="state.givenId" hide-details class="pa-2" label="Matricule Enseignant"
                             variant="outlined" />
-                        <v-text-field v-model="currentTeacherFirstname" hide-details class="pa-2" label="Prénom"
+                        <v-text-field v-model="state.firstName" hide-details class="pa-2" label="Prénom"
                             variant="outlined" />
-                        <v-text-field v-model="currentTeacherLastname" hide-details class="pa-2" label="Nom"
+                        <v-text-field v-model="state.lastName" hide-details class="pa-2" label="Nom"
                             variant="outlined" />
                     </div>
                 </section>
                 <section class="container-actions-modal pa-4">
                     <div class="d-flex justify-space-between">
-                        <v-btn color="error" width="40%" text="ANNULER" @click="removeModal()" />
-                        <v-btn color="green" width="40%" text="METTRE À JOUR" @click="editTeacher(currentTeacher)" />
+                        <v-btn color="error" width="40%" text="ANNULER" @click="removeModal" />
+                        <v-btn color="green" width="40%" text="METTRE À JOUR" @click="editTeacher" />
                     </div>
                 </section>
             </div>
@@ -30,42 +30,9 @@
 
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { useAppStore } from "@/store"
-import { Teacher } from '@/types/teacher.types';
-import { Routes, updateData } from '@/api';
-
-const AppStore = useAppStore();
-const currentTeacher = computed(() => AppStore.getUpdatingTeacher!)
-
-const currentTeacherGivenId = computed({
-    get: () => currentTeacher.value?.givenId ? currentTeacher.value?.givenId : '',
-    set: (value) => currentTeacher.value!.givenId = value
-})
-const currentTeacherFirstname = computed({
-    get: () => currentTeacher.value?.firstName ? currentTeacher.value?.firstName : '',
-    set: (value) => currentTeacher.value!.firstName = value
-})
-const currentTeacherLastname = computed({
-    get: () => currentTeacher.value?.lastName ? currentTeacher.value?.lastName : '',
-    set: (value) => currentTeacher.value!.lastName = value
-})
-
-const removeModal = () => {
-    AppStore.setStateDialog(false)
-}
-
-const editTeacher = async (teacherToUpdate: Teacher) => {
-    const updatedData = {
-        id : currentTeacher.value.id,
-        givenId: currentTeacherGivenId.value,
-        firstName: currentTeacherFirstname.value,
-        lastName: currentTeacherLastname.value
-    }
-    await updateData(Routes.TEACHERS, updatedData);
-    await AppStore.fetchTeachers();
-    removeModal();
-}
+import { initializeComponent,state,removeModal,editTeacher} from './teacher-edition-modal.component'
+initializeComponent()
 </script>
 
 
