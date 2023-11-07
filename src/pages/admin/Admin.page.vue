@@ -1,28 +1,21 @@
 <template>
-<section class="container">
+    <section class="container">
         <v-container fluid class="container-title-page primary bg-background-container">
             <h2>Gestion des utilisateurs</h2>
-        </v-container>   
-        
+        </v-container>
         <v-container fluid class="container-actions">
             <v-row no-gutters>
                 <v-col cols="6">
-                    <searchBar/>
-
+                    <searchBar />
                 </v-col>
                 <v-col cols="2">
-
                 </v-col>
                 <v-col cols="4">
-                    <addUser/>
-
+                    <addUser />
                 </v-col>
             </v-row>
         </v-container>
-
-        <UsersTable/>
-
-
+        <UsersTable />
     </section>
 </template>
 

@@ -1,5 +1,5 @@
 // Utilities
-import { InputFieldType, Item, Lesson, Teacher,Pagination } from '@/types'
+import { InputFieldType, Item, User, Lesson, Teacher,Pagination } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
 import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
@@ -7,6 +7,8 @@ import { initStore } from './initStore'
 import { postTeacher } from '@/api/helpers/Item'
 import { Criterias } from '@/types/criterias.types';
 import { ReponseItemsPage } from '@/types/response-items-page'
+import { UserCriterias } from '@/types/userCriterias.types'
+import { ResponseUsersPage } from '@/types/user-items-page'
 
 // L'interface du store
 export interface RootState {
@@ -20,9 +22,13 @@ export interface RootState {
   currentUpdateItem : Item|null,
   currentUpdateTeacher : Teacher|null,
   currentDeleteTeacher : Teacher|null,
+  currentUpdateUser : User|null,
+  currentDeleteUser : User|null,
   teachers : Teacher[]
   lessons : Lesson[]
+  users: User[]
   criterias: Criterias
+  userCriterias: UserCriterias
 }
 
 export const useAppStore = defineStore('app', {
@@ -51,6 +57,9 @@ export const useAppStore = defineStore('app', {
     },
     getTeachers: (state) : Teacher[] => {
       return state.teachers;
+    },
+    getUsers: (state) : User[] => {
+      return state.users;
     },
     getUpdatingTeacher: (state): Teacher|null => {
       return state.currentUpdateTeacher || null;
@@ -109,6 +118,10 @@ export const useAppStore = defineStore('app', {
     async fetchLessons(){
       const data : ResponseData<Lesson[]> = await fetchData(Routes.LESSONS)
       this.lessons = extractData(data)
+    },
+    async fetchUsers(){
+      const data : ResponseData<User[]> = await fetchData(Routes.USERS)
+      this.users = extractData(data)
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;
