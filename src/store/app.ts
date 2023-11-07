@@ -1,5 +1,5 @@
 // Utilities
-import { InputFieldType, Item, Lesson, Teacher,Pagination } from '@/types'
+import { InputFieldType, Item, Lesson, Teacher,Pagination, Alert } from '@/types'
 import { defineStore } from 'pinia'
 import { generateFakerArrayItem } from './faker'
 import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
@@ -22,7 +22,8 @@ export interface RootState {
   currentDeleteTeacher : Teacher|null,
   teachers : Teacher[]
   lessons : Lesson[]
-  criterias: Criterias
+  criterias: Criterias,
+  alert : Alert
 }
 
 export const useAppStore = defineStore('app', {
@@ -63,6 +64,9 @@ export const useAppStore = defineStore('app', {
     },
     getCurrentIndexPage: (state) : number => {
       return state.pagination.page
+    },
+    getAlert : (state) :  Alert => {
+      return state.alert
     }
   }, // Getters => transformations nécessaire avant d'être utiliser dans le code (pas forcément nécessaire dans un premier temps)
   actions:{ // Actions => changer un état => une méthode, JAMAIS CHANGER EN DEHORS DE CES METHODES IMPORTANT
@@ -79,6 +83,11 @@ export const useAppStore = defineStore('app', {
       this.currentDeleteTeacher = newValue;
     },
     async addItem(item : Item){
+      this.createAlert(
+        'Item ajouté',
+        'Votre item a bien été ajouté à la base de données',
+        'success'
+      );
       await postItem(item,this.currentYear)
       this.fetchItemsPage(this.pagination.page)
     },
@@ -112,6 +121,16 @@ export const useAppStore = defineStore('app', {
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;
+    },
+    createAlert(title: string, text : string, type: typeof this.alert.type){
+      this.alert.title = title;
+      this.alert.text = text;
+      this.alert.type = type,
+      this.alert.display = true
+      const interval = setInterval(() => {
+        this.alert.display = false
+        clearInterval(interval)
+      },3000)
     }
   }
 })
