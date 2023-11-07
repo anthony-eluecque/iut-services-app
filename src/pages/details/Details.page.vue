@@ -115,21 +115,20 @@ const generatePDFObject = () => {
 
 const downloadPDF = (pdfSemester : PDFSemesters) => {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-    
 
     const yearText = `Année Universitaire: ${pdfSemester.year}`;
     const serviceText = `Service prévisionnel de ${pdfSemester.teacher.firstName} ${pdfSemester.teacher.lastName}`;
     const headerBlockX = 50;
     const headerBlockY = 50;
     const headerBlockWidth = doc.internal.pageSize.getWidth() - headerBlockX * 2;
-    const headerBlockHeight = 40;
+    const headerBlockHeight = 60;
     doc.rect(headerBlockX, headerBlockY + 3, headerBlockWidth, headerBlockHeight);
 
     const rightTextWidth = doc.getTextWidth(serviceText);
     const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
 
-    doc.text(serviceText, headerBlockX + 10, headerBlockY + headerBlockHeight / 2 + 3);
-    doc.text(yearText, rightTextX, headerBlockY + headerBlockHeight ); 
+    doc.text(serviceText, headerBlockX , headerBlockY + headerBlockHeight / 2 + 3);
+    doc.text(yearText, rightTextX , headerBlockY + headerBlockHeight ); 
 
 
     const tableSemestres = [
@@ -137,24 +136,28 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
     ];
 
     const totalSBlockX = 500;
-    let BlockY = 125
-
+    let blockY = 135
+    const blockHeight = 40;
 
     for (const semester of pdfSemester.semesters) {
-       
-        const CenterText = `Semestre ${semester.numSemester}`;
 
+        if (blockY >= 760){
+            blockY = 50
+            doc.addPage()
+            
+        }
+
+        const CenterText = `Semestre ${semester.numSemester}`;
         const block1X = 50;
         const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X * 2;
-        const block1Height = 40;
 
-        doc.rect(block1X, BlockY, bloc1kWidth, block1Height);
+        doc.rect(block1X, blockY, bloc1kWidth, blockHeight);
         const textWidth = doc.getTextWidth(CenterText);
         const centerX = block1X + (bloc1kWidth - textWidth) / 2;
-        doc.text(CenterText, centerX, BlockY + block1Height / 2 + 3);
+        doc.text(CenterText, centerX, blockY + blockHeight / 2 + 3);
     
+        blockY = blockY+ 50; 
 
-        const tabY = BlockY + 50; 
         const res = []
         for (const item of semester.items) {
             res.push([
@@ -162,36 +165,36 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
                 "1H30 " + item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
                 item.lessonTypes.map((lessonType) => lessonType.amountHours.toString() + " ")
             ])
+        
         }
 
         const tablePosition = {
-            startY: tabY, 
-            };
+            startY: blockY, 
+        };
         autoTable(doc,{
             head: [tableSemestres[0]], 
             body: res,
             ...tablePosition,   
+            styles:{
+                minCellHeight: 30
+            }
+          
+
         });
-
-
+        blockY = ((res.length +1) * 35 ) + blockY ;
         
+        doc.text("Total:" + getSemesterHours(semester) , totalSBlockX, blockY);
+        blockY = blockY+ 50;  
 
-        const TotalY = tabY + 100;
-        doc.text("Total:" + getSemesterHours(semester) , totalSBlockX, TotalY);
-        BlockY = TotalY + 50;  
     }
 
     const totalText = `Total ${getServiceHours()}`;
+    const blockTotalX = 450;
+    blockY = blockY+ 50;
+    const blocTotalWidth = doc.internal.pageSize.getWidth() - blockTotalX / 2;
 
-    const block1X = 500;
-    const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X;
-    const TotalBlockY = BlockY + 50;
-    const block1Height = 40;
-
-    doc.rect(block1X, TotalBlockY, bloc1kWidth, block1Height);
-    const textWidth = doc.getTextWidth(totalText);
-    const totalX = block1X + (bloc1kWidth - textWidth) / 2;
-    doc.text(totalText, totalX, TotalBlockY + block1Height / 2 + 3);
+    doc.rect(blockTotalX, blockY, blocTotalWidth, blockHeight);
+    doc.text(totalText, totalSBlockX, blockY + blockHeight / 2 + 3);
 
     doc.save('Service_Prévisionnel_de_' +(selectedTeacher.value.lastName) + '_' + (selectedTeacher.value.firstName) + (selectedService.value.year) + '-' +(selectedService.value.year + 1) +'.pdf');
 
