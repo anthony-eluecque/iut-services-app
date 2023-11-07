@@ -1,33 +1,30 @@
 <template>
     <tr>
-        <td> {{  props.item.lastName }}</td>
-        <td> {{ props.item.firstName }}</td>
-        <td>{{ props.item.email }}</td>
+        <td> {{ props.user.lastName }} </td>
+        <td> {{ props.user.firstName }} </td>
+        <td> {{ props.user.email }} </td>
         <td>
-            <v-btn
-            icon="mdi-trash-can-outline"
-            color="red"
-            variant="plain"
-            />
-            <v-btn
-            icon="mdi-pencil-outline"
-            color="orange"
-            variant="plain"
-            />
+            <v-btn icon="mdi-trash-can-outline" color="red" variant="plain" @click="removeUser(props.user)" />
+            <v-btn icon="mdi-pencil-outline" color="orange" variant="plain" />
         </td>
     </tr>
 </template>
 
 <script setup lang="ts">
 import { User } from '@/types';
+import { defineProps } from 'vue';
+import {
+    removeUser,
+    initializeComponent
+} from './user-row-table.component';
 
 const props = defineProps({
-    item: {
-      type: Object as () => User, 
-      required: true, 
+    user: {
+        type: Object as () => User,
+        required: true,
     }
 });
 
+initializeComponent();
+
 </script>
-
-
