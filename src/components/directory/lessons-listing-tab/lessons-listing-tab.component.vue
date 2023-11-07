@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Lesson } from "@/types";
+import { Item, Lesson } from "@/types";
 import {
     RowDataTable,
     headers,
@@ -39,10 +39,17 @@ const props = defineProps({
   }
 })
 
+const calculateSumHours = (item : Item, lesson : Lesson) : number => {
+    if (item.lesson?.name === lesson.name) {
+        return item.lessonTypes.reduce(
+            (acc,lessonType) => acc + lessonType.amountHours,0) || 0
+    } else return 0
+}   
+
 const lessonData = computed(() => {
     return props.lessons?.map((lesson : Lesson) : RowDataTable => {
         const totalAmountHours = lesson.items?.reduce((acc, item) => {
-            return acc + (item.amountHours || 0); 
+            return acc + calculateSumHours(item,lesson)
         }, 0) || 0;
         return {
             givenId : lesson.givenId,
