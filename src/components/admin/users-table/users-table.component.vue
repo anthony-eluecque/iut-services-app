@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <userRowTableComponent :item="user" v-for="user in users" />
+                <userRowTableComponent :user="user" v-for="user in users" />
             </tbody>
         </table>
     </div>
