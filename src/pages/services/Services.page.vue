@@ -4,6 +4,19 @@
         <h2>Liste des Services prévisionnels</h2>
         <h2>logo</h2>
       </v-container>
+      <div class="container-notifications">
+        <v-fade-transition>
+          <v-alert 
+            v-model="alert.display"
+            height="100%"
+            :title="alert.title" 
+            :text="alert.text" 
+            :type="alert.type"
+            width="400px"
+            transition="slide-x-transition"
+          />
+        </v-fade-transition>
+      </div>
       <TeacherEditionCard/>
       <div class="container-actions-services">
         <v-row no-gutters>
@@ -81,6 +94,8 @@
       await AppStore.fetchItemsPage(newValue)
     }
   })
+
+  const alert = computed(() => AppStore.getAlert)
   
   const currentYear = computed({
     get : () => AppStore.currentYear,

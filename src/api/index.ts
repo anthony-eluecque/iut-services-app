@@ -1,5 +1,5 @@
 import router from '@/router';
-import { useUserStore } from '@/store';
+import { useAppStore, useUserStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 export { postItem } from './helpers';
 
@@ -21,6 +21,13 @@ Axios.interceptors.response.use(
     if (error.response){
       if (error.response.status === 401){
         router.push('/login')
+      }
+      if (error.response.status === 409){
+        useAppStore().createAlert(
+          'Item déjà existant !',
+          "L'item que vous essayez de créer existe déjà en base de données !",
+          'warning'
+        )
       }
     }
     return Promise.reject(error);
