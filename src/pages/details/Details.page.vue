@@ -124,8 +124,8 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
     const headerBlockHeight = 60;
     doc.rect(headerBlockX, headerBlockY + 3, headerBlockWidth, headerBlockHeight);
 
-    const rightTextWidth = doc.getTextWidth(serviceText);
-    const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth - 10;
+    const rightTextWidth = doc.getTextWidth(serviceText) -35;
+    const rightTextX = headerBlockX + headerBlockWidth - rightTextWidth ;
 
     doc.text(serviceText, headerBlockX , headerBlockY + headerBlockHeight / 2 + 3);
     doc.text(yearText, rightTextX , headerBlockY + headerBlockHeight ); 
@@ -147,14 +147,14 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
             
         }
 
-        const CenterText = `Semestre ${semester.numSemester}`;
+        const centerText = `Semestre ${semester.numSemester}`;
         const block1X = 50;
         const bloc1kWidth = doc.internal.pageSize.getWidth() - block1X * 2;
 
         doc.rect(block1X, blockY, bloc1kWidth, blockHeight);
-        const textWidth = doc.getTextWidth(CenterText);
+        const textWidth = doc.getTextWidth(centerText);
         const centerX = block1X + (bloc1kWidth - textWidth) / 2;
-        doc.text(CenterText, centerX, blockY + blockHeight / 2 + 3);
+        doc.text(centerText, centerX, blockY + blockHeight / 2 + 3);
     
         blockY = blockY+ 50; 
 
@@ -177,8 +177,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
             ...tablePosition,   
             styles:{
                 minCellHeight: 30
-            }
-          
+            }  
 
         });
         blockY = ((res.length +1) * 35 ) + blockY ;
