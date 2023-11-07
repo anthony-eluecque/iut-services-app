@@ -30,5 +30,11 @@ export const initStore = () : RootState => {
         currentUpdateTeacher : null,
         currentDeleteUser : null,
         currentUpdateUser : null,
+        alert : {
+            display : false,
+            text : '',
+            title : '',
+            type : undefined
+        }
     };
 }

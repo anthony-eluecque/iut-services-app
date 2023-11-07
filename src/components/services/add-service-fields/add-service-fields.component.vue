@@ -13,6 +13,7 @@ import {
 } from './add-service-fields.component'
 import { ref } from 'vue';
 import { getCurrentInstance } from 'vue';
+import { useAppStore } from '@/store';
 
 initializeComponent()
 
@@ -60,6 +61,12 @@ const validateFormBeforeCallback = async () => {
   const { errors, valid } = res
   if (valid) {
     await AddOrUpdateItem()
+  } else {
+    useAppStore().createAlert(
+      'Formulaire Invalide',
+      "L'item que vous essayez de créer est invalide !",
+      'error'
+    )
   }
 }
 
