@@ -25,11 +25,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Item, Lesson } from "@/types";
+import { Lesson } from "@/types";
 import {
     RowDataTable,
     headers,
-    itemsPerPageText
+    itemsPerPageText,
+    calculateSumHours
 } from './lessons-listing-tab.component';
 
 const props = defineProps({
@@ -38,13 +39,6 @@ const props = defineProps({
     required: true 
   }
 })
-
-const calculateSumHours = (item : Item, lesson : Lesson) : number => {
-    if (item.lesson?.name === lesson.name) {
-        return item.lessonTypes.reduce(
-            (acc,lessonType) => acc + lessonType.amountHours,0) || 0
-    } else return 0
-}   
 
 const lessonData = computed(() => {
     return props.lessons?.map((lesson : Lesson) : RowDataTable => {
