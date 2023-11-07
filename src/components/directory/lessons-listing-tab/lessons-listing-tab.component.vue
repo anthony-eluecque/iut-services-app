@@ -29,7 +29,8 @@ import { Lesson } from "@/types";
 import {
     RowDataTable,
     headers,
-    itemsPerPageText
+    itemsPerPageText,
+    calculateSumHours
 } from './lessons-listing-tab.component';
 
 const props = defineProps({
@@ -42,7 +43,7 @@ const props = defineProps({
 const lessonData = computed(() => {
     return props.lessons?.map((lesson : Lesson) : RowDataTable => {
         const totalAmountHours = lesson.items?.reduce((acc, item) => {
-            return acc + (item.amountHours || 0); 
+            return acc + calculateSumHours(item,lesson)
         }, 0) || 0;
         return {
             givenId : lesson.givenId,

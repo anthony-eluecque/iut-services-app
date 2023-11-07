@@ -1,3 +1,4 @@
+import { Item, Lesson } from "@/types";
 import { DeepReadonly, Ref, ref } from "vue";
 
 
@@ -14,3 +15,10 @@ export interface RowDataTable {
     name : string
     amountHours : number
 }
+
+export const calculateSumHours = (item : Item, lesson : Lesson) : number => {
+    if (item.lesson?.name === lesson.name) {
+        return item.lessonTypes.reduce(
+            (acc,lessonType) => acc + lessonType.amountHours,0) || 0
+    } else return 0
+}   

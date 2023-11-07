@@ -1,6 +1,8 @@
 // Components
 @import '@/components/directory/lessons-listing-tab/lessonsListingTab';
 @import '@/components/directory/teacher-directory-card/teacherDirectoryCard';
+@import '@/components/directory/teacher-edition-modal/teacherEditionModal';
+@import '@/components/directory/teacher-creation-modal/teacherCreationModal';
 
 .container-directory{
     width: 95%;
