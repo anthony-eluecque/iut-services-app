@@ -9,7 +9,7 @@
                 <section class="container-content-modal pa-4 justify-space-between">
                     <div class="content-about">
                         <h2 class="pa-3">A propos du professeur :</h2>
-                        <v-text-field v-model="currentTeacherId" hide-details class="pa-2" label="Matricule Enseignant"
+                        <v-text-field v-model="currentTeacherGivenId" hide-details class="pa-2" label="Matricule Enseignant"
                             variant="outlined" />
                         <v-text-field v-model="currentTeacherFirstname" hide-details class="pa-2" label="Prénom"
                             variant="outlined" />
@@ -37,7 +37,8 @@ import { Routes, updateData } from '@/api';
 
 const AppStore = useAppStore();
 const currentTeacher = computed(() => AppStore.getUpdatingTeacher!)
-const currentTeacherId = computed({
+
+const currentTeacherGivenId = computed({
     get: () => currentTeacher.value?.givenId ? currentTeacher.value?.givenId : '',
     set: (value) => currentTeacher.value!.givenId = value
 })
@@ -56,11 +57,12 @@ const removeModal = () => {
 
 const editTeacher = async (teacherToUpdate: Teacher) => {
     const updatedData = {
-        givenId: currentTeacherId.value,
+        id : currentTeacher.value.id,
+        givenId: currentTeacherGivenId.value,
         firstName: currentTeacherFirstname.value,
         lastName: currentTeacherLastname.value
     }
-    await updateData(Routes.TEACHERS, updatedData, teacherToUpdate.id);
+    await updateData(Routes.TEACHERS, updatedData);
     await AppStore.fetchTeachers();
     removeModal();
 }
