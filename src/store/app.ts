@@ -135,7 +135,7 @@ export const useAppStore = defineStore('app', {
     async fetchUsersPage(pageNumber : number) {
       this.paginationHandler(pageNumber);
       const usersPageResponse : ResponseData<ResponseUsersPage> = await fetchData(
-        `${Routes.USERS}/${pageNumber}?lastName=${this.userCriterias.nom}&firstName=${this.userCriterias.prenom}&email=${this.userCriterias.email}`
+        `${Routes.USERS}/filter/${pageNumber}?lastName=${this.userCriterias.nom}&firstName=${this.userCriterias.prenom}&email=${this.userCriterias.email}`
       )
       const usersPage = extractData(usersPageResponse);
       this.users = usersPage.users;

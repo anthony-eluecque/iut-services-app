@@ -190,7 +190,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
     const totalText = `Total ${getServiceHours()}`;
     const blockTotalX = 450;
     blockY = blockY+ 50;
-    const blocTotalWidth = doc.internal.pageSize.getWidth() - blockTotalX / 2;
+    const blocTotalWidth = 120;
 
     doc.rect(blockTotalX, blockY, blocTotalWidth, blockHeight);
     doc.text(totalText, totalSBlockX, blockY + blockHeight / 2 + 3);

@@ -11,19 +11,51 @@
                 <v-col cols="2">
                 </v-col>
                 <v-col cols="4">
-                    <addUser />
+                    <div class="add-action">
+                        <v-btn height="55px" append-icon="mdi-plus" text="Ajouter un utilisateur" color="primary"
+                            @click="addInputFields" />
+                    </div>
                 </v-col>
             </v-row>
         </v-container>
-        <UsersTable />
+        <UsersTable
+            @emit-update="openModalUpdate"
+            :is-creating-user="isCreatingUser"
+            @remove-create-component="removeInputFields" />
     </section>
 </template>
 
 
 <script setup lang="ts">
 import UsersTable from '@/components/admin/users-table/users-table.component.vue';
-import addUser from '@/components/admin/add-user/add-user.component.vue'
 import searchBar from '@/components/admin/search-bar/search-bar.component.vue'
+import { useAppStore } from '@/store';
+import { Ref, ref, computed, onMounted } from 'vue';
+
+const isCreatingUser: Ref<boolean> = ref(false);
+const AppStore = useAppStore();
+const alert = computed(() => AppStore.getAlert);
+const page = computed({
+    get: () => AppStore.pagination.page,
+    set: (value: number) => AppStore.fetchUsersPage(value)
+});
+
+onMounted(async () => {
+    AppStore.paginationHandler(page.value);
+});
+
+const openModalUpdate = (index: number) => {
+    AppStore.setUpdateUser(AppStore.users[index]);
+    AppStore.setStateDialog(true);
+};
+
+const addInputFields = () => {
+    isCreatingUser.value = true;
+};
+
+const removeInputFields = () => {
+    isCreatingUser.value = false;
+};
 </script>
 
 
