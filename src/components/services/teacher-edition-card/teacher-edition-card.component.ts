@@ -47,18 +47,23 @@ export const updateDatas = ( ) => {
     createComponents()
 }
 
+export const items = ref(new Array())
+
+
 const createComponents = () => {
+    items.value = ['TD','TP','CM']
+    validators.value = []
     const arr = new Array()
     const item = currentItem.value as Item
     if (!item) return []
     for (const type of item.lessonTypes) {
         arr.push({name:type.lessonType.name,amountHours:type.amountHours.toString()})
         validators.value.push(true)
+        items.value = items.value.filter((n) => n !== type.lessonType.name)
     }
     children.value = arr
 }
 
-// export const children = ref(new Array())
 export const updateItem = async () => {
     const item = currentItem.value as Item
     const { lessonTypes, ...rest } = item
@@ -67,15 +72,15 @@ export const updateItem = async () => {
         ...rest
     }
 
-    const valid = () => validators.value.every((v:boolean) => v === true);
 
+
+    const valid = () => validators.value.every((v:boolean) => v === true);
     if (valid()){
         await updateData(Routes.ITEMS,itemToUpdate)
         await appStoreInstance?.fetchItemsPage(appStoreInstance.getCurrentIndexPage())
         removeModal()
-    } 
+    }
 }
-
 
 export const add = () => {
     children.value.push({name:'',amountHours:0})

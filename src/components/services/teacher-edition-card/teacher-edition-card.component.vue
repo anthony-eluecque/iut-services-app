@@ -85,11 +85,11 @@
                                 <lessonTypesField 
                                     :index="index" 
                                     :name="item.name" 
+                                    :items="items"
                                     :amountHours="item.amountHours.toString()"
                                     :validator="validators[index]"
                                     @emitUpdate="updateValues"
                                 />
-                                <!-- <component :is="item" :name="''" :hours="0"></component> -->
                             </v-list-item>
                         </v-list>
                     </div>
@@ -129,10 +129,11 @@ import {
     updateItem,
     validators,
     currentTeacher,
-    currentLesson
+    currentLesson,
+    items
 } from './teacher-edition-card.component'
 import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
-import { onUpdated } from 'vue';
+import { onUpdated, ref } from 'vue';
 import { onUnmounted } from 'vue';
 import { onMounted } from 'vue';
 
@@ -140,9 +141,11 @@ const AppStore = useAppStore();
 initializeComponent();
 
 onMounted(() => updateDatas());
+
 const updateValues = (
     index : number, name : string, hours : number , isValidOrNot : boolean
 ) => {
+    items.value = items.value.filter((n) => n !== name)
     children.value[index].name = name
     children.value[index].amountHours = hours
     validators.value[index] = isValidOrNot

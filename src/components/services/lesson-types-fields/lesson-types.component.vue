@@ -7,7 +7,7 @@
                         v-model="name"
                         variant="outlined"
                         label="Type de cours"
-                        :items="items"
+                        :items="props.items"
                         hide-details
                     />
                 </v-col>
@@ -29,8 +29,6 @@
 import { computed } from 'vue';
 import { ref,Ref, watch } from 'vue';
 
-const items = ['CM','TP','TD']
-
 const props = defineProps({
     name: {
       type: String, 
@@ -49,12 +47,17 @@ const props = defineProps({
     validator: {
         type : Boolean,
         required : true
+    },
+    items : {
+        type : Array,
+        required: true
     }
 });
 
 const emit = defineEmits<{
     (e:'emitUpdate',index : number, name : string, hours: number, isValidOrNot : boolean) : void
 }>();
+
 
 const name = computed({
         get: () => props.name,
