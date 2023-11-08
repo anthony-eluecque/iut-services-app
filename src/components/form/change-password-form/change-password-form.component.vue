@@ -1,5 +1,5 @@
 <template>
-    <v-container class="container-form">
+    <v-container class="container-form-password">
       <v-card>
         <v-card-title>
             <v-layout class="layout-title">
