@@ -86,7 +86,10 @@
                                     :index="index" 
                                     :name="item.name" 
                                     :amountHours="item.amountHours"
+                                    :validator="validators[index]"
                                     @emitUpdate="updateValues"
+                                    ref="child"
+
                                 />
                                 <!-- <component :is="item" :name="''" :hours="0"></component> -->
                             </v-list-item>
@@ -131,7 +134,8 @@ import {
     children,
     add,
     updateDatas,
-    updateItem
+    updateItem,
+    validators
 } from './teacher-edition-card.component'
 import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
 import { onUpdated } from 'vue';
@@ -140,9 +144,10 @@ const AppStore = useAppStore();
 initializeComponent();
 onUpdated(() => updateDatas());
 const updateValues = (
-    index : number, name : string, hours : number
+    index : number, name : string, hours : number , isValidOrNot : boolean
 ) => {
     children.value[index].name = name
     children.value[index].amountHours = hours
+    validators.value[index] = isValidOrNot
 }
 </script>

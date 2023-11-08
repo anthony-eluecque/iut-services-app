@@ -11,7 +11,9 @@
                 </tr>
             </thead>
             <tbody>
-                <userRowTableComponent :user="user" v-for="user in users" />
+                <addUser :isCreatingUser="isCreatingUser" @removeCreateComponent="removeAddRow" />
+                <userRowTableComponent v-for="(user, index) in users" :user="user" :index="index"
+                    :isUpdated="index === AppStore.getEditingIndex" @emitUpdate="toggleUpdate" />
             </tbody>
         </table>
     </div>
@@ -20,14 +22,35 @@
 
 <script setup lang="ts">
 import { isLoading } from '@/components/services/data-table-service/data-table-service.component';
-import userRowTableComponent from '../user-row-table/user-row-table.component.vue';
 import { useAppStore } from '@/store';
-import { computed, onBeforeMount } from 'vue';
+import { computed, onMounted } from 'vue';
+import userRowTableComponent from '../user-row-table/user-row-table.component.vue';
+import addUser from '../add-user/add-user.component.vue';
 
 const AppStore = useAppStore();
 const users = computed(() => AppStore.users);
 
-onBeforeMount(async () => {
+const props = defineProps({
+    isCreatingUser: {
+        type: Boolean,
+        required: true
+    }
+})
+
+const emit = defineEmits<{
+    (e: 'emitUpdate', index: number): void,
+    (e: 'removeCreateComponent'): void
+}>();
+
+const toggleUpdate = (index: number) => {
+    emit('emitUpdate', index)
+}
+
+const removeAddRow = () => {
+    emit('removeCreateComponent')
+}
+
+onMounted(async () => {
     await AppStore.fetchUsers();
     isLoading.value = true
 })

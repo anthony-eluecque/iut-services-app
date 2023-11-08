@@ -22,6 +22,14 @@ const props = defineProps({
     user: {
         type: Object as () => User,
         required: true,
+    },
+    index: {
+        type: Number,
+        required: true,
+    },
+    isUpdated: {
+        type: Boolean,
+        required: true
     }
 });
 
