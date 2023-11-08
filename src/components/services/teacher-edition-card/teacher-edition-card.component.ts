@@ -38,6 +38,7 @@ export const removeModal = () => {
 }
 
 export const children = ref(new Array())
+export const validators = ref(new Array())
 
 export const updateDatas = ( ) => {
     const teacher = currentTeacher.value as Teacher;
@@ -58,6 +59,7 @@ const createComponents = () => {
     for (const type of item.lessonTypes) {
         // arr.push(markRaw(lessonTypesField))
         arr.push({name:type.lessonType.name,amountHours:type.amountHours})
+        validators.value.push(true)
     }
     children.value = arr
 }
@@ -70,13 +72,20 @@ export const updateItem = async () => {
         types:children.value,
         ...rest
     }
-    await updateData(Routes.ITEMS,itemToUpdate)
-    await appStoreInstance?.fetchItemsPage(appStoreInstance.getCurrentIndexPage())
-    removeModal()
+
+    const valid = () => validators.value.every((v:boolean) => v === true);
+
+    if (valid()){
+        await updateData(Routes.ITEMS,itemToUpdate)
+        await appStoreInstance?.fetchItemsPage(appStoreInstance.getCurrentIndexPage())
+        removeModal()
+    } 
 }
+
 
 export const add = () => {
     // const newComponent = markRaw(lessonTypesField)
     // children.value.push(newComponent)
     children.value.push({name:'',amountHours:0})
+    validators.value.push(false)
 }
