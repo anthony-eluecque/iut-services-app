@@ -12,7 +12,7 @@
                 </v-col>
                 <v-col cols="4">
                     <div class="add-action">
-                        <v-btn height="55px" append-icon="mdi-plus" text="Ajouter un enseignement" color="primary"
+                        <v-btn height="55px" append-icon="mdi-plus" text="Ajouter un utilisateur" color="primary"
                             @click="addInputFields" />
                     </div>
                 </v-col>
