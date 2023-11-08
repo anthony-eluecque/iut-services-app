@@ -9,8 +9,6 @@ export const changePasswordGuard = async (
   next: NavigationGuardNext
 ): Promise<void> => {
   try {
-    next();
-    return;
     const token = to.query["token"]?.toString();
     if (token) {
         const decodeDecode = jwtDecode(token);

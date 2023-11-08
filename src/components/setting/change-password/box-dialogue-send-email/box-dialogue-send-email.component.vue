@@ -6,7 +6,7 @@
             Changer votre mot de passe
           </v-card-title>
           <v-card-text
-            >Afin de pouvoir changer votre mot de passe, consultez votre boîte mail et cliquez sur le lien du mail de changement de mot de passe.
+            >Afin de pouvoir changer votre mot de passe, consultez votre boîte mail et cliquez sur le lien du mail de changement de mot de passe. Le lien s'expire dans 5 minutes.
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
