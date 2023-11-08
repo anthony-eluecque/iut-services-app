@@ -51,7 +51,7 @@ const removeAddRow = () => {
 }
 
 onMounted(async () => {
-    await AppStore.fetchUsers();
+    await AppStore.fetchUsersPage(1);
     isLoading.value = true
 })
 
