@@ -24,14 +24,17 @@ export const initializeComponent = () => {
 }
 
 const currentItem = computed(() => appStoreInstance?.getUpdatingItem())
-const currentTeacher = computed(() => currentItem.value?.service?.teacher)
-const currentLesson = computed(() => currentItem.value?.lesson)
-
-export const currentTeacherId = ref('')
-export const currentTeacherFirstname = ref('')
-export const currentTeacherLastname = ref('')
-export const currentLessonGivenId = ref('')
-export const currentLessonName = ref('')
+export const currentTeacher = computed(() => currentItem.value?.service?.teacher ?? {
+    firstName : '',
+    lastName : '',
+    givenId : '',
+    id : ''
+})
+export const currentLesson = computed(() => currentItem.value?.lesson ?? {
+    name : '',
+    givenId: '',
+    id : '',
+})
 
 export const removeModal = () => {
     appStoreInstance?.setStateDialog(false)
@@ -41,14 +44,6 @@ export const children = ref(new Array())
 export const validators = ref(new Array())
 
 export const updateDatas = ( ) => {
-    const teacher = currentTeacher.value as Teacher;
-    const lesson = currentLesson.value as Lesson
-    if (!teacher || !lesson) return
-    currentTeacherId.value = teacher.givenId;
-    currentTeacherLastname.value = teacher.lastName;
-    currentTeacherFirstname.value = teacher.firstName;
-    currentLessonGivenId.value = lesson.givenId
-    currentLessonName.value = lesson.name
     createComponents()
 }
 
@@ -57,8 +52,7 @@ const createComponents = () => {
     const item = currentItem.value as Item
     if (!item) return []
     for (const type of item.lessonTypes) {
-        // arr.push(markRaw(lessonTypesField))
-        arr.push({name:type.lessonType.name,amountHours:type.amountHours})
+        arr.push({name:type.lessonType.name,amountHours:type.amountHours.toString()})
         validators.value.push(true)
     }
     children.value = arr
@@ -84,8 +78,6 @@ export const updateItem = async () => {
 
 
 export const add = () => {
-    // const newComponent = markRaw(lessonTypesField)
-    // children.value.push(newComponent)
     children.value.push({name:'',amountHours:0})
     validators.value.push(false)
 }

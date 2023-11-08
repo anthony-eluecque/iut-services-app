@@ -17,7 +17,7 @@
                         label="Nb Heures de cours"
                         variant="outlined"
                         v-model="hours"
-                        :rules="[rules.formatStringNumber,rules.required]"
+                        :rules="[rules.formatStringNumber,rules.required]"    
                     />
                 </v-col>
             </v-row>
@@ -26,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { ref,Ref, watch } from 'vue';
 
 const items = ['CM','TP','TD']
@@ -37,9 +38,9 @@ const props = defineProps({
       default : ''
     },
     amountHours : {
-        type : Number,
+        type : String,
         required: true,
-        default: 0
+        default: ''
     },
     index: {
         type : Number,
@@ -55,19 +56,28 @@ const emit = defineEmits<{
     (e:'emitUpdate',index : number, name : string, hours: number, isValidOrNot : boolean) : void
 }>();
 
-const name : Ref<string> = ref(props.name)
-const hours : Ref<number> = ref(props.amountHours)
-
-watch(name, async () => {
-    const res = await form.value.validate();
-    const { errors, valid} = res;
-    emit('emitUpdate',props.index,name.value,parseInt(hours.value),valid)        
-})
-watch(hours, async () => {
-    const res = await form.value.validate();
-    const { errors, valid} = res;
-    emit('emitUpdate',props.index,name.value,parseInt(hours.value),valid)
-})
+const name = computed({
+        get: () => props.name,
+        set: async (newValue) => {
+            const res = await form.value.validate();
+            const { errors, valid} = res;
+            emit('emitUpdate',props.index,newValue,parseInt(hours.value),valid);
+        }
+    }
+)
+const hours = computed(
+    {
+        get: () => props.amountHours,
+        set: async (newValue) => {
+            if (isNaN(parseInt(newValue))){
+                newValue = '0'
+            }
+            const res = await form.value.validate();
+            const { errors, valid} = res;
+            emit('emitUpdate',props.index,name.value,parseInt(newValue),valid);
+        }
+    }
+)
 
 const form = ref(null)
 const rules = {

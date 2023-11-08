@@ -17,7 +17,7 @@
           />
         </v-fade-transition>
       </div>
-      <TeacherEditionCard/>
+      <TeacherEditionCard v-if="AppStore.getOpenDialog"/>
       <div class="container-actions-services">
         <v-row no-gutters>
           <v-col cols="7">
