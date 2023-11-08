@@ -88,6 +88,7 @@
                                     :items="items"
                                     :amountHours="item.amountHours.toString()"
                                     :validator="validators[index]"
+                                    @emitDelete = "deleteValues"
                                     @emitUpdate="updateValues"
                                 />
                             </v-list-item>
@@ -145,10 +146,15 @@ onMounted(() => updateDatas());
 const updateValues = (
     index : number, name : string, hours : number , isValidOrNot : boolean
 ) => {
-    items.value = items.value.filter((n) => n !== name)
-    children.value[index].name = name
-    children.value[index].amountHours = hours
-    validators.value[index] = isValidOrNot
+    items.value = items.value.filter((n) => n !== name);
+    children.value[index].name = name;
+    children.value[index].amountHours = hours;
+    validators.value[index] = isValidOrNot;
+}
+
+const deleteValues = (index : number) => {
+    children.value = children.value.filter((value,i) => i!==index);
+    validators.value = validators.value.filter((value,i) => i!==index);
 }
 
 onUnmounted(() => {

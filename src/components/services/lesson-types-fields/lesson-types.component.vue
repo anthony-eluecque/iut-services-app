@@ -2,7 +2,7 @@
     <v-container fluid class="pl-0 pr-0 container-types-modal">
         <v-form ref="form">
             <v-row>
-                <v-col cols="6">
+                <v-col cols="5">
                     <v-select  
                         v-model="name"
                         variant="outlined"
@@ -11,7 +11,6 @@
                         hide-details
                     />
                 </v-col>
-                <v-col cols="1"></v-col>
                 <v-col cols="5">
                     <v-text-field
                         label="Nb Heures de cours"
@@ -20,6 +19,15 @@
                         :rules="[rules.formatStringNumber,rules.required]"    
                     />
                 </v-col>
+                <v-col cols="2">
+                    <v-btn
+                        icon="mdi-trash-can-outline"
+                        color="red"
+                        variant="plain"
+                        @click="removeLesson"
+                    />
+                </v-col>
+
             </v-row>
         </v-form>
     </v-container>
@@ -55,7 +63,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-    (e:'emitUpdate',index : number, name : string, hours: number, isValidOrNot : boolean) : void
+    (e:'emitUpdate',index : number, name : string, hours: number, isValidOrNot : boolean) : void,
+    (e:'emitDelete',index : number) : void
 }>();
 
 
@@ -81,6 +90,8 @@ const hours = computed(
         }
     }
 )
+
+const removeLesson = () => emit('emitDelete',props.index)
 
 const form = ref(null)
 const rules = {
