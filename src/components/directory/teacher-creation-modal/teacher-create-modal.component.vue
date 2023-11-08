@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="AppStore.getOpenDialog" width="500" transition="slide-x-transition" content-class="custom-dialog"
+    <v-dialog v-model="useAppStore().getOpenDialog" width="500" transition="slide-x-transition" content-class="custom-dialog"
         height="100vh">
         <v-container fluid class="pa-0 d-flex container-creation primary bg-background-container">
             <div class="d-flex flex-column container-modal justify-space-between">
@@ -30,53 +30,13 @@
 
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { useAppStore } from "@/store";
-import { Teacher } from '@/types/teacher.types';
-
-const AppStore = useAppStore();
-
-const currentTeacherId = ref<string>('');
-const currentTeacherFirstname = ref<string>('');
-const currentTeacherLastname = ref<string>('');
-
-const removeModal = () => {
-    AppStore.setStateDialog(false);
-}
-
-const createTeacher = async () => {
-    const newTeacher: Teacher = {
-        id: '',
-        givenId: currentTeacherId.value,
-        firstName: currentTeacherFirstname.value,
-        lastName: currentTeacherLastname.value,
-    };
-    await AppStore.addTeacher(newTeacher);
-    await AppStore.fetchTeachers();
-    removeModal();
-}
+import { useAppStore } from '@/store';
+import { 
+    removeModal,
+    createTeacher,
+    currentTeacherFirstname,
+    currentTeacherId,
+    currentTeacherLastname
+} from './teacher-create-modal.component'
 </script>
 
-
-<style>
-.custom-dialog {
-    border-radius: 0px !important;
-}
-
-.container-creation {
-    height: 100vh;
-    background-color: white;
-}
-
-.container-title-creation {
-    background-color: #4663F8;
-}
-
-.container-creation {
-    height: 100vh;
-}
-
-.container-modal {
-    width: 100%;
-}
-</style>
