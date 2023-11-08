@@ -27,7 +27,6 @@ export const initStore = () : RootState => {
         lessons : [],
         users: [],
         currentDeleteTeacher : null,
-        currentUpdateTeacher : null,
         currentDeleteUser : null,
         currentUpdateUser : null,
         alert : {
@@ -35,6 +34,8 @@ export const initStore = () : RootState => {
             text : '',
             title : '',
             type : undefined
-        }
+        },
+        currentUpdateTeacher : null,
+        isDisplayParams: false,
     };
 }
