@@ -94,7 +94,6 @@
                         </v-list>
                     </div>
                 </section>
-                {{  children }}
                 <section class="container-actions">
                     <div class="actions">
                         <v-btn
