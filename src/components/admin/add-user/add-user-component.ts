@@ -1,3 +1,4 @@
+import { Routes, postData } from "@/api";
 import { useAppStore } from "@/store";
 import { User } from "@/types";
 import { ref } from "vue";
@@ -5,7 +6,7 @@ import { ref } from "vue";
 interface AppStore {
     getUpdatingUser: () => ReturnType<typeof useAppStore>['getUpdatingUser'],
     setStateDialog: (value: boolean) => void,
-    fetchUsers: (pageNumber: number) => Promise<void>,
+    fetchUsersPage: (pageNumber: number) => Promise<void>,
     getCurrentIndexPage: () => number,
     addUser: (user: User) => Promise<void>,
     setEditingIndex: (index: number | null) => void,
@@ -17,7 +18,7 @@ export const initializeComponent = () => {
     appStoreInstance = {
         getUpdatingUser: () => useAppStore().getUpdatingUser,
         setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
-        fetchUsers: async (pageNumber: number) => await useAppStore().fetchUsersPage(pageNumber),
+        fetchUsersPage: async (pageNumber: number) => await useAppStore().fetchUsersPage(pageNumber),
         getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
         addUser: async (user: User) => await useAppStore().addUser(user),
         setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),
@@ -35,15 +36,14 @@ export const cancelInput = () => {
 }
 
 export const AddOrUpdateUser = async () => {
-    const newUser: User = {
-        id: '',
+    const newUser = {
         firstName: firstNameUserValue.value,
         lastName: lastNameUserValue.value,
         email: emailUserValue.value,
-        password: '',
-        isAdmin: false,
     }
 
-    await appStoreInstance?.addUser(newUser)
+    await postData(Routes.USERS,newUser);
+    appStoreInstance?.fetchUsersPage(1);
+
 }
 
