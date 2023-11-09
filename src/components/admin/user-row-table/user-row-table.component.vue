@@ -5,7 +5,7 @@
         <td> {{ props.user.email }} </td>
         <td>
             <v-btn icon="mdi-trash-can-outline" color="red" variant="plain" @click="removeUser(props.user)" />
-            <v-btn icon="mdi-pencil-outline" color="orange" variant="plain" />
+            <v-btn icon="mdi-pencil-outline" color="orange" variant="plain" @click="emitUpdate(props.index)" />
         </td>
     </tr>
 </template>
@@ -32,6 +32,14 @@ const props = defineProps({
         required: true
     }
 });
+
+const emit = defineEmits<{
+    (e: 'emitUpdate', index: number): void,
+}>();
+
+const emitUpdate = (index: number) => {
+    emit('emitUpdate', index)
+}
 
 initializeComponent();
 
