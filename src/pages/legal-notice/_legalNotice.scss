@@ -4,6 +4,20 @@
     display: flex;
     padding: 20px;
     justify-content: space-around;
+    height: 100vh;  
+}
+
+p {
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    margin: 20px;
+  }
+
+.container-title-notices {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .container-title{
@@ -22,14 +36,35 @@
     font-size: 32px;
 }
 
-.container-edition-img img {
-  width: 500px;
-  height: 200px;
-  margin-left: auto;
+.container-edition-img {
+    justify-content: space-between;
 }
 
-p {
-  font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
-  margin: 20px;
+.container-img {
+    width: 500px;
+    height: 150px;
+
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.container-img-title{
+    width: 20%;
+    height: 100%;
+}
+
+
+@media screen and (max-width: 800px)  {
+    .container-edition-img {
+        flex-direction: column;
+    }
+    .container-img{
+        width: 100%;
+    }
+
+    .container{
+        height: 100%
+    }
 }
