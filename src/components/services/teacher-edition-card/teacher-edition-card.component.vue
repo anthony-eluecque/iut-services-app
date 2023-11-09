@@ -15,7 +15,7 @@
                     <div class="about-teacher">
                         <h2>A propos du professeur :</h2>
                         <v-text-field
-                            v-model="currentTeacherId"
+                            v-model="currentTeacher.givenId"
                             hide-details
                             class="pa-2"
                             label="Matricule Enseignant"
@@ -24,7 +24,7 @@
                         />
                         <div class="container-v-fields">
                             <v-text-field
-                                v-model="currentTeacherFirstname"
+                                v-model="currentTeacher.firstName"
                                 hide-details
                                 class="pa-2"
                                 label="Prénom"
@@ -32,7 +32,7 @@
                                 readonly
                             />
                             <v-text-field
-                                v-model="currentTeacherLastname"
+                                v-model="currentTeacher.lastName"
                                 hide-details
                                 class="pa-2"
                                 label="Nom"
@@ -46,7 +46,7 @@
 
                         <div class="container-v-fields">
                             <v-text-field
-                                v-model="currentLessonGivenId"
+                                v-model="currentLesson.givenId"
                                 hide-details
                                 class="pa-2"
                                 label="Ressource"
@@ -54,7 +54,7 @@
                                 readonly
                             />
                             <v-text-field
-                                v-model="currentLessonName"
+                                v-model="currentLesson.name"
                                 hide-details
                                 class="pa-2"
                                 label="Libellé"
@@ -85,18 +85,16 @@
                                 <lessonTypesField 
                                     :index="index" 
                                     :name="item.name" 
-                                    :amountHours="item.amountHours"
+                                    :items="items"
+                                    :amountHours="item.amountHours.toString()"
                                     :validator="validators[index]"
+                                    @emitDelete = "deleteValues"
                                     @emitUpdate="updateValues"
-                                    ref="child"
-
                                 />
-                                <!-- <component :is="item" :name="''" :hours="0"></component> -->
                             </v-list-item>
                         </v-list>
                     </div>
                 </section>
-
                 <section class="container-actions">
                     <div class="actions">
                         <v-btn
@@ -125,29 +123,41 @@
 import { useAppStore } from '@/store';
 import { 
     removeModal, 
-    currentTeacherId,
-    currentTeacherFirstname,
-    currentTeacherLastname,
-    currentLessonGivenId,
-    currentLessonName,
     initializeComponent,
     children,
     add,
     updateDatas,
     updateItem,
-    validators
+    validators,
+    currentTeacher,
+    currentLesson,
+    items
 } from './teacher-edition-card.component'
 import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
-import { onUpdated } from 'vue';
+import { onUpdated, ref } from 'vue';
+import { onUnmounted } from 'vue';
+import { onMounted } from 'vue';
 
 const AppStore = useAppStore();
 initializeComponent();
-onUpdated(() => updateDatas());
+
+onMounted(() => updateDatas());
+
 const updateValues = (
     index : number, name : string, hours : number , isValidOrNot : boolean
 ) => {
-    children.value[index].name = name
-    children.value[index].amountHours = hours
-    validators.value[index] = isValidOrNot
+    items.value = items.value.filter((n) => n !== name);
+    children.value[index].name = name;
+    children.value[index].amountHours = hours;
+    validators.value[index] = isValidOrNot;
 }
+
+const deleteValues = (index : number) => {
+    children.value = children.value.filter((value,i) => i!==index);
+    validators.value = validators.value.filter((value,i) => i!==index);
+}
+
+onUnmounted(() => {
+    AppStore.setUpdateItem(null);
+})
 </script>

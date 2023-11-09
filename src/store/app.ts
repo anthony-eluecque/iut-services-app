@@ -27,9 +27,10 @@ export interface RootState {
   teachers : Teacher[]
   lessons : Lesson[]
   users: User[]
-  criterias: Criterias,
   alert : Alert
   userCriterias: UserCriterias
+  criterias: Criterias
+  isDisplayParams: boolean;
 }
 
 export const useAppStore = defineStore('app', {
@@ -79,6 +80,9 @@ export const useAppStore = defineStore('app', {
     },
     getCurrentIndexPage: (state) : number => {
       return state.pagination.page
+    },
+    getDisplayParam: (state) : boolean => {
+      return state.isDisplayParams
     },
     getAlert : (state) :  Alert => {
       return state.alert
@@ -163,6 +167,9 @@ export const useAppStore = defineStore('app', {
     },
     setStateDialog(newState : boolean){
       this.openUpdateCard = newState;
+    },
+    setDisplayParams(isDisplayParams: boolean) {
+      this.isDisplayParams = isDisplayParams;
     },
     createAlert(title: string, text : string, type: typeof this.alert.type){
       this.alert.title = title;

@@ -32,8 +32,12 @@
         </div>
       </div>
 
-
       <template #append>
+        <v-icon class="change-theme-icon"
+            @click="displayParams()"
+          >
+          mdi-cog-outline
+          </v-icon>
         <div class="section-bottom-nav">
           <v-btn
             block
@@ -55,8 +59,13 @@
 import {fetchData, postData } from '@/api';
 import { menuItems } from './navigation-drawer.app.component'
 import router from '@/router';
-import { useUserStore } from '@/store';
+import { useAppStore, useUserStore } from '@/store';
 import { computed } from 'vue';
+const AppStore = useAppStore();
+
+const displayParams = () => {
+  AppStore.setDisplayParams(true);
+}
 
 const getItemsForRole = computed(() => menuItems.filter((item : any) => item.isAdmin === useUserStore().getUser.isAdmin))
 
