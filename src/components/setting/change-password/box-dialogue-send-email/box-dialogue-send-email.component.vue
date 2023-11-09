@@ -22,7 +22,7 @@
     </v-row>
   </template>
   
-  <script setup>
+  <script setup lang="ts">
     import { ref } from 'vue'
     let dialog = ref(true)
   </script>

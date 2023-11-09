@@ -51,21 +51,31 @@
             </div>
         </v-card>
     </v-dialog>
-    <boxDialogueSendEmail v-if="isDisplaySendMail" @resend-mail = "sendResetPassword(password)" @close-dialog="isDisplaySendMail = false"></boxDialogueSendEmail>
-    <deleteAccount v-if="isDisplayDeleteAccount" @delete-account = "deleteAccount()"  @close-dialog="isDisplayDeleteAccount = falses" ></deleteAccount>
+    <BoxDialogueSendEmail v-if="isDisplaySendMail" @resend-mail = "sendResetPassword(password)" @close-dialog="isDisplaySendMail = false"></BoxDialogueSendEmail>
+    <DeleteAccount 
+        v-if="isDisplayDeleteAccount" 
+        :deleteAccount="deleteAccount"
+        :is-display="isDisplayDeleteAccount"
+        @closeDialog = "closeDialog()"
 
-    </template>
+    ></DeleteAccount>
+
+</template>
   
-  <script setup>
+<script setup lang="ts">
     import { ref } from 'vue'
-    import { initializeTheme, theme, hiddenParams, isDisplaySendMail, isDisplayDeleteAccount, errorChangePassword, sendResetPassword} from './setting.component'
-    import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
-    import deleteAccount from "@/components/setting/delete-account/delete-account.component.vue"
+    import { initializeTheme, theme, hiddenParams, isDisplaySendMail, isDisplayDeleteAccount, errorChangePassword, sendResetPassword, deleteAccount} from './setting.component'
+    import BoxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
+    import DeleteAccount from "@/components/setting/delete-account/delete-account.component.vue"
 
     let showPassword = ref(false)
     let password = ref('')
     let dialog = ref(true)
     
     initializeTheme();
-  </script>
+
+    const closeDialog = () => isDisplayDeleteAccount.value = false;
+    
+
+</script> 
   

@@ -6,9 +6,11 @@ import { ResponseData, Routes, extractData, postData } from "@/api";
 import router from "@/router";
 const AppStore = useAppStore();
 
-export let theme : ThemeInstance
-export const isDisplaySendMail = ref(false)
+export let theme : ThemeInstance;
+export const isDisplaySendMail = ref(false);
 export const errorChangePassword: Ref<string | null> = ref(null);
+export const isDisplayAccount = ref(false);
+export const isDisplayDeleteAccount = ref(false);
 
 export const initializeTheme = () => {
   theme = useTheme()
@@ -40,5 +42,4 @@ export const deleteAccount = async() => {
   else {
     errorChangePassword.value = "Erreur lors de la réinitialisation du mot de passe";   
   }
-         
 }
