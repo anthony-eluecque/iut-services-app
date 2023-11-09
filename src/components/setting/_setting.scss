@@ -21,3 +21,20 @@
     margin-bottom: 10px;
     color: red;
 }
+
+
+.v-card__underlay {
+    display: none;
+}
+
+
+.legalnotices {
+    display: flex;
+    justify-content: end;
+    a {
+        text-decoration: none;
+        p{
+            font-size: $size-20;
+        }
+    }
+}

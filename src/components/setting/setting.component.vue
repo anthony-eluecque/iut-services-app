@@ -5,8 +5,9 @@
       :scrim="false"
       transition="dialog-bottom-transition"
     >
-        <v-card>
-            <v-toolbar dark color="primary">
+        <v-card class="justify-space-between">
+            <div>
+                <v-toolbar dark color="primary">
                 <v-btn icon dark @click="hiddenParams()">
                 <v-icon>mdi-close</v-icon>
                 </v-btn>
@@ -49,7 +50,17 @@
                 <p class="remove-account-title">Suppression du compte</p>
                 <v-btn color="red" text="Supprimer mon compte"  @click="isDisplayDeleteAccount = true" />
             </div>
+            </div>
+    
+            <div class="legalnotices">
+                <a href="/notices">
+                    <p>
+                        Mentions Légales
+                    </p>
+                </a>
+            </div>
         </v-card>
+
     </v-dialog>
     <BoxDialogueSendEmail v-if="isDisplaySendMail" @resend-mail = "sendResetPassword(password)" @close-dialog="isDisplaySendMail = false"></BoxDialogueSendEmail>
     <DeleteAccount 
