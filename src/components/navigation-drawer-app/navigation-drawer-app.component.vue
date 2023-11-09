@@ -7,9 +7,44 @@
       permanent
     >
       <div class="section-container">
-        <h1>
-          IUT SERVICES APP
-        </h1>
+        <div class="container-top-profile">
+          <v-menu
+            min-width="200px"
+            rounded
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                icon
+                v-bind="props"
+              >
+                <v-avatar
+                  color="primary"
+                  size="large"
+                >
+                  <span class="text-h5">{{ useUserStore().getUser.firstName[0] + useUserStore().getUser.lastName[0] }}</span>
+                </v-avatar>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-text>
+                <div class="mx-auto text-center">
+                  <v-avatar
+                    color="primary"
+                  >
+                    <span class="text-h5">{{ useUserStore().getUser.firstName[0] + useUserStore().getUser.lastName[0] }}</span>
+                  </v-avatar>
+                  <h3 class="mt-4">{{ useUserStore().getUser.firstName + " " + useUserStore().getUser.lastName }}</h3>
+                  <p class="text-caption mt-1">
+                    {{ useUserStore().getUser.email}}
+                  </p>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+          <h1>
+            IUT SERVICES APP
+          </h1>
+        </div>
 
         <div class="section-nav">
           <v-list nav>
@@ -31,7 +66,6 @@
           </v-list>
         </div>
       </div>
-
       <template #append>
         <v-icon class="change-theme-icon"
             @click="displayParams()"
