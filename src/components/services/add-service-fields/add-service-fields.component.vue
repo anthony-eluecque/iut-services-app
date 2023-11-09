@@ -74,8 +74,9 @@ const validateFormBeforeCallback = async () => {
 
 <template>
   <tr v-if="props.isCreatingItem" >
-    <td colspan="7">
-      <v-form ref="form" >
+    <td colspan="7" class="pa-0">
+      <v-container fluid class="pa-4 primary bg-background-container">
+        <v-form ref="form" >
         <v-row>
           <v-col>
             <div class="text-field-container">
@@ -165,6 +166,7 @@ const validateFormBeforeCallback = async () => {
           </v-col>
         </v-row>
       </v-form>
+      </v-container>
     </td>
   </tr>
 </template>
