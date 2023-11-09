@@ -3,6 +3,7 @@ import { useAppStore } from "@/store";
 import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
 import { Ref, ref } from "vue";
 import { ResponseData, Routes, extractData, postData } from "@/api";
+import router from "@/router";
 const AppStore = useAppStore();
 
 export let theme : ThemeInstance
@@ -29,4 +30,15 @@ export const sendResetPassword = async(password: string) => {
   else {
     errorChangePassword.value = "Erreur lors de la réinitialisation du mot de passe";   
   }
+}
+
+export const deleteAccount = async() => {
+  const response: ResponseData<any> = await postData(`${Routes.USERS}/deleteAccount`, {});
+  if (response.status === 200) {
+    await postData('/users/logout',{});
+    router.push('/login');     }
+  else {
+    errorChangePassword.value = "Erreur lors de la réinitialisation du mot de passe";   
+  }
+         
 }

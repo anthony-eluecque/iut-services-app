@@ -47,17 +47,20 @@
 
             <div class="remove-account-container">
                 <p class="remove-account-title">Suppression du compte</p>
-                <v-btn color="red" text="Supprimer mon compte" />
+                <v-btn color="red" text="Supprimer mon compte"  @click="isDisplayDeleteAccount = true" />
             </div>
         </v-card>
     </v-dialog>
     <boxDialogueSendEmail v-if="isDisplaySendMail" @resend-mail = "sendResetPassword(password)" @close-dialog="isDisplaySendMail = false"></boxDialogueSendEmail>
+    <deleteAccount v-if="isDisplayDeleteAccount" @delete-account = "deleteAccount()"  @close-dialog="isDisplayDeleteAccount = falses" ></deleteAccount>
+
     </template>
   
   <script setup>
     import { ref } from 'vue'
-    import { initializeTheme, theme, hiddenParams, isDisplaySendMail, errorChangePassword, sendResetPassword} from './setting.component'
+    import { initializeTheme, theme, hiddenParams, isDisplaySendMail, isDisplayDeleteAccount, errorChangePassword, sendResetPassword} from './setting.component'
     import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
+    import deleteAccount from "@/components/setting/delete-account/delete-account.component.vue"
 
     let showPassword = ref(false)
     let password = ref('')
