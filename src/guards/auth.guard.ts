@@ -7,7 +7,7 @@ import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 const commonPermissions = ['']
 
 const adminPermissions = [...commonPermissions,'users']
-const usersPermissions = [...commonPermissions,'services','directory']
+const usersPermissions = [...commonPermissions,'services','directory','notices']
 
 export const authGuard = async (
   to: RouteLocationNormalized,
