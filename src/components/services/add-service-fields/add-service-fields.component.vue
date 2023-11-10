@@ -61,6 +61,8 @@ const validateFormBeforeCallback = async () => {
   const { errors, valid } = res
   if (valid) {
     await AddOrUpdateItem()
+    cancelInput()
+    emit('removeCreateComponent')
   } else {
     useAppStore().createAlert(
       'Formulaire Invalide',

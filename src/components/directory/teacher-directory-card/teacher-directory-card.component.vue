@@ -3,7 +3,6 @@
         <template v-slot:title>
             {{ props.teacher.firstName }} {{ props.teacher.lastName }}
         </template>
-        {{ props.teacher.id }}
         <template v-slot:subtitle>
             Professeur
         </template>
