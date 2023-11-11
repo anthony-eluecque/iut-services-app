@@ -77,51 +77,51 @@
     </section>
   </template>
     
-  <script lang="ts" setup>
-  import DataTableService from '@/components/services/data-table-service/data-table-service.component.vue'
-  import { useAppStore } from '@/store'
-  import { onMounted, ref,Ref, computed } from 'vue';
-  import TeacherEditionCard from '@/components/services/teacher-edition-card/teacher-edition-card.component.vue'
-  import SearchField from '@/components/services/searchbar-services/searchbar-services.component.vue';
-  
-  const AppStore = useAppStore();
-  const isCreatingItem : Ref<boolean> = ref<boolean>(false)
-  const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
-  
-  const page = computed({
-    get : () => AppStore.pagination.page,
-    set: async (newValue) => {
-      await AppStore.fetchItemsPage(newValue)
-    }
-  })
+<script lang="ts" setup>
+import DataTableService from '@/components/services/data-table-service/data-table-service.component.vue'
+import { useAppStore } from '@/store'
+import { onMounted, ref,Ref, computed } from 'vue';
+import TeacherEditionCard from '@/components/services/teacher-edition-card/teacher-edition-card.component.vue'
+import SearchField from '@/components/services/searchbar-services/searchbar-services.component.vue';
 
-  const alert = computed(() => AppStore.getAlert)
-  
-  const currentYear = computed({
-    get : () => AppStore.currentYear,
-    set: async (newValue) => {
-      AppStore.currentYear = newValue
-      await AppStore.fetchItemsPage(1)
-    }
-  })
-  
-  onMounted(async () => {
-    AppStore.paginationHandler(page.value);
-  })
-  
-  const openModalUpdate = (index : number) => {
-    AppStore.setUpdateItem(AppStore.getDataRows[index])
-    AppStore.setStateDialog(true);
-  }
-  
-  const addInputFields = () => {
-    isCreatingItem.value = true
-  }
+const AppStore = useAppStore();
+const isCreatingItem : Ref<boolean> = ref<boolean>(false)
+const nextYears = Array.from({length : 30},(_,index) => AppStore.currentYear + index)
 
-  const removeInputFields = () => {
-    isCreatingItem.value = false
+const page = computed({
+  get : () => AppStore.pagination.page,
+  set: async (newValue) => {
+    await AppStore.fetchItemsPage(newValue)
   }
-  
+})
+
+const alert = computed(() => AppStore.getAlert)
+
+const currentYear = computed({
+  get : () => AppStore.currentYear,
+  set: async (newValue) => {
+    AppStore.currentYear = newValue
+    await AppStore.fetchItemsPage(1)
+  }
+})
+
+onMounted(async () => {
+  AppStore.paginationHandler(page.value);
+})
+
+const openModalUpdate = (index : number) => {
+  AppStore.setUpdateItem(AppStore.getDataRows[index])
+  AppStore.setStateDialog(true);
+}
+
+const addInputFields = () => {
+  isCreatingItem.value = true
+}
+
+const removeInputFields = () => {
+  isCreatingItem.value = false
+}
+
 </script>
 
 <style lang="scss">
