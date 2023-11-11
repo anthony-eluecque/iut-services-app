@@ -12,11 +12,11 @@ interface AppStore {
 let appStoreInstance: AppStore | null = null;
 
 export const initializeComponent = () => {
-    appStoreInstance = {
-        addTeacher: (teacher : Teacher) => useAppStore().addTeacher(teacher),
-        fetchTeachers: async () => await useAppStore().fetchTeachers(),
-        setStateDialog: (newState : boolean) => useAppStore().setStateDialog(newState)
-    };
+  appStoreInstance = {
+    addTeacher: (teacher : Teacher) => useAppStore().addTeacher(teacher),
+    fetchTeachers: async () => await useAppStore().fetchTeachers(),
+    setStateDialog: (newState : boolean) => useAppStore().setStateDialog(newState)
+  };
 }  
 
 export const currentTeacherId = ref<string>('');
@@ -28,7 +28,7 @@ export const currentTeacherLastname = ref<string>('');
  * Ferme le modal en mettant l'état de la propriété openUpdateCard de appStoreInstance à false.
  */
 export const removeModal = () => {
-    appStoreInstance?.setStateDialog(false);
+  appStoreInstance?.setStateDialog(false);
 }
 
 /**
@@ -40,13 +40,13 @@ export const removeModal = () => {
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 export const createTeacher = async () => {
-    const newTeacher: Teacher = {
-        id: '',
-        givenId: currentTeacherId.value,
-        firstName: currentTeacherFirstname.value,
-        lastName: currentTeacherLastname.value,
-    };
-    await appStoreInstance?.addTeacher(newTeacher);
-    await appStoreInstance?.fetchTeachers();
-    removeModal();
+  const newTeacher: Teacher = {
+    id: '',
+    givenId: currentTeacherId.value,
+    firstName: currentTeacherFirstname.value,
+    lastName: currentTeacherLastname.value,
+  };
+  await appStoreInstance?.addTeacher(newTeacher);
+  await appStoreInstance?.fetchTeachers();
+  removeModal();
 }

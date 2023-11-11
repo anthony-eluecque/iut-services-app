@@ -1,8 +1,7 @@
 import { ThemeInstance, useTheme } from "vuetify/lib/framework.mjs"
 import { useAppStore } from "@/store";
-import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
 import { Ref, ref } from "vue";
-import { ResponseData, Routes, extractData, postData } from "@/api";
+import { ResponseData, Routes, postData } from "@/api";
 import router from "@/router";
 const AppStore = useAppStore();
 
@@ -17,7 +16,7 @@ export const initializeTheme = () => {
 }
 
 export const hiddenParams = () => {
-    AppStore.setDisplayParams(false);
+  AppStore.setDisplayParams(false);
 };
 
 export const sendResetPassword = async(password: string) => {

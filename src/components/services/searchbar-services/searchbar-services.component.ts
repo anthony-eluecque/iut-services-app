@@ -15,12 +15,12 @@ interface AppStore {
 let appStoreInstance: AppStore | null = null;
 
 export const initializeComponent = () => {
-    appStoreInstance = {
-        sendCriteria: (criterias : Criterias) => useAppStore().sendCriteria(criterias)
-    };
+  appStoreInstance = {
+    sendCriteria: (criterias : Criterias) => useAppStore().sendCriteria(criterias)
+  };
 }  
 
 export const search = () => {
-    const criterias: Criterias = {id: id.value, nom: nom.value, prenom: prenom.value, ressource: ressource.value, libelle: libelle.value};
-    appStoreInstance?.sendCriteria(criterias)
+  const criterias: Criterias = {id: id.value, nom: nom.value, prenom: prenom.value, ressource: ressource.value, libelle: libelle.value};
+  appStoreInstance?.sendCriteria(criterias)
 }

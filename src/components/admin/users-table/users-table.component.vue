@@ -1,22 +1,31 @@
 <template>
-    <div class="table-wrap">
-        <h2>Liste des utilisateurs de l'Application</h2>
-        <table class="table">
-            <thead class="thead">
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Adresse Mail</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <addUser :isCreatingUser="isCreatingUser" @removeCreateComponent="removeAddRow" />
-                <userRowTableComponent v-for="(user, index) in users" :user="user" :index="index"
-                    :isUpdated="index === AppStore.getEditingIndex" @emitUpdate="toggleUpdate" />
-            </tbody>
-        </table>
-    </div>
+  <div class="table-wrap">
+    <h2>Liste des utilisateurs de l'Application</h2>
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Adresse Mail</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <addUser
+          :is-creating-user="isCreatingUser"
+          @removeCreateComponent="removeAddRow"
+        />
+        <userRowTableComponent
+          v-for="(user, index) in users"
+          :key="user.id"
+          :user="user"
+          :index="index"
+          :is-updated="index === AppStore.getEditingIndex"
+          @emitUpdate="toggleUpdate"
+        />
+      </tbody>
+    </table>
+  </div>
 </template>
 
 
@@ -31,10 +40,10 @@ const AppStore = useAppStore();
 const users = computed(() => AppStore.users);
 
 const props = defineProps({
-    isCreatingUser: {
-        type: Boolean,
-        required: true
-    }
+  isCreatingUser: {
+    type: Boolean,
+    required: true
+  }
 })
 
 const emit = defineEmits<{
@@ -43,16 +52,16 @@ const emit = defineEmits<{
 }>();
 
 const toggleUpdate = (index: number) => {
-    emit('emitUpdate', index)
+  emit('emitUpdate', index)
 }
 
 const removeAddRow = () => {
-    emit('removeCreateComponent')
+  emit('removeCreateComponent')
 }
 
 onMounted(async () => {
-    await AppStore.fetchUsersPage(1);
-    isLoading.value = true
+  await AppStore.fetchUsersPage(1);
+  isLoading.value = true
 })
 
 </script>

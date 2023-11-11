@@ -1,6 +1,5 @@
-import { Lesson, Teacher, Item } from "@/types"
-import { ResponseData, Routes, fetchData, postData, updateData } from "..";
-import { Service } from "@/types/service.types";
+import { Teacher, Item } from "@/types"
+import { ResponseData, Routes, fetchData, postData } from "..";
 
 interface Identifiable {
     id: string;
@@ -23,22 +22,22 @@ interface ObjectWithGivenId {
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 export const postTeacher = async (teacher: Teacher) => {
-    try {
-        const teacherResponse: ResponseData<Teacher> | null = await getOrCreateObject<Teacher>(
-            teacher,
-            Routes.TEACHERS,
-            (teacher) => ({
-                roleName: "admin",
-                firstName: teacher.firstName,
-                lastName: teacher.lastName,
-                givenId: teacher.givenId,
-                id: '',
-            })
-        );
-        return teacherResponse;
-    } catch (error: any) {
-        throw new Error(`Error in postTeacher: ${error.message}`);
-    }
+  try {
+    const teacherResponse: ResponseData<Teacher> | null = await getOrCreateObject<Teacher>(
+      teacher,
+      Routes.TEACHERS,
+      (teacher) => ({
+        roleName: "admin",
+        firstName: teacher.firstName,
+        lastName: teacher.lastName,
+        givenId: teacher.givenId,
+        id: '',
+      })
+    );
+    return teacherResponse;
+  } catch (error: any) {
+    throw new Error(`Error in postTeacher: ${error.message}`);
+  }
 }
 
 /**
@@ -48,8 +47,8 @@ export const postTeacher = async (teacher: Teacher) => {
  * @param {number} currentYear - L'année en cours.
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
-export const postItem = async (item : Item,currentYear : number) => {
-    await postData(Routes.ITEMS, item);
+export const postItem = async (item : Item) => {
+  await postData(Routes.ITEMS, item);
 }
 
 /**
@@ -64,22 +63,18 @@ export const postItem = async (item : Item,currentYear : number) => {
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 const handleResponse = async <T extends Identifiable>(
-    response : ResponseData<T>,
-    data : T,
-    route : Routes|string,
-    newObject: (data : T) => T
+  response : ResponseData<T>,
+  data : T,
+  route : Routes|string,
+  newObject: (data : T) => T
 ) : Promise<ResponseData<T>|null> => {
-    try {
-        let postDataResponse : ResponseData<T> | null = null
-        if (response.status == statusCode.NOT_FOUND ){
-            const obj = newObject(data);
-            const { id, ...newObjWithoutId } = obj;
-            postDataResponse = await postData(route, newObjWithoutId);
-        }
-        return postDataResponse
-    } catch (error) {
-        throw error;
-    }
+  let postDataResponse : ResponseData<T> | null = null
+  if (response.status == statusCode.NOT_FOUND ){
+    const obj = newObject(data);
+    const { id, ...newObjWithoutId } = obj;
+    postDataResponse = await postData(route, newObjWithoutId);
+  }
+  return postDataResponse
 }
 
 
@@ -94,18 +89,18 @@ const handleResponse = async <T extends Identifiable>(
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 const getOrCreateObject = async <T extends ObjectWithGivenId>(
-    object: T,
-    route: Routes|string,
-    createObject: (object: T) => T
-  ): Promise<ResponseData<T>> => {
-    try {
-        const objectData: ResponseData<T> = await fetchData(route + "/givenid/" + object.givenId);
-        const responseObject: ResponseData<T> | null = await handleResponse(objectData, object, route, createObject);
-        if (responseObject){
-            return responseObject
-        }
-        return objectData;
-    } catch (error : any) {
-      throw new Error(`Error in getOrCreateObject: ${error.message}`);
+  object: T,
+  route: Routes|string,
+  createObject: (object: T) => T
+): Promise<ResponseData<T>> => {
+  try {
+    const objectData: ResponseData<T> = await fetchData(route + "/givenid/" + object.givenId);
+    const responseObject: ResponseData<T> | null = await handleResponse(objectData, object, route, createObject);
+    if (responseObject){
+      return responseObject
     }
-  };
+    return objectData;
+  } catch (error : any) {
+    throw new Error(`Error in getOrCreateObject: ${error.message}`);
+  }
+};

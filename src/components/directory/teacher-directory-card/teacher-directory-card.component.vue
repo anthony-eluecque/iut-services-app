@@ -1,20 +1,29 @@
 <template>
-    <v-card variant="outlined" width="300">
-        <template v-slot:title>
-            {{ props.teacher.firstName }} {{ props.teacher.lastName }}
-        </template>
-        <template v-slot:subtitle>
-            Professeur
-        </template>
-        <v-card-actions>
-            <v-btn color="warning" @click="emitToggleUpdate(props.index)">
-                Modifier
-            </v-btn>
-            <v-btn color="error" @click="emitToggleDelete(props.index)">
-                Supprimer
-            </v-btn>
-        </v-card-actions> 
-    </v-card>
+  <v-card
+    variant="outlined"
+    width="300"
+  >
+    <template #title>
+      {{ props.teacher.firstName }} {{ props.teacher.lastName }}
+    </template>
+    <template #subtitle>
+      Professeur
+    </template>
+    <v-card-actions>
+      <v-btn
+        color="warning"
+        @click="emitToggleUpdate(props.index)"
+      >
+        Modifier
+      </v-btn>
+      <v-btn
+        color="error"
+        @click="emitToggleDelete(props.index)"
+      >
+        Supprimer
+      </v-btn>
+    </v-card-actions> 
+  </v-card>
 </template>
 
 
@@ -22,14 +31,14 @@
 import { Teacher } from '@/types';
 
 const props = defineProps({
-    teacher: {
-        type: Object as () => Teacher,
-        required: true
-    },
-    index: {
-        type: Number,
-        required: true,
-    }
+  teacher: {
+    type: Object as () => Teacher,
+    required: true
+  },
+  index: {
+    type: Number,
+    required: true,
+  }
 })
 
 const emit = defineEmits<{
@@ -38,10 +47,10 @@ const emit = defineEmits<{
 }>();
 
 const emitToggleUpdate = (index: number) => {
-    emit('emitUpdate', index)
+  emit('emitUpdate', index)
 }
 
 const emitToggleDelete = (index: number) => {
-    emit('emitDelete', index)
+  emit('emitDelete', index)
 }
 </script>

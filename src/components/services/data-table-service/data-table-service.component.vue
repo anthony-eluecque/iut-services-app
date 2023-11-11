@@ -22,6 +22,7 @@
         />
         <rowTableServices
           v-for="(item,index) in dataRows"
+          :key="item.id"
           :item="item"
           :index="index"
           :is-updated="index === AppStore.getEditingIndex"
@@ -37,12 +38,7 @@ import rowTableServices from '../row-table-services/row-table-services.component
 import { useAppStore } from '@/store'
 import addServiceFields from '../add-service-fields/add-service-fields.component.vue';
 import { computed, onMounted } from 'vue';
-
-import {
-    displayDataTable,
-    isLoading,
-} from './data-table-service.component'
-import { onBeforeMount } from 'vue';
+import { isLoading } from './data-table-service.component'
 
 const AppStore = useAppStore()
 
@@ -52,10 +48,10 @@ const emit = defineEmits<{
 }>();
   
 const props = defineProps({
-    isCreatingItem: {
-      type : Boolean,
-      required : true
-    }
+  isCreatingItem: {
+    type : Boolean,
+    required : true
+  }
 })
 
 const dataRows = computed(() => AppStore.getDataRows);
@@ -72,6 +68,6 @@ onMounted(async () => {
 // onBeforeMount(async () => await displayDataTable())
   
 const toggleUpdate = (index : number) : void => {
-    emit('emitUpdate',index)
+  emit('emitUpdate',index)
 }
 </script>

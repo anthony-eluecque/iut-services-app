@@ -13,9 +13,9 @@ interface AppStore {
 let appStoreInstance: AppStore | null = null;
 
 export const initializeComponent = () => {
-    appStoreInstance = {
-        sendUserCriterias: (criterias: UserCriterias) => useAppStore().sendUserCriterias(criterias)
-    };
+  appStoreInstance = {
+    sendUserCriterias: (criterias: UserCriterias) => useAppStore().sendUserCriterias(criterias)
+  };
 }
 
 /**
@@ -25,6 +25,6 @@ export const initializeComponent = () => {
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 export const search = () => {
-    const criterias: UserCriterias = { nom: nom.value, prenom: prenom.value, email: email.value };
-    appStoreInstance?.sendUserCriterias(criterias)
+  const criterias: UserCriterias = { nom: nom.value, prenom: prenom.value, email: email.value };
+  appStoreInstance?.sendUserCriterias(criterias)
 }

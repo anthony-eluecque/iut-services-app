@@ -1,4 +1,3 @@
-import { ResponseData, Routes, extractData, fetchData } from "@/api";
 import router from "@/router";
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { jwtDecode } from "jwt-decode";
@@ -27,16 +26,16 @@ export const changePasswordGuard = async (
   try {
     const token = to.query["token"]?.toString();
     if (token) {
-        const decodeDecode = jwtDecode(token);
+      const decodeDecode = jwtDecode(token);
 
-        if (decodeDecode.exp) {
-            if (new Date(decodeDecode.exp * 1000) < new Date()) {
-                router.push('/changePasswordExpirate')  
-            } 
-        }
+      if (decodeDecode.exp) {
+        if (new Date(decodeDecode.exp * 1000) < new Date()) {
+          router.push('/changePasswordExpirate')  
+        } 
+      }
     }
     else {
-        router.push('/login')
+      router.push('/login')
     }
 
     next();

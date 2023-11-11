@@ -1,6 +1,8 @@
 <template>
+  <div>
     <h1>Home page</h1>
-    {{  userStore.getUser }}
+    {{ userStore.getUser }}
+  </div>
 </template>
       
 <script lang="ts" setup>

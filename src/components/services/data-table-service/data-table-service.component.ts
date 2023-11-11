@@ -15,15 +15,15 @@ interface AppStore {
 let appStoreInstance: AppStore | null = null;
 
 export const initializeComponent = () => {
-    appStoreInstance = {
-        getUpdatingItem: () => useAppStore().getUpdatingItem,
-        setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
-        fetchItems: async (pageNumber: number) => await useAppStore().fetchItemsPage(pageNumber),
-        getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
-        addItem: async (item: Item) => await useAppStore().addItem(item),
-        setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),
-        getDataRows: () => useAppStore().getDataRows
-    };
+  appStoreInstance = {
+    getUpdatingItem: () => useAppStore().getUpdatingItem,
+    setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
+    fetchItems: async (pageNumber: number) => await useAppStore().fetchItemsPage(pageNumber),
+    getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
+    addItem: async (item: Item) => await useAppStore().addItem(item),
+    setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),
+    getDataRows: () => useAppStore().getDataRows
+  };
 }  
 export const isLoading = ref(false)
 
@@ -32,6 +32,6 @@ export const dataRows = computed(() => appStoreInstance?.getDataRows());
 
 
 export const displayDataTable = async () => {
-    await appStoreInstance?.fetchItems(1)
-    isLoading.value = true;
+  await appStoreInstance?.fetchItems(1)
+  isLoading.value = true;
 }

@@ -1,5 +1,4 @@
 import { ResponseData, Routes, extractData, fetchData } from "@/api";
-import router from "@/router";
 import { useUserStore } from "@/store"
 import { User } from "@/types";
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';

@@ -15,14 +15,14 @@ interface AppStore {
 let appStoreInstance: AppStore | null = null;
 
 export const initializeComponent = () => {
-    appStoreInstance = {
-        getUpdatingUser: () => useAppStore().getUpdatingUser,
-        setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
-        fetchUsersPage: async (pageNumber: number) => await useAppStore().fetchUsersPage(pageNumber),
-        getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
-        addUser: async (user: User) => await useAppStore().addUser(user),
-        setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),
-    };
+  appStoreInstance = {
+    getUpdatingUser: () => useAppStore().getUpdatingUser,
+    setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
+    fetchUsersPage: async (pageNumber: number) => await useAppStore().fetchUsersPage(pageNumber),
+    getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
+    addUser: async (user: User) => await useAppStore().addUser(user),
+    setEditingIndex: (index: number | null) => useAppStore().setEditingIndex(index),
+  };
 }
 
 export const firstNameUserValue = ref<string>('');
@@ -33,9 +33,9 @@ export const emailUserValue = ref<string>('');
  * Annule les valeurs des champs de saisie pour un utilisateur.
  */
 export const cancelInput = () => {
-    firstNameUserValue.value = '';
-    lastNameUserValue.value = '';
-    emailUserValue.value = '';
+  firstNameUserValue.value = '';
+  lastNameUserValue.value = '';
+  emailUserValue.value = '';
 }
 
 /**
@@ -44,14 +44,14 @@ export const cancelInput = () => {
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 export const AddOrUpdateUser = async () => {
-    const newUser = {
-        firstName: firstNameUserValue.value,
-        lastName: lastNameUserValue.value,
-        email: emailUserValue.value,
-    }
+  const newUser = {
+    firstName: firstNameUserValue.value,
+    lastName: lastNameUserValue.value,
+    email: emailUserValue.value,
+  }
 
-    await postData(Routes.USERS,newUser);
-    appStoreInstance?.fetchUsersPage(1);
+  await postData(Routes.USERS,newUser);
+  appStoreInstance?.fetchUsersPage(1);
 
 }
 

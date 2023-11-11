@@ -12,7 +12,7 @@
             min-width="200px"
             rounded
           >
-            <template v-slot:activator="{ props }">
+            <template #activator="{ props }">
               <v-btn
                 icon
                 v-bind="props"
@@ -33,9 +33,11 @@
                   >
                     <span class="text-h5">{{ useUserStore().getUser.firstName[0] + useUserStore().getUser.lastName[0] }}</span>
                   </v-avatar>
-                  <h3 class="mt-4">{{ useUserStore().getUser.firstName + " " + useUserStore().getUser.lastName }}</h3>
+                  <h3 class="mt-4">
+                    {{ useUserStore().getUser.firstName + " " + useUserStore().getUser.lastName }}
+                  </h3>
                   <p class="text-caption mt-1">
-                    {{ useUserStore().getUser.email}}
+                    {{ useUserStore().getUser.email }}
                   </p>
                 </div>
               </v-card-text>
@@ -67,11 +69,12 @@
         </div>
       </div>
       <template #append>
-        <v-icon class="change-theme-icon"
-            @click="displayParams()"
-          >
+        <v-icon
+          class="change-theme-icon"
+          @click="displayParams()"
+        >
           mdi-cog-outline
-          </v-icon>
+        </v-icon>
         <div class="section-bottom-nav">
           <v-btn
             block
@@ -90,7 +93,7 @@
 
 
 <script setup lang="ts">
-import {fetchData, postData } from '@/api';
+import { postData } from '@/api';
 import { menuItems } from './navigation-drawer.app.component'
 import router from '@/router';
 import { useAppStore, useUserStore } from '@/store';

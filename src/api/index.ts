@@ -1,5 +1,5 @@
 import router from '@/router';
-import { useAppStore, useUserStore } from '@/store';
+import { useAppStore } from '@/store';
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 export { postItem } from './helpers';
 
@@ -199,14 +199,14 @@ export const deleteUser = async(
  * @returns {Promise<ResponseData<T>>} - La promesse contenant les données et le statut de la réponse.
  */
 export const updateData = async <T>(
-    route : Routes|string, 
-    data: any, 
-    config = {}
-  ) : Promise<ResponseData<T>> => {
-    return await performRequest<T>('put', route, data, config);
-  }
+  route : Routes|string, 
+  data: any, 
+  config = {}
+) : Promise<ResponseData<T>> => {
+  return await performRequest<T>('put', route, data, config);
+}
 
-  /**
+/**
  * Extrait les données d'une réponse de l'API. (Reponse.data.data => Formattage spécifique du back)
  *
  * @template T - Le type des données de la réponse.

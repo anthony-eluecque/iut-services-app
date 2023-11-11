@@ -1,29 +1,42 @@
 <template>
-    <section class="container">
-        <div class="sub_container">
-            <v-container fluid class="container-title-page primary bg-background-container">
-                <h2>Gestion des utilisateurs</h2>
-            </v-container>
-            <UserEditionModal v-if="isEditingUser" />
-            <v-container fluid class="container-actions">
-                <v-row no-gutters>
-                    <v-col cols="6">
-                        <searchBar />
-                    </v-col>
-                    <v-col cols="2">
-                    </v-col>
-                    <v-col cols="4">
-                        <div class="add-action">
-                            <v-btn height="55px" append-icon="mdi-plus" text="Ajouter un utilisateur" color="primary"
-                                @click="addInputFields" />
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-            <UsersTable @emit-update="openModalUpdate" :is-creating-user="isCreatingUser"
-                @remove-create-component="removeInputFields" />
-        </div>
-    </section>
+  <section class="container">
+    <div class="sub_container">
+      <v-container
+        fluid
+        class="container-title-page primary bg-background-container"
+      >
+        <h2>Gestion des utilisateurs</h2>
+      </v-container>
+      <UserEditionModal v-if="isEditingUser" />
+      <v-container
+        fluid
+        class="container-actions"
+      >
+        <v-row no-gutters>
+          <v-col cols="6">
+            <searchBar />
+          </v-col>
+          <v-col cols="2" />
+          <v-col cols="4">
+            <div class="add-action">
+              <v-btn
+                height="55px"
+                append-icon="mdi-plus"
+                text="Ajouter un utilisateur"
+                color="primary"
+                @click="addInputFields"
+              />
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+      <UsersTable
+        :is-creating-user="isCreatingUser"
+        @emit-update="openModalUpdate"
+        @remove-create-component="removeInputFields"
+      />
+    </div>
+  </section>
 </template>
 
 
@@ -37,28 +50,27 @@ import { Ref, ref, computed, onMounted } from 'vue';
 const isCreatingUser: Ref<boolean> = ref(false);
 const isEditingUser: Ref<boolean> = ref(false);
 const AppStore = useAppStore();
-const alert = computed(() => AppStore.getAlert);
 const page = computed({
-    get: () => AppStore.pagination.page,
-    set: (value: number) => AppStore.fetchUsersPage(value)
+  get: () => AppStore.pagination.page,
+  set: (value: number) => AppStore.fetchUsersPage(value)
 });
 
 onMounted(async () => {
-    AppStore.paginationHandler(page.value);
+  AppStore.paginationHandler(page.value);
 });
 
 const openModalUpdate = (index: number) => {
-    isEditingUser.value = true;
-    AppStore.setUpdateUser(AppStore.users[index]);
-    AppStore.setStateDialog(true);
+  isEditingUser.value = true;
+  AppStore.setUpdateUser(AppStore.users[index]);
+  AppStore.setStateDialog(true);
 };
 
 const addInputFields = () => {
-    isCreatingUser.value = true;
+  isCreatingUser.value = true;
 };
 
 const removeInputFields = () => {
-    isCreatingUser.value = false;
+  isCreatingUser.value = false;
 };
 </script>
 

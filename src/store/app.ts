@@ -1,7 +1,7 @@
 // Utilities
-import { InputFieldType, Item, User, Lesson, Teacher,Pagination, Alert } from '@/types'
+import { Item, User, Lesson, Teacher,Pagination, Alert } from '@/types'
 import { defineStore } from 'pinia'
-import Axios, { ResponseData, Routes, deleteItem, extractData, fetchData, postData, postItem} from '@/api'
+import { ResponseData, Routes, extractData, fetchData, postData, postItem} from '@/api'
 import { initStore } from './initStore'
 import { postTeacher } from '@/api/helpers/Item'
 import { Criterias } from '@/types/criterias.types';
@@ -96,7 +96,7 @@ export const useAppStore = defineStore('app', {
     getServiceHours() : number {
       return this.dataRows.reduce((acc, item) => acc + 
         item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
-        ,0)
+          ,0)
       ,0)
     },
 
@@ -293,7 +293,7 @@ export const useAppStore = defineStore('app', {
         'Votre item a bien été ajouté à la base de données',
         'success'
       );
-      await postItem(item,this.currentYear)
+      await postItem(item)
       this.fetchItemsPage(this.pagination.page)
     },
 

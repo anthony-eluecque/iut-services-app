@@ -22,9 +22,9 @@ export default defineConfig({
   ],
   css: {
     preprocessorOptions: {
-        scss: {
-            additionalData: `@import "@/styles/index";`,
-        },
+      scss: {
+        additionalData: `@import "@/styles/index";`,
+      },
     },
   },
   define: { 'process.env': {} },

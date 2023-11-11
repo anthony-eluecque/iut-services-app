@@ -1,6 +1,4 @@
 import { defineStore } from "pinia";
-import router from "@/router";
-import Axios from "@/api";
 import { User } from '@/types'
 
 interface UserStoreState {
