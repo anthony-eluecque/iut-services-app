@@ -80,6 +80,13 @@ const deleteComponent = () => {
 }
 
 const form = ref(null)
+
+/**
+ * Valide le formulaire avant de déclencher une action.
+ * Si le formulaire est valide, appelle la fonction AddOrUpdateUser, sinon affiche une alerte.
+ *
+ * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
+ */
 const validateFormBeforeCallback = async () => {
     const res = await form.value?.validate()
     const { errors, valid } = res

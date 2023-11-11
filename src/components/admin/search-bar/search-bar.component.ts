@@ -18,6 +18,12 @@ export const initializeComponent = () => {
     };
 }
 
+/**
+ * Effectue une recherche d'utilisateurs en utilisant les critères de recherche saisis.
+ * Appelle la fonction sendUserCriterias du Store de l'app pour mettre à jour la liste d'utilisateurs.
+ *
+ * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
+ */
 export const search = () => {
     const criterias: UserCriterias = { nom: nom.value, prenom: prenom.value, email: email.value };
     appStoreInstance?.sendUserCriterias(criterias)

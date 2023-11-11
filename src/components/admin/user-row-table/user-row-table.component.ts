@@ -20,6 +20,13 @@ export const initializeComponent = () => {
     };
 }
 
+/**
+ * Supprime un utilisateur spécifié en utilisant l'API de suppression.
+ * Après la suppression, rafraîchit la liste des utilisateurs en appelant la fonction fetchUser de appStoreInstance.
+ *
+ * @param {User} userToDelete - L'utilisateur à supprimer.
+ * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
+ */
 export const removeUser = async (userToDelete: User) => {
     await deleteItem(Routes.USERS, userToDelete.id);
     await appStoreInstance?.fetchUser(appStoreInstance.getCurrentIndexPage())

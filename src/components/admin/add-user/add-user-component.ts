@@ -29,12 +29,20 @@ export const firstNameUserValue = ref<string>('');
 export const lastNameUserValue = ref<string>('');
 export const emailUserValue = ref<string>('');
 
+/**
+ * Annule les valeurs des champs de saisie pour un utilisateur.
+ */
 export const cancelInput = () => {
     firstNameUserValue.value = '';
     lastNameUserValue.value = '';
     emailUserValue.value = '';
 }
 
+/**
+ * Ajoute un nouvel utilisateur ou met à jour un utilisateur existant.
+ *
+ * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
+ */
 export const AddOrUpdateUser = async () => {
     const newUser = {
         firstName: firstNameUserValue.value,
