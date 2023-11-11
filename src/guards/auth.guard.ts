@@ -9,6 +9,19 @@ const commonPermissions = ['','/']
 const adminPermissions = [...commonPermissions,'users']
 const usersPermissions = [...commonPermissions,'services','directory','notices','home']
 
+
+/**
+ * Fonction de Garde d'Authentification
+ *
+ * @param {RouteLocationNormalized} to - Route cible de la navigation.
+ * @param {RouteLocationNormalized} from - Route actuelle de la navigation.
+ * @param {NavigationGuardNext} next - Fonction pour résoudre la garde de navigation.
+ *
+ * @returns {Promise<void>} Une promesse représentant l'exécution asynchrone de la garde d'authentification.
+ *
+ * @throws {Error} En cas d'erreur pendant le processus d'authentification.
+ *
+*/
 export const authGuard = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
