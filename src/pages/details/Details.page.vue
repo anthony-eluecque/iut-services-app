@@ -69,7 +69,14 @@ const returnServicePage = () => {
     router.push('/services/')
 }
 
-
+/**
+ * Génère un Objet PDF à partir des Services Sélectionnés
+ *
+ * @description
+ * Cette fonction crée un objet PDF contenant les informations sur les semestres, les enseignants,
+ * et l'année académique à partir des services sélectionnés. Elle organise les services par semestre
+ * et génère un fichier PDF à partir de ces données.
+ */
 const generatePDFObject = () => {
 
     const pdfSemester: PDFSemesters = {
@@ -113,6 +120,16 @@ const generatePDFObject = () => {
     downloadPDF(pdfSemester)
 }
 
+/**
+ * Télécharge un Fichier PDF à partir des Informations de Semestres
+ *
+ * @param {PDFSemesters} pdfSemester - Les informations sur les semestres à inclure dans le PDF.
+ *
+ * @description
+ * Cette fonction utilise la bibliothèque jsPDF pour générer un fichier PDF contenant les détails
+ * sur les services universitaires, organisés par semestre. Le fichier PDF est ensuite téléchargé avec
+ * un nom de fichier spécifique.
+ */
 const downloadPDF = (pdfSemester : PDFSemesters) => {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
 
@@ -199,6 +216,16 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
 
 }
 
+/**
+ * Calcule le Total des Heures pour un Semestre donné
+ *
+ * @param {SemesterTable} semester - Le semestre pour lequel calculer le total des heures.
+ * @returns {number} Le total des heures pour le semestre.
+ *
+ * @description
+ * Cette fonction prend un objet SemestreTable en entrée et calcule le total des heures pour ce semestre,
+ * en tenant compte des différents types de cours et de leurs heures respectives.
+ */
 const getSemesterHours = (semester : SemesterTable) : number => {
     return semester.items?.reduce((acc, item) => acc + 
         item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
@@ -206,6 +233,15 @@ const getSemesterHours = (semester : SemesterTable) : number => {
     ,0) as number;
 }
 
+/**
+ * Calcule le Total des Heures pour le Service Sélectionné
+ *
+ * @returns {number} Le total des heures pour le service sélectionné.
+ *
+ * @description
+ * Cette fonction calcule le total des heures pour le service sélectionné, en tenant compte des
+ * différents types de cours et de leurs heures respectives.
+ */
 const getServiceHours = () : number => {
     return selectedService.value.items?.reduce((acc, item) => acc + 
         item.lessonTypes.reduce((acc,type) => acc+type.amountHours 
