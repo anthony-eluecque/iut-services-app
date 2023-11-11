@@ -1,6 +1,12 @@
 import { Pagination } from "@/types";
 import { RootState } from "./app";
 
+
+/**
+ * Initialise la configuration de pagination avec des valeurs par défaut.
+ *
+ * @returns {Pagination} - La configuration initiale de pagination.
+ */
 export const initPagination = () : Pagination => {
     return {
         page : 1,
@@ -9,13 +15,15 @@ export const initPagination = () : Pagination => {
     }
 }
   
-  // Méthode d'appel pour initialiser le store
+/**
+ * Initialise l'état de l'application avec des valeurs par défaut.
+ *
+ * @returns {RootState} - L'état initial de l'application.
+ */
 export const initStore = () : RootState => {
-    // const fakeData = generateFakerArrayItem()
     return {
         dataRows : [],
         currentUpdateItem : null,
-        // inputField : initInputField(), 
         editingIndex : null,
         token : undefined,
         pagination : initPagination(),
