@@ -1,11 +1,4 @@
 <template>
-  <!-- <v-app>
-    <NavigationDrawer />
-    <BtnTheme></BtnTheme>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app> -->
   <router-view />
 </template>
 
