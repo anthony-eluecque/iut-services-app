@@ -8,6 +8,7 @@ import { Criterias } from '@/types/criterias.types';
 import { ReponseItemsPage } from '@/types/response-items-page'
 import { UserCriterias } from '@/types/userCriterias.types'
 import { ResponseUsersPage } from '@/types/user-items-page'
+import { TeacherCriterias } from '@/types/teacherCriterias'
 
 
 /**
@@ -21,6 +22,7 @@ import { ResponseUsersPage } from '@/types/user-items-page'
  * @property {number} currentYear - L'année universitaire en cours.
  * @property {Criterias} criterias - Les critères de recherche pour les éléments.
  * @property {UserCriterias} userCriterias - Les critères de recherche pour les utilisateurs.
+ * @property {TeacherCriterias} teacherCriterias - Les critères de recherche pour les enseignants.
  * @property {Pagination} pagination - Les paramètres de pagination.
  * @property {boolean} openUpdateCard - Indique si la carte de mise à jour est ouverte.
  * @property {Item|null} currentUpdateItem - L'élément en cours de mise à jour.
@@ -51,6 +53,7 @@ export interface RootState {
   users: User[]
   alert : Alert
   userCriterias: UserCriterias
+  teacherCriterias: TeacherCriterias
   criterias: Criterias
   isDisplayParams: boolean;
 }
@@ -364,6 +367,20 @@ export const useAppStore = defineStore('app', {
     },
 
     /**
+     * Récupère et affiche la page d'enseignants correspondant à la nouvelle page spécifiée.
+     *
+     * @param {number} pageNumber - Le numéro de la nouvelle page.
+     */
+    async fetchFilteredTeachers() {
+      const teachersResponse : ResponseData<Teacher[]> = await fetchData(
+        `${Routes.TEACHERS}/filter/?givenId=${this.teacherCriterias.matricule}&lastName=${this.teacherCriterias.nom}&firstName=${this.teacherCriterias.prenom}`
+      )
+      const newTeachers = extractData(teachersResponse);
+      this.teachers = newTeachers;
+      console.log(this.teachers)
+    },
+
+    /**
      * Envoie les critères de recherche et affiche la page d'éléments correspondant à ces critères.
      *
      * @param {Criterias} criterias - Les critères de recherche pour les éléments.
@@ -381,6 +398,16 @@ export const useAppStore = defineStore('app', {
     async sendUserCriterias(userCriterias : UserCriterias) {
       this.userCriterias = userCriterias;
       this.fetchUsersPage(1);
+    },
+
+    /**
+     * Envoie les critères de recherche et affiche la page d'enseignants correspondant à ces critères.
+     *
+     * @param {TeacherCriterias} teacherCriterias - Les critères de recherche pour les enseignants.
+     */
+    async sendTeacherCriterias(teacherCriterias : TeacherCriterias) {
+      this.teacherCriterias = teacherCriterias;
+      this.fetchFilteredTeachers();
     },
 
     /**
