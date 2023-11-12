@@ -93,9 +93,7 @@
 
 
 <script setup lang="ts">
-import { postData } from '@/api';
-import { menuItems } from './navigation-drawer.app.component'
-import router from '@/router';
+import { menuItems, loggout } from './navigation-drawer.app.component'
 import { useAppStore, useUserStore } from '@/store';
 import { computed } from 'vue';
 const AppStore = useAppStore();
@@ -105,9 +103,4 @@ const displayParams = () => {
 }
 
 const getItemsForRole = computed(() => menuItems.filter((item : any) => item.isAdmin === useUserStore().getUser.isAdmin))
-
-const loggout = async () => {
-  await postData('/users/logout',{});
-  router.push('/login')
-}
 </script>

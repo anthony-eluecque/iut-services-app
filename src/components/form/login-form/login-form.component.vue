@@ -45,7 +45,7 @@
             <v-card-actions>
               <v-btn
                 color="primary"
-                @click="forgotPassword()"
+                @click="forgotPassword"
               >
                 Mot de passe oublié?
               </v-btn>
@@ -68,7 +68,7 @@
     </v-container>
     <boxDialogueSendEmail
       v-if="isDisplaySendMail"
-      @resend-mail="forgotPassword()"
+      @resend-mail="forgotPassword"
       @close-dialog="isDisplaySendMail = false"
     />
   </div>
@@ -76,53 +76,14 @@
 
 
 <script setup lang="ts">
-import { postData, Routes, ResponseData } from '@/api';
-import router from '@/router';
-import { useUserStore } from '@/store';
-import { ref } from 'vue';
-import { User } from '@/types'
 import boxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
-import { Ref } from 'vue';
-
-const password = ref('');
-const email = ref('');
-const errorAuthentification = ref(false);
-let isDisplaySendMail = ref(false);
-const errorReinitPassword: Ref<string | null> = ref(null);
-
-const forgotPassword = async() => {
-  isDisplaySendMail.value = false;
-  errorAuthentification.value = false;
-
-  errorReinitPassword.value = null;
-  const response : ResponseData<any> = await postData(Routes.USERS + '/forgotPassword', {
-    email : email.value
-  });
-
-  if (response.status === 200) {
-    isDisplaySendMail.value = true;
-  }
-  else if (response.status === 404) {
-    errorReinitPassword.value = response.data.data;
-  }
-  else {
-    errorReinitPassword.value = "Erreur lors de la réinitialisation du mot de passe";   
-  }
-}
-
-const postAuth = async() => {
-  errorAuthentification.value = false;
-  useUserStore()
-  const res : ResponseData<User> = await postData(Routes.USERS + '/login',{
-    email : email.value, password : password.value
-  });
-
-  if (res.status == 204) {
-    router.push('/services')
-  }
-  else if (res.status == 400) {
-    errorAuthentification.value = true;
-  }
-}
-
+import {
+  isDisplaySendMail,
+  forgotPassword,
+  errorAuthentification,
+  password,
+  errorReinitPassword,
+  email,
+  postAuth
+} from './login-form.component'
 </script>

@@ -1,17 +1,3 @@
-<script lang="ts" setup>
-import { 
-  search, 
-  initializeComponent,
-  id,
-  nom,
-  prenom,
-  ressource,
-  libelle  
-} from './searchbar-services.component';
-
-initializeComponent();
-</script>
-
 <template>
   <v-form
     class="form-container"
@@ -87,3 +73,17 @@ initializeComponent();
     </v-row>
   </v-form>
 </template>
+
+<script lang="ts" setup>
+import { 
+  search, 
+  initializeComponent,
+  id,
+  nom,
+  prenom,
+  ressource,
+  libelle  
+} from './searchbar-services.component';
+
+initializeComponent();
+</script>

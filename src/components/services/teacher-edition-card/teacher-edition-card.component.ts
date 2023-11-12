@@ -91,3 +91,20 @@ export const add = () => {
   children.value.push({name:'',amountHours:0})
   validators.value.push(false)
 }
+
+export const updateValues = (
+  index : number, name : string, hours : number , isValidOrNot : boolean
+) => {
+  items.value = items.value.filter((n) => n !== name);
+  children.value[index].name = name;
+  children.value[index].amountHours = hours;
+  validators.value[index] = isValidOrNot;
+}
+
+export const deleteValues = (index : number, id: string) => {
+  if (id !== ''){
+    needToBeDeleted.value.push(id)
+  }
+  children.value = children.value.filter((value,i) => i!==index);
+  validators.value = validators.value.filter((value,i) => i!==index);
+}

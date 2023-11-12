@@ -38,3 +38,7 @@ export const openItem = (itemToOpen : Item) => {
     },
   });
 }
+
+export const calculateTotalHours = (item : Item) => {
+  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
+}

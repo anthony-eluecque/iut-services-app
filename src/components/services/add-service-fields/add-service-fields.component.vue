@@ -1,77 +1,3 @@
-<script lang="ts" setup>
-import { Item } from '@/types';
-
-import {
-  initializeComponent,
-  givenIdLessonValue,
-  givenIdTeacherValue,
-  firstnameTeacherValue,
-  lastnameTeacherValue,
-  labelLessonValue,
-  cancelInput,
-  AddOrUpdateItem  
-} from './add-service-fields.component'
-import { ref } from 'vue';
-import { useAppStore } from '@/store';
-
-initializeComponent()
-
-const emit = defineEmits<{
-    (e:'removeCreateComponent'): void
-}>();
-
-const props = defineProps({
-  item: {
-    type: Object as () => Item, 
-    required: false,
-  },
-  isCreatingItem: {
-    type : Boolean,
-    required : true
-  }
-})
-
-const hints = {
-  ressource : "Par exemple R1.01, SAÉ S2 01, Stage, ...",
-  lesson : "Par exemple Cryptographie, ..."
-}
-
-const rules = {
-  required: (value : string) => !!value || 'Champs requis',
-  formatRessource: (value: string) => {
-    const regex = /^(R[1-6]\.\d{2}|P[1-6]\.\d{2}|SAÉ.S[1-6]\.\d{2}|S[1-6].[A-Z]\.\d{2}|R[1-6].[A-Z]\.\d{2}|Stage)$/;
-    return regex.test(value) || 'Repecter le format des Ressources de BUT (Ex: R1.01, ...) ';
-  },
-  formatText: (value: string) => {
-    const regex = /^[A-Z][a-z]*$/;
-    return regex.test(value) || 'Format [A-Z][xx]';
-  },
-  counter: (value:string) => value.length <= 20 || 'Max 20 characters'
-}
-
-const deleteComponent = () => {
-  cancelInput()
-  emit('removeCreateComponent')
-}
-
-const form = ref(null)
-const validateFormBeforeCallback = async () => {
-  const res = await form.value.validate()
-  const { errors, valid } = res
-  if (valid) {
-    await AddOrUpdateItem()
-    cancelInput()
-    emit('removeCreateComponent')
-  } else {
-    useAppStore().createAlert(
-      'Formulaire Invalide',
-      "L'item que vous essayez de créer est invalide !",
-      'error'
-    )
-  }
-}
-
-</script>
 
 <template>
   <tr v-if="props.isCreatingItem">
@@ -179,3 +105,62 @@ const validateFormBeforeCallback = async () => {
     </td>
   </tr>
 </template>
+
+<script lang="ts" setup>
+import { Item } from '@/types';
+
+import {
+  initializeComponent,
+  givenIdLessonValue,
+  givenIdTeacherValue,
+  firstnameTeacherValue,
+  lastnameTeacherValue,
+  labelLessonValue,
+  cancelInput,
+  AddOrUpdateItem,
+  hints,
+  rules
+} from './add-service-fields.component'
+import { ref } from 'vue';
+import { useAppStore } from '@/store';
+
+initializeComponent()
+
+const emit = defineEmits<{
+    (e:'removeCreateComponent'): void
+}>();
+
+const props = defineProps({
+  item: {
+    type: Object as () => Item, 
+    required: false,
+  },
+  isCreatingItem: {
+    type : Boolean,
+    required : true
+  }
+})
+
+
+const deleteComponent = () => {
+  cancelInput()
+  emit('removeCreateComponent')
+}
+
+const form = ref(null)
+const validateFormBeforeCallback = async () => {
+  const res = await form.value.validate()
+  const { errors, valid } = res
+  if (valid) {
+    await AddOrUpdateItem()
+    cancelInput()
+    emit('removeCreateComponent')
+  } else {
+    useAppStore().createAlert(
+      'Formulaire Invalide',
+      "L'item que vous essayez de créer est invalide !",
+      'error'
+    )
+  }
+}
+</script>

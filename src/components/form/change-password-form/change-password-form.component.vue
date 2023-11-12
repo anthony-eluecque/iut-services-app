@@ -97,60 +97,23 @@
 </template>
    
 <script setup  lang="ts">
-import { ref, watchEffect } from 'vue'
-import { ResponseData, Routes, postData } from "@/api";
-import { useRoute } from 'vue-router'
-import router from '@/router';
-import zxcvbn from 'zxcvbn';
-import { computed } from 'vue';
-
-const route = useRoute()
-const showNewPassword = ref(false);
-const showRenewPassword = ref(false);
-const passwordNew = ref('');
-const passwordNewRe = ref('');
-const isMessageSuccess = ref(false);
-const isDisplayMessageError = ref(false);
-const scorePassword = computed(() => zxcvbn(passwordNew.value).score);
-const showDisplayPasswordNotEqual = ref(false);
-
-let rules = {
-  required: (value: string) => !!value || 'La saisie est obligatoire',
-  min: (value: string) => value.length >= 8 || 'Il faut plus de 8 caractères',
-}
-
-const errorForm = computed(() => {
-  return !(rules.required(passwordNew.value) && rules.min(passwordNew.value) &&
-           rules.required(passwordNewRe.value) && rules.min(passwordNewRe.value) &&
-           passwordNew.value === passwordNewRe.value);
-});
-
-watchEffect(() => {
-  showDisplayPasswordNotEqual.value = 
-    rules.required(passwordNew.value) &&
-    rules.required(passwordNewRe.value) &&
-    passwordNew.value !== passwordNewRe.value;
-  isDisplayMessageError.value = false;
-});
-
-
-const postChangePassword = async() => {
-  const changePasswordResponse : ResponseData<any> = await postData(`${Routes.USERS}/changePassword`, {password: passwordNew.value, token: route.query.token});
-
-  if (changePasswordResponse.status == 200) {
-    isMessageSuccess.value = true;
-    await postData('/users/logout',{});
-
-    setTimeout(() => {
-      router.push('/login');            
-    }, 2000)
-  }
-  else {
-    isDisplayMessageError.value = true;
-  }
-}
+import { 
+  postChangePassword,
+  errorForm,
+  rules,
+  isDisplayMessageError,
+  showDisplayPasswordNotEqual,
+  showRenewPassword,
+  showNewPassword,
+  scorePassword,
+  passwordNewRe,
+  passwordNew,
+  isMessageSuccess,
+  initializeComponent
+} from './change-password-form.component';
+initializeComponent();
 </script>
     
 <style lang="scss">
-  @import './changePasswordForm';
+@import './changePasswordForm';
 </style>

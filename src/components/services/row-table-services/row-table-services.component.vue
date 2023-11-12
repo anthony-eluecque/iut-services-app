@@ -39,7 +39,8 @@ import { Item } from '@/types';
 import {
   openItem,
   removeItem,
-  initializeComponent
+  initializeComponent,
+  calculateTotalHours
 } from './row-table-services.component';
 
 const props = defineProps({
@@ -63,10 +64,6 @@ const emit = defineEmits<{
 
 const emitToggleUpdate = (index : number) => {
   emit('emitUpdate',index)
-}
-
-const calculateTotalHours = (item : Item) => {
-  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
 }
 
 initializeComponent()

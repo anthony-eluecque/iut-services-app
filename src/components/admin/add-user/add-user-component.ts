@@ -53,3 +53,19 @@ export const AddOrUpdateUser = async () => {
   await appStoreInstance?.addUser(newUser as User);
 }
 
+
+export const rules = {
+  required: (value: string) => !!value || 'Champs requis',
+  capitalize: (value: string) =>  {
+    const regex = /^[A-Z][a-z]*(?:\s[A-Z][a-z]*)*$/;
+    return regex.test(value) || `La première lettre de chaque mot doit être une majuscule`;
+  },
+  capitalizeAll: (value: string) => {
+    const regex = /^[A-Z\s]+$/;
+    return regex.test(value) || `Toutes les lettres doivent être des majuscules`;
+  },
+  formatEmail: (value: string) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(value) || `L'adresse email saisie n'est pas valide`;
+  },
+}

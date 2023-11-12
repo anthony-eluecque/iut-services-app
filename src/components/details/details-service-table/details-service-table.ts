@@ -1,3 +1,4 @@
+import { Item } from "@/types";
 import { DeepReadonly, Ref, ref } from "vue";
 
 export const parseSemester = (semester: string): number => {
@@ -21,4 +22,9 @@ export interface ServiceRow {
     types: string[];
     semester: number;
     amountHours: number;
+}
+
+
+export const calculateTotalHours = (item : Item) => {
+  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
 }

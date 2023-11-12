@@ -38,6 +38,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ref } from 'vue';
+import { rules } from './lesson-types.component'
 
 const props = defineProps({
   name: {
@@ -84,6 +85,7 @@ const name = computed({
   }
 }
 )
+
 const hours = computed(
   {
     get: () => props.amountHours,
@@ -101,12 +103,5 @@ const hours = computed(
 const removeLesson = () => emit('emitDelete',props.index,props.id)
 
 const form = ref(null)
-const rules = {
-  required: (value : string) => !!value || 'Champs requis',
-  formatStringNumber: (value : string) => {
-    const regex = /^\d+$/;
-    return regex.test(value) || 'Un chiffre/nombre entier est attendu'
-  }
-}
 </script>
 

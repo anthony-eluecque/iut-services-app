@@ -65,3 +65,24 @@ export const AddOrUpdateItem = async () => {
   await appStoreInstance?.addItem(newItem)
 }
 
+
+
+export const hints = {
+  ressource : "Par exemple R1.01, SAÉ S2 01, Stage, ...",
+  lesson : "Par exemple Cryptographie, ..."
+}
+
+
+
+export const rules = {
+  required: (value : string) => !!value || 'Champs requis',
+  formatRessource: (value: string) => {
+    const regex = /^(R[1-6]\.\d{2}|P[1-6]\.\d{2}|SAÉ.S[1-6]\.\d{2}|S[1-6].[A-Z]\.\d{2}|R[1-6].[A-Z]\.\d{2}|Stage)$/;
+    return regex.test(value) || 'Repecter le format des Ressources de BUT (Ex: R1.01, ...) ';
+  },
+  formatText: (value: string) => {
+    const regex = /^[A-Z][a-z]*$/;
+    return regex.test(value) || 'Format [A-Z][xx]';
+  },
+  counter: (value:string) => value.length <= 20 || 'Max 20 characters'
+}

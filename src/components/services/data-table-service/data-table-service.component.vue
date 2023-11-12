@@ -56,16 +56,15 @@ const props = defineProps({
 
 const dataRows = computed(() => AppStore.getDataRows);
 
-const removeAddRow = () => {
-  emit('removeCreateComponent')
-}
 
 onMounted(async () => {
   await AppStore.fetchItemsPage(1)
   isLoading.value = true
 })
 
-// onBeforeMount(async () => await displayDataTable())
+const removeAddRow = () => {
+  emit('removeCreateComponent')
+}
   
 const toggleUpdate = (index : number) : void => {
   emit('emitUpdate',index)

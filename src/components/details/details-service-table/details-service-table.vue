@@ -12,7 +12,7 @@
 import { Item } from '../../../types';
 import { Service } from '../../../types/service.types';
 import { computed } from 'vue';
-import { parseSemester, headers, itemsPerPageText, ServiceRow } from './details-service-table';
+import { parseSemester, headers, itemsPerPageText, ServiceRow, calculateTotalHours} from './details-service-table';
 
 const props = defineProps({
   service: {
@@ -33,8 +33,4 @@ const serviceData = computed(() => {
   })
   return data;
 });
-
-const calculateTotalHours = (item : Item) => {
-  return item.lessonTypes.reduce((acc,lessonType) => lessonType.amountHours + acc, 0)
-}
 </script>

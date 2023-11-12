@@ -102,14 +102,22 @@
   
 <script setup lang="ts">
 import { ref } from 'vue'
-import { initializeTheme, theme, hiddenParams, isDisplaySendMail, isDisplayDeleteAccount, errorChangePassword, sendResetPassword, deleteAccount} from './setting.component'
+import { 
+  initializeTheme, 
+  theme,
+  hiddenParams, 
+  isDisplaySendMail, 
+  isDisplayDeleteAccount, 
+  errorChangePassword, 
+  sendResetPassword, 
+  deleteAccount,
+  dialog,
+  password,
+  showPassword
+} from './setting.component'
 import BoxDialogueSendEmail from "@/components/setting/change-password/box-dialogue-send-email/box-dialogue-send-email.component.vue"
 import DeleteAccount from "@/components/setting/delete-account/delete-account.component.vue"
 
-let showPassword = ref(false)
-let password = ref('')
-let dialog = ref(true)
-    
 initializeTheme();
 
 const closeDialog = () => isDisplayDeleteAccount.value = false;
