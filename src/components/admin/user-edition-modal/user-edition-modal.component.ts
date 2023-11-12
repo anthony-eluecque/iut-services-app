@@ -50,5 +50,11 @@ export const editUser = async () => {
   }
   await updateData(Routes.USERS, updatedData);
   await AppStore.fetchUsersPage(1);
+
+  useAppStore().createAlert(
+    "Mise à jour",
+    "L'utilisateur a bien été mis à jour !",
+    "success"
+  )
   removeModal();
 }

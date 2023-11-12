@@ -7,6 +7,7 @@ interface AppStore {
     setStateDialog: (value: boolean) => void,
     fetchUser: (pageNumber: number) => Promise<void>,
     getCurrentIndexPage: () => number,
+    createAlert: (title: string, text: string, type: "error" | "success" | "warning" | "info" | undefined) => void
 }
 
 let appStoreInstance: AppStore | null = null;
@@ -17,6 +18,7 @@ export const initializeComponent = () => {
     setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
     fetchUser: async (pageNumber: number) => await useAppStore().fetchUsersPage(pageNumber),
     getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
+    createAlert: (title,text,type) => useAppStore().createAlert(title,text,type)
   };
 }
 
@@ -30,4 +32,10 @@ export const initializeComponent = () => {
 export const removeUser = async (userToDelete: User) => {
   await deleteItem(Routes.USERS, userToDelete.id);
   await appStoreInstance?.fetchUser(appStoreInstance.getCurrentIndexPage())
+
+  appStoreInstance?.createAlert(
+    "Supression d'un utilisateur",
+    `Vous bien supprimé l'utilisateur ${userToDelete.firstName} ${userToDelete.lastName}`,
+    "success"
+  )
 }
