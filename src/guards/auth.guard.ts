@@ -34,7 +34,6 @@ export const authGuard = async (
     let userPerm = null
     if (useUserStore().getUser.isAdmin) userPerm = adminPermissions
     else userPerm = usersPermissions
-    console.log("----->",userPerm,to.path.split('/'))
     if (userPerm.includes(to.path.split('/')[1])) next();
     else next('/denied');
 
