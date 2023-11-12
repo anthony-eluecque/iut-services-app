@@ -50,6 +50,11 @@ const props = defineProps({
     required: true,
     default: ''
   },
+  id : {
+    type: String,
+    required:true,
+    default: ''
+  },
   index: {
     type : Number,
     required: true
@@ -66,7 +71,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
     (e:'emitUpdate',index : number, name : string, hours: number, isValidOrNot : boolean) : void,
-    (e:'emitDelete',index : number) : void
+    (e:'emitDelete',index : number, id: string) : void
 }>();
 
 
@@ -93,7 +98,7 @@ const hours = computed(
   }
 )
 
-const removeLesson = () => emit('emitDelete',props.index)
+const removeLesson = () => emit('emitDelete',props.index,props.id)
 
 const form = ref(null)
 const rules = {

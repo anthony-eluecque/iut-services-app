@@ -229,5 +229,9 @@ export const getStatusCode = (response : AxiosResponse) => {
   return response.status
 }
 
-
-
+export const deleteTypeItemUser = async( 
+  id: string, 
+  config = {}
+) => {
+  return await performRequest('delete',`${Routes.ITEMS+"/item/types"}/${id}`,undefined,config);
+}

@@ -1,7 +1,7 @@
 import { useAppStore } from '@/store';
 import { computed, ref } from 'vue';
 import { Item } from '@/types';
-import { Routes, updateData } from '@/api';
+import { Routes, deleteTypeItemUser, updateData } from '@/api';
 
 
 interface AppStore {
@@ -41,26 +41,31 @@ export const removeModal = () => {
 
 export const children = ref(new Array())
 export const validators = ref(new Array())
+export const items = ref(new Array())
+export const needToBeDeleted = ref(new Array())
+
 
 export const updateDatas = ( ) => {
   createComponents()
 }
 
-export const items = ref(new Array())
-
-
 const createComponents = () => {
   items.value = ['TD','TP','CM']
   validators.value = []
+  needToBeDeleted.value = []
   const arr = new Array()
   const item = currentItem.value as Item
   if (!item) return []
   for (const type of item.lessonTypes) {
-    arr.push({name:type.lessonType.name,amountHours:type.amountHours.toString()})
-    validators.value.push(true)
-    items.value = items.value.filter((n) => n !== type.lessonType.name)
+    arr.push({
+      name:type.lessonType.name,
+      amountHours:type.amountHours.toString(),
+      id:type.id
+    });
+    validators.value.push(true);
+    items.value = items.value.filter((n) => n !== type.lessonType.name);
   }
-  children.value = arr
+  children.value = arr;
 }
 
 export const updateItem = async () => {
@@ -71,10 +76,11 @@ export const updateItem = async () => {
     ...rest
   }
 
-
-
   const valid = () => validators.value.every((v:boolean) => v === true);
   if (valid()){
+    for (const id of needToBeDeleted.value) {
+      await deleteTypeItemUser(id)
+    }
     await updateData(Routes.ITEMS,itemToUpdate)
     await appStoreInstance?.fetchItemsPage(appStoreInstance.getCurrentIndexPage())
     removeModal()

@@ -86,6 +86,7 @@
                 :key="index"
               >   
                 <lessonTypesField 
+                  :id="item.id"
                   :index="index" 
                   :name="item.name" 
                   :items="items"
@@ -131,10 +132,11 @@ import {
   validators,
   currentTeacher,
   currentLesson,
-  items
+  items,
+needToBeDeleted
 } from './teacher-edition-card.component'
 import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
-import { onUnmounted } from 'vue';
+import { onUnmounted, ref } from 'vue';
 import { onMounted } from 'vue';
 
 const AppStore = useAppStore();
@@ -151,7 +153,11 @@ const updateValues = (
   validators.value[index] = isValidOrNot;
 }
 
-const deleteValues = (index : number) => {
+
+const deleteValues = (index : number, id: string) => {
+  if (id !== ''){
+    needToBeDeleted.value.push(id)
+  }
   children.value = children.value.filter((value,i) => i!==index);
   validators.value = validators.value.filter((value,i) => i!==index);
 }
