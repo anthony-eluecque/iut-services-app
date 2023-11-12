@@ -48,10 +48,9 @@ export const searchGivenId = ref('')
 export const searchName = ref('')
 
 watch([searchName,searchGivenId],() => {
-  if (searchName.value === '' && searchGivenId.value === '') lessonData.value = cloneDeep(lessonsArray.value)
-  else 
-    lessonData.value = lessonData.value.filter((lesson : Lesson) => {
-      if (lesson.name.includes(searchName.value) && lesson.givenId.includes(searchGivenId.value))
-        return lesson
-    });
+  lessonData.value = cloneDeep(lessonsArray.value)
+  lessonData.value = lessonData.value.filter((lesson : Lesson) => {
+    if (lesson.name.includes(searchName.value) && lesson.givenId.includes(searchGivenId.value))
+      return lesson
+  });
 })
