@@ -1,5 +1,5 @@
 
-import { ResponseData, Routes, postData } from '@/api';
+import { ResponseData, Routes, extractData, fetchData, postData } from '@/api';
 import router from '@/router';
 import { useUserStore } from '@/store';
 import { User } from '@/types';
@@ -37,12 +37,13 @@ export const forgotPassword = async() => {
 
 export const postAuth = async() => {
     errorAuthentification.value = false;
-    useUserStore()
     const res : ResponseData<User> = await postData(Routes.USERS + '/login',{
       email : email.value, password : password.value
     });
-  
     if (res.status == 204) {
+      const userStore = useUserStore();
+      const userData : ResponseData<User> = await fetchData(Routes.USERS + '/auth');
+      userStore.setUser(extractData(userData));
       if (useUserStore().getUser.isAdmin) router.push('/users')
       else router.push('/services')
     }
@@ -50,6 +51,6 @@ export const postAuth = async() => {
       errorAuthentification.value = true;
     }
 
-    password.value = ''
-    email.value = ''
+    // password.value = ''
+    // email.value = ''
   }
