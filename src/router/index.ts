@@ -68,7 +68,7 @@ const routes: RouteRecordRaw[] = [
     path: '/changePassword',
     name : 'ChangePassword',
     beforeEnter: changePasswordGuard,
-    component: () => import('@/pages/change-password/change-password.page.vue'),
+    component: () => import('@/pages/change-password/Change-password.page.vue'),
   },
   {
     path: '/changePasswordExpirate',
