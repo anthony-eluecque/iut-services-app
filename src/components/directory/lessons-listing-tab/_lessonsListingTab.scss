@@ -1,0 +1,18 @@
+.container-lessons-titles {
+    display: flex;
+
+    .container-fields-filter{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 500px;
+
+        .v-input{
+            display: block;
+            min-width: 100px;
+            padding: 4px;
+        }
+
+        
+    }
+}

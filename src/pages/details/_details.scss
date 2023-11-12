@@ -1,0 +1,81 @@
+// Components
+@import '@/components/details/teacher-informations/teacherInformations';
+@import '@/components/details/details-service-table/detailsServiceTable';
+
+.container {
+    height: 95%;
+    width:95%;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .container-title-page {
+        padding: 20px;
+        align-items: center;
+        width: 100%;
+        height: 110px;
+        background: $white;
+        display: flex;
+
+        h2 {
+            font-size: $size-32;
+            font-family: $title-font;
+            font-weight: bold;
+        }
+    }
+
+    .container-teacher {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+
+        .container-title {
+            display: flex;
+            padding: 2px 4px;
+            background: $primary;
+            align-items: center;
+            height: 50px;
+        }
+
+        h2 {
+            padding: 20px;
+            font-size: $size-16;
+            color : $white;
+        }
+    }
+
+    .container-data-table{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .container-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 20px 0;
+
+            h3 {
+                font-size: $size-16;
+            }
+        }
+    }
+
+    .container-hours {
+        display: flex;
+        text-align: center;
+        margin: 20px 0;
+        justify-content: end;
+    }
+
+
+    .return-action{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+

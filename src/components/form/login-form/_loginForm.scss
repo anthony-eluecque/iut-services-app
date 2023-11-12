@@ -1,0 +1,40 @@
+.container-form{
+    height: 100vh;
+    display: flex;
+}
+
+.error_authentification {
+    color: red;
+    margin-left: 20px;
+}
+
+@media (min-width: 600px) {
+    .login-form-container {
+      width: 100%;
+    }
+  }
+  
+@media (min-width: 960px) {
+    .login-form-container {
+        width: 50%; 
+        margin: auto;
+    }
+}
+
+.layout-title{
+    align-items: center;
+    justify-content: space-between;
+    
+    h3 {
+        text-transform: uppercase; 
+    }
+}
+
+.v-card {
+    border-radius: px;
+}
+
+
+.login-form-fields {
+    margin-top: 10px;
+}
