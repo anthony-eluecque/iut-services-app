@@ -190,7 +190,7 @@ const downloadPDF = (pdfSemester : PDFSemesters) => {
     for (const item of semester.items) {
       res.push([
                 item.lesson?.givenId as string + ' ' + item.lesson?.name,
-                "1H30 " + item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
+                item.lessonTypes.map((lessonType) => lessonType.lessonType.name + " "),
                 item.lessonTypes.map((lessonType) => lessonType.amountHours.toString() + " ")
       ])
         
