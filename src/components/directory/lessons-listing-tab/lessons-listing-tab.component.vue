@@ -5,11 +5,13 @@
       <div class="container-lessons-titles">
         <div class="container-fields-filter">
           <v-text-field
+            v-model="searchGivenId"
             hide-details
-            label="Matricule Enseignant"
+            label="Matricule Ressource"
             variant="outlined"
           />
           <v-text-field
+            v-model="searchName"
             hide-details
             label="Nom"
             variant="outlined"
@@ -28,32 +30,23 @@
 
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { Lesson } from "@/types";
 import {
-  RowDataTable,
   headers,
   itemsPerPageText,
-  calculateSumHours
+  searchGivenId,
+  searchName,
+  lessonData,
+  createArrayLessons
 } from './lessons-listing-tab.component';
+import { onUpdated } from 'vue';
 
 const props = defineProps({
   lessons: {
     type: Object as () => Lesson[], 
     required: true 
   }
-})
+});
 
-const lessonData = computed(() => {
-  return props.lessons?.map((lesson : Lesson) : RowDataTable => {
-    const totalAmountHours = lesson.items?.reduce((acc, item) => {
-      return acc + calculateSumHours(item,lesson)
-    }, 0) || 0;
-    return {
-      givenId : lesson.givenId,
-      name : lesson.name,
-      amountHours : totalAmountHours
-    }
-  })
-})
+onUpdated(() => createArrayLessons(props.lessons));
 </script>
