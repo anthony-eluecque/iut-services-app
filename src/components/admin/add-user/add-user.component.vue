@@ -112,10 +112,12 @@ const form = ref(null)
  * @throws {Error} - Une erreur avec le message approprié en cas d'échec.
  */
 const validateFormBeforeCallback = async () => {
-  const res = await form.value?.validate()
+  const res = await form.value.validate()
   const { errors, valid } = res
   if (valid) {
-    AddOrUpdateUser()
+    await AddOrUpdateUser()
+    cancelInput()
+    emit('removeCreateComponent')
   } else {
     useAppStore().createAlert(
       'Formulaire invalide',
