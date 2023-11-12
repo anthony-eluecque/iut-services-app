@@ -118,7 +118,7 @@ const postAuth = async() => {
   });
 
   if (res.status == 204) {
-    router.push('/')
+    router.push('/services')
   }
   else if (res.status == 400) {
     errorAuthentification.value = true;
