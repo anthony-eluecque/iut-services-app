@@ -50,8 +50,6 @@ export const AddOrUpdateUser = async () => {
     email: emailUserValue.value,
   }
 
-  await postData(Routes.USERS,newUser);
-  appStoreInstance?.fetchUsersPage(1);
-
+  await appStoreInstance?.addUser(newUser as User);
 }
 

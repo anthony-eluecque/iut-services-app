@@ -7,6 +7,19 @@
       >
         <h2>Gestion des utilisateurs</h2>
       </v-container>
+      <div class="container-notifications">
+        <v-fade-transition>
+          <v-alert 
+            v-model="alert.display"
+            height="100%"
+            :title="alert.title" 
+            :text="alert.text" 
+            :type="alert.type"
+            width="400px"
+            transition="slide-x-transition"
+          />
+        </v-fade-transition>
+      </div>
       <UserEditionModal v-if="isEditingUser" />
       <v-container
         fluid
@@ -47,12 +60,13 @@ import UserEditionModal from '@/components/admin/user-edition-modal/user-edition
 import { useAppStore } from '@/store';
 import { Ref, ref, computed, onMounted } from 'vue';
 
+const alert = computed(() => AppStore.getAlert);
 const isCreatingUser: Ref<boolean> = ref(false);
 const isEditingUser: Ref<boolean> = ref(false);
 const AppStore = useAppStore();
 const page = computed({
   get: () => AppStore.pagination.page,
-  set: (value: number) => AppStore.fetchUsersPage(value)
+  set: async (value: number) => await AppStore.fetchUsersPage(value)
 });
 
 onMounted(async () => {

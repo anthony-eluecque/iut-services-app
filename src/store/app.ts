@@ -315,6 +315,11 @@ export const useAppStore = defineStore('app', {
      * @returns {Promise<void>} Une promesse représentant l'ajout de l'utilisateur.
      */
     async addUser(user : User){
+      this.createAlert(
+        'Utilisateur ajouté',
+        `L'utilisateur ${user.firstName} ${user.lastName} a bien été ajouté à la base de données`,
+        'success'
+      );
       await postData<User>(Routes.USERS,user)
       this.fetchUsersPage(this.pagination.page)
     },
