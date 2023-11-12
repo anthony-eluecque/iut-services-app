@@ -15,6 +15,7 @@
             persistent-clear 
             @click:clear="matricule = ''" 
           />
+        </v-col>
         <v-col>
           <v-text-field 
             v-model="nom" 
@@ -38,7 +39,6 @@
             persistent-clear 
             @click:clear="prenom = ''" 
           />
-        </v-col>
         </v-col>
         <v-col>
           <v-btn 

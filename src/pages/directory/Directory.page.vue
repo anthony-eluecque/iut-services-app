@@ -30,7 +30,7 @@
               <h1>Filtrer :</h1>
               <div class="container-filters-tabs">
                 <SearchField />
-                <div class="pt-2 pb-2">
+                <div class="pb-2">
                   <v-btn
                     height="55px"
                     append-icon="mdi-plus"
