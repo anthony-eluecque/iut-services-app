@@ -5,7 +5,12 @@
       class="container-title-services primary bg-background-container"
     >
       <h2>Liste des Services prévisionnels</h2>
-      <h2>logo</h2>
+      <div class="container-img-title">
+        <img
+          src="../../assets/IUT.png"
+          alt="Logo de l'IUT"
+        >
+      </div>
     </v-container>
     <div class="container-notifications">
       <v-fade-transition>

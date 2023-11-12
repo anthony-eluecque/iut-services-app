@@ -1,7 +1,6 @@
 import { Item, Lesson } from "@/types";
 import { cloneDeep } from "lodash";
-import { DeepReadonly, Ref, computed, ref, watch } from "vue";
-import { search } from "../teacher-search-bar/teacher-search-bar.component";
+import { DeepReadonly, Ref, ref, watch } from "vue";
 
 interface RowDataTable {
   givenId : string

@@ -10,9 +10,9 @@ export const isDisplaySendMail = ref(false);
 export const errorChangePassword: Ref<string | null> = ref(null);
 export const isDisplayAccount = ref(false);
 export const isDisplayDeleteAccount = ref(false);
-export let showPassword = ref(false);
-export let password = ref('');
-export let dialog = ref(true);
+export const showPassword = ref(false);
+export const password = ref('');
+export const dialog = ref(true);
 
 export const initializeTheme = () => {
   theme = useTheme()

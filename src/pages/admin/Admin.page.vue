@@ -6,6 +6,12 @@
         class="container-title-page primary bg-background-container"
       >
         <h2>Gestion des utilisateurs</h2>
+        <div class="container-img-title">
+          <img
+            src="../../assets/IUT.png"
+            alt="Logo de l'IUT"
+          >
+        </div>
       </v-container>
       <div class="container-notifications">
         <v-fade-transition>

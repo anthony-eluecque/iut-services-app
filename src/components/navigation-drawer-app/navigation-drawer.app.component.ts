@@ -1,9 +1,8 @@
 import { postData } from '@/api';
 import Directory from '@/pages/directory/Directory.page.vue';
-import Home from '@/pages/home/Home.page.vue';
+// import Home from '@/pages/home/Home.page.vue';
 import Services from '@/pages/services/Services.page.vue';
 import router from '@/router';
-import { computed } from 'vue';
 
 export const menuItems = [
   // { text: 'Accueil', path:'/home', icon: 'mdi-home-outline', component: Home, isAdmin : false },

@@ -1,4 +1,3 @@
-import { Routes, postData } from "@/api";
 import { useAppStore } from "@/store";
 import { User } from "@/types";
 import { ref } from "vue";

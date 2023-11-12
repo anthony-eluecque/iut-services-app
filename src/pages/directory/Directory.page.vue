@@ -5,7 +5,12 @@
       class="container-title primary bg-background-container"
     >
       <h2>Répertoire</h2>
-      <h2>logo</h2>
+      <div class="container-img-title">
+        <img
+          src="../../assets/IUT.png"
+          alt="Logo de l'IUT"
+        >
+      </div>
     </v-container>
     <EditionCard v-if="isUpdatingTeacher" />
     <DeletionCard v-if="isDeletingTeacher" />
@@ -51,8 +56,7 @@
                   :index="i"
                   @emitUpdate="openModalUpdate"
                   @emitDelete="openModalDelete"
-                >
-                </TeacherCard>
+                />
               </div>
             </v-container>
           </v-window-item>

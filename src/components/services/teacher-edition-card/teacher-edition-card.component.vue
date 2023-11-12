@@ -137,7 +137,7 @@ import {
   deleteValues
 } from './teacher-edition-card.component'
 import lessonTypesField from '@/components/services/lesson-types-fields/lesson-types.component.vue'
-import { onUnmounted, ref } from 'vue';
+import { onUnmounted } from 'vue';
 import { onMounted } from 'vue';
 
 const AppStore = useAppStore();
