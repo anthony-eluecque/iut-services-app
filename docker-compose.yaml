@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  vue-app:
+    container_name: iut_front_vue
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    networks:
+      - my-network
