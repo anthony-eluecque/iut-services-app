@@ -10,7 +10,7 @@
                 class=""
                 label="Nom Utilisateur"
                 variant="outlined"
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.capitalizeAll]"
               />
             </div>
           </v-col>
@@ -21,7 +21,7 @@
                 class=""
                 label="Prénom Utilisateur"
                 variant="outlined"
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.capitalize]"
               />
             </div>
           </v-col>
@@ -92,8 +92,16 @@ const hints = {
 
 const rules = {
   required: (value: string) => !!value || 'Champs requis',
+  capitalize: (value: string) =>  {
+    const regex = /^[A-Z][a-z]*(?:\s[A-Z][a-z]*)*$/;
+    return regex.test(value) || `La première lettre de chaque mot doit être une majuscule`;
+  },
+  capitalizeAll: (value: string) => {
+    const regex = /^[A-Z\s]+$/;
+    return regex.test(value) || `Toutes les lettres doivent être des majuscules`;
+  },
   formatEmail: (value: string) => {
-    const regex = /^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(value) || `L'adresse email saisie n'est pas valide`;
   },
 }
