@@ -4,15 +4,16 @@
 @import '@/components/directory/teacher-edition-modal/teacherEditionModal';
 @import '@/components/directory/teacher-creation-modal/teacherCreationModal';
 @import '@/components/directory/teacher-delete-modal/teacherDeleteModal';
+@import '@/components/directory/teacher-search-bar/teacherSearchBar';
 
-.container-directory{
+.container-directory {
     width: 95%;
     margin: auto;
     height: 100%;
     display: flex;
     flex-direction: column;
 
-    .container-title{
+    .container-title {
         padding: 20px;
         align-items: center;
         width: 100%;
@@ -20,7 +21,7 @@
         background: $white;
         display: flex;
         justify-content: space-between;
-        
+
         h2 {
             font-family: $title-font;
             font-size: $size-32;
@@ -40,13 +41,13 @@
             margin-top: 2px;
             display: flex;
             flex-direction: row;
-            justify-content: space-between;   
+            justify-content: space-between;
 
-            .addTeacher{
+            .addTeacher {
                 padding: 2px 0;
             }
 
-            .container-fields-filter{
+            .container-fields-filter {
                 display: flex;
                 width: 600px;
                 gap: 12px;
@@ -54,23 +55,18 @@
                 padding: 2px;
                 flex-direction: row;
             }
-
         }
 
-        .teachers{
+        .teachers {
             flex-wrap: wrap;
             gap: 50px;
             overflow: auto;
             margin-top: 12px;
             display: flex;
 
-            .teacher-grow{
+            .teacher-grow {
                 flex-grow: 1;
             }
         }
-        
-
     }
-
 }
-

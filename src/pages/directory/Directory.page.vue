@@ -29,26 +29,7 @@
             <v-container fluid>
               <h1>Filtrer :</h1>
               <div class="container-filters-tabs">
-                <div class="container-fields-filter">
-                  <v-text-field
-                    v-model="givenIdTeacher"
-                    hide-details
-                    label="Matricule Enseignant"
-                    variant="outlined"
-                  />
-                  <v-text-field
-                    v-model="firstnameTeacher"
-                    hide-details
-                    label="Prénom"
-                    variant="outlined"
-                  />
-                  <v-text-field
-                    v-model="lastnameTeacher"
-                    hide-details
-                    label="Nom"
-                    variant="outlined"
-                  />
-                </div>
+                <SearchField />
                 <div class="pt-2 pb-2">
                   <v-btn
                     height="55px"
@@ -71,7 +52,6 @@
                   @emitUpdate="openModalUpdate"
                   @emitDelete="openModalDelete"
                 >
-                  test
                 </TeacherCard>
               </div>
             </v-container>
@@ -93,14 +73,11 @@ import LessonsTab from '@/components/directory/lessons-listing-tab/lessons-listi
 import EditionCard from '@/components/directory/teacher-edition-modal/teacher-edition-modal.component.vue'
 import DeletionCard from '@/components/directory/teacher-delete-modal/teacher-delete-modal.component.vue'
 import CreationCard from '@/components/directory/teacher-creation-modal/teacher-create-modal.component.vue'
+import SearchField from '@/components/directory/teacher-search-bar/teacher-search-bar.component.vue';
 
 const AppStore = useAppStore();
-//const teachers: Ref<Teacher[]> = ref([]);
 const teachers = computed(() => AppStore.getTeachers);
 const lessons: Ref<Lesson[]> = ref([]);
-const givenIdTeacher: Ref<string> = ref('');
-const firstnameTeacher: Ref<string> = ref('');
-const lastnameTeacher: Ref<string> = ref('');
 const tab = ref("1")
 const isUpdatingTeacher: Ref<boolean> = ref(false)
 const isDeletingTeacher: Ref<boolean> = ref(false)
@@ -111,16 +88,6 @@ onBeforeMount(async () => {
   await AppStore.fetchLessons()
   lessons.value = AppStore.getLessons
 })
-
-// const filterTeacher = () => {
-//     teachers.value = AppStore.getTeachers.filter((teacher) => {
-//         return (
-//             teacher.givenId.includes(givenIdTeacher.value) &&
-//             teacher.firstName.includes(firstnameTeacher.value) &&
-//             teacher.lastName.includes(lastnameTeacher.value)
-//         );
-//     });
-// };
 
 const openModalUpdate = (index: number) => {
   isUpdatingTeacher.value = true
@@ -144,10 +111,6 @@ const openModalCreate = () => {
   isUpdatingTeacher.value = false
   AppStore.setStateDialog(true);
 }
-
-// watch(givenIdTeacher, filterTeacher)
-// watch(firstnameTeacher, filterTeacher)
-// watch(lastnameTeacher, filterTeacher)
 </script>
 
 
