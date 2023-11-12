@@ -46,7 +46,7 @@ export const createTeacher = async () => {
     firstName: currentTeacherFirstname.value,
     lastName: currentTeacherLastname.value,
   };
+
   await appStoreInstance?.addTeacher(newTeacher);
-  await appStoreInstance?.fetchTeachers();
   removeModal();
 }

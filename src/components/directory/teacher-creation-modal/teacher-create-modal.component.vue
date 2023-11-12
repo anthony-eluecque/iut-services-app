@@ -73,7 +73,10 @@ import {
   createTeacher,
   currentTeacherFirstname,
   currentTeacherId,
-  currentTeacherLastname
+  currentTeacherLastname,
+  initializeComponent
 } from './teacher-create-modal.component'
+
+initializeComponent()
 </script>
 
