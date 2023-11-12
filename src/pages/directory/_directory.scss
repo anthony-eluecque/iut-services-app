@@ -6,6 +6,12 @@
 @import '@/components/directory/teacher-delete-modal/teacherDeleteModal';
 @import '@/components/directory/teacher-search-bar/teacherSearchBar';
 
+.text-container-modal{
+    color: $white;
+    font-family: $title-font;
+    font-size: $size-32;
+}
+
 .container-directory {
     width: 95%;
     margin: auto;
