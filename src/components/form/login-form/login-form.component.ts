@@ -43,9 +43,13 @@ export const postAuth = async() => {
     });
   
     if (res.status == 204) {
-      router.push('/services')
+      if (useUserStore().getUser.isAdmin) router.push('/users')
+      else router.push('/services')
     }
     else if (res.status == 400) {
       errorAuthentification.value = true;
     }
+
+    password.value = ''
+    email.value = ''
   }

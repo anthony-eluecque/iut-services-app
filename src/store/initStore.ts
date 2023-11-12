@@ -22,6 +22,11 @@ export const initPagination = () : Pagination => {
  */
 export const initStore = () : RootState => {
   return {
+    teacherCriterias : {
+      matricule : '',
+      nom : '',
+      prenom : ''
+    },
     dataRows : [],
     currentUpdateItem : null,
     editingIndex : null,

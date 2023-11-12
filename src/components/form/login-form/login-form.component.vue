@@ -86,4 +86,10 @@ import {
   email,
   postAuth
 } from './login-form.component'
+import { onMounted } from "vue";
+
+onMounted(() => {
+  password.value = ''
+  email.value = ''
+})
 </script>

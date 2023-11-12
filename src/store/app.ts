@@ -377,7 +377,6 @@ export const useAppStore = defineStore('app', {
       )
       const newTeachers = extractData(teachersResponse);
       this.teachers = newTeachers;
-      console.log(this.teachers)
     },
 
     /**

@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
 import { User } from '@/types';
-import { defineProps } from 'vue';
 import {
   removeUser,
   initializeComponent
