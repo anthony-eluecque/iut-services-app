@@ -107,4 +107,6 @@ export const deleteValues = (index : number, id: string) => {
   }
   children.value = children.value.filter((value,i) => i!==index);
   validators.value = validators.value.filter((value,i) => i!==index);
+  const res = children.value.map((c,i) => c.name)
+  items.value = ['CM','TP','TD'].filter((value,i) => !res.includes(value))
 }
