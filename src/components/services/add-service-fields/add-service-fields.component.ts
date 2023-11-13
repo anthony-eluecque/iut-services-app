@@ -53,7 +53,7 @@ export const AddOrUpdateItem = async () => {
     type : '',
     service : {
       id : '',
-      year : 0,
+      year : useAppStore().currentYear,
       teacher : {
         firstName : firstnameTeacherValue.value,
         givenId : givenIdTeacherValue.value,
