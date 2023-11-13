@@ -35,7 +35,7 @@ export const removeUser = async (userToDelete: User) => {
 
   appStoreInstance?.createAlert(
     "Supression d'un utilisateur",
-    `Vous bien supprimé l'utilisateur ${userToDelete.firstName} ${userToDelete.lastName}`,
+    `Vous avez bien supprimé l'utilisateur ${userToDelete.firstName} ${userToDelete.lastName}`,
     "success"
   )
 }
