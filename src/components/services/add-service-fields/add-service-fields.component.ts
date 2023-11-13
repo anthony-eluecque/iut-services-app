@@ -1,6 +1,8 @@
 import { useAppStore } from "@/store";
-import { Item } from "@/types";
+import { Item, Lesson, Teacher } from "@/types";
 import { ref } from "vue";
+import debounce from 'lodash/debounce';
+import { ResponseData, Routes, extractData, fetchData } from '@/api';
 
 interface AppStore {
     getUpdatingItem: () => ReturnType<typeof useAppStore>['getUpdatingItem'],
@@ -86,3 +88,28 @@ export const rules = {
   },
   counter: (value:string) => value.length <= 20 || 'Max 20 characters'
 }
+
+
+export const inputDebounce = debounce(async (e) => {
+    const res : ResponseData<Teacher> = await fetchData(`${Routes.TEACHERS}/givenid/${givenIdTeacherValue.value}`)
+    const data : Teacher = extractData(res)
+    if (data.id){
+      firstnameTeacherValue.value = data.firstName
+      lastnameTeacherValue.value = data.lastName
+    } else {
+      firstnameTeacherValue.value = ""
+      lastnameTeacherValue.value = ""
+    }
+  }, 500);
+
+
+
+  export const inputDebounceLesson = debounce(async (e) => {
+    const res : ResponseData<Lesson> = await fetchData(`${Routes.LESSONS}/givenid/${givenIdLessonValue.value}`)
+    const data = extractData(res)
+    if (data.id){
+      labelLessonValue.value = data.name
+    } else {
+        labelLessonValue.value = ""
+    }
+  }, 500);

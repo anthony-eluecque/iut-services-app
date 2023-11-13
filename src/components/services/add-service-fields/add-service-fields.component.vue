@@ -15,6 +15,7 @@
               <div class="text-field-container">
                 <v-text-field
                   v-model="givenIdTeacherValue"
+                  @input="inputDebounce"
                   class=""
                   label="n° Matricule"
                   variant="outlined"
@@ -52,6 +53,7 @@
               <div class="text-field-container">
                 <v-text-field
                   v-model="givenIdLessonValue"
+                  @input="inputDebounceLesson"
                   variant="outlined"
                   class=""
                   label="Unité d'enseignement"
@@ -108,7 +110,6 @@
 
 <script lang="ts" setup>
 import { Item } from '@/types';
-
 import {
   initializeComponent,
   givenIdLessonValue,
@@ -119,7 +120,9 @@ import {
   cancelInput,
   AddOrUpdateItem,
   hints,
-  rules
+  rules,
+  inputDebounce,
+  inputDebounceLesson
 } from './add-service-fields.component'
 import { ref } from 'vue';
 import { useAppStore } from '@/store';
@@ -146,6 +149,7 @@ const deleteComponent = () => {
   cancelInput()
   emit('removeCreateComponent')
 }
+
 
 const form = ref(null)
 const validateFormBeforeCallback = async () => {
