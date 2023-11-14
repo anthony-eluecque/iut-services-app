@@ -2,9 +2,51 @@
 
 <template>
   <v-card class="rounded-0">
+    <v-toolbar 
+      v-if="!mdAndUp" 
+      class="bg-background-navigation-drawer"
+    >
+      <v-list
+        bg-color="transparent"
+        width="100%"
+        class="d-flex justify-space-evenly"
+        nav
+        density="compact"
+      >
+        <v-list-item
+          v-for="(item, index) in getItemsForRole"
+          :key="index"
+          class="icon-nav"
+          :to="item.path"
+        >
+          <v-icon :icon="item.icon" />
+        </v-list-item>
+        <v-list-item>
+          <v-icon
+            class="change-theme-icon"
+            @click="displayParams()"
+          >
+            mdi-cog-outline
+          </v-icon>
+        </v-list-item> 
+        <v-list-item>
+          <div class="section-bottom-nav">
+            <v-btn
+              block
+              color="button-logout"
+              icon="mdi-home"
+              @click="loggout"
+            />
+          </div>
+        </v-list-item>     
+      </v-list>
+    </v-toolbar>
     <v-navigation-drawer 
+      v-model="drawer"
       class="bg-background-navigation-drawer disable-scrollbar"
-      permanent
+      :permanent="mdAndUp"
+      elevation="24" 
+      floating
     >
       <div class="section-container">
         <div class="container-top-profile">
@@ -21,7 +63,9 @@
                   color="primary"
                   size="large"
                 >
-                  <span class="text-h5">{{ useUserStore().getUser.firstName[0] + useUserStore().getUser.lastName[0] }}</span>
+                  <span class="text-h5">
+                    {{ useUserStore().getUser.firstName[0] + useUserStore().getUser.lastName[0] }}
+                  </span>
                 </v-avatar>
               </v-btn>
             </template>
@@ -49,7 +93,10 @@
         </div>
 
         <div class="section-nav">
-          <v-list nav>
+          <v-list
+            nav
+            density="compact"
+          >
             <v-list-subheader class="menu-title">
               Menu
             </v-list-subheader>
@@ -60,11 +107,9 @@
               class="list-item"
               :class="{ 'bottom-border': index < menuItems.length - 1 }"
               :to="item.path"
-            >
-              <v-icon class="white--text mr-5">
-                {{ item.icon }}
-              </v-icon> {{ item.text }}
-            </v-list-item>
+              :prepend-icon="item.icon"
+              :title="item.text"
+            />
           </v-list>
         </div>
       </div>
@@ -95,7 +140,8 @@
 <script setup lang="ts">
 import { menuItems, loggout } from './navigation-drawer.app.component'
 import { useAppStore, useUserStore } from '@/store';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+
 const AppStore = useAppStore();
 
 const displayParams = () => {
@@ -103,4 +149,11 @@ const displayParams = () => {
 }
 
 const getItemsForRole = computed(() => menuItems.filter((item : any) => item.isAdmin === useUserStore().getUser.isAdmin))
+
+
+const drawer = ref(null)
+
+import { useDisplay } from 'vuetify'
+const display = useDisplay()
+const { xs, mdAndUp } = useDisplay()
 </script>

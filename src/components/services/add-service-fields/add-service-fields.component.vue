@@ -12,80 +12,66 @@
         <v-form ref="form">
           <v-row>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  v-model="givenIdTeacherValue"
-                  @input="inputDebounce"
-                  class=""
-                  label="n° Matricule"
-                  variant="outlined"
-                  :rules="[rules.required]"
-                />
-              </div>
+              <v-text-field
+                v-model="givenIdTeacherValue"
+                class=""
+                label="n° Matricule"
+                variant="outlined"
+                :rules="[rules.required]"
+                @input="inputDebounce"
+              />
             </v-col>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  v-model="lastnameTeacherValue"
-                  class=""
-                  label="Nom Enseignant"
-                  variant="outlined"
-                  :rules="[rules.required,rules.counter]"
-                  counter
-                  maxlength="20"
-                />
-              </div>
+              <v-text-field
+                v-model="lastnameTeacherValue"
+                class=""
+                label="Nom Enseignant"
+                variant="outlined"
+                :rules="[rules.required,rules.counter]"
+                counter
+                maxlength="20"
+              />
             </v-col>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  v-model="firstnameTeacherValue"
-                  class=""
-                  label="Prénom Enseignant"
-                  variant="outlined"
-                  :rules="[rules.required,rules.counter]"
-                  counter
-                  maxlength="20"
-                />
-              </div>
+              <v-text-field
+                v-model="firstnameTeacherValue"
+                class=""
+                label="Prénom Enseignant"
+                variant="outlined"
+                :rules="[rules.required,rules.counter]"
+                counter
+                maxlength="20"
+              />
             </v-col>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  v-model="givenIdLessonValue"
-                  @input="inputDebounceLesson"
-                  variant="outlined"
-                  class=""
-                  label="Unité d'enseignement"
-                  :rules="[rules.required,rules.formatRessource,rules.counter]"
-                  :hint="hints.ressource"
-                />
-              </div>
+              <v-text-field
+                v-model="givenIdLessonValue"
+                variant="outlined"
+                label="Unité d'enseignement"
+                :rules="[rules.required,rules.formatRessource,rules.counter]"
+                :hint="hints.ressource"
+                @input="inputDebounceLesson"
+              />
             </v-col>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  v-model="labelLessonValue"
-                  variant="outlined"
-                  class=""
-                  label="Libellé Matière"
-                  :rules="[rules.required,rules.formatText,rules.counter]"
-                  counter
-                  maxlength="20"
-                  :hint="hints.lesson"
-                />
-              </div>
+              <v-text-field
+                v-model="labelLessonValue"
+                variant="outlined"
+                class=""
+                label="Libellé Matière"
+                :rules="[rules.required,rules.formatText,rules.counter]"
+                counter
+                maxlength="20"
+                :hint="hints.lesson"
+              />
             </v-col>
             <v-col>
-              <div class="text-field-container">
-                <v-text-field
-                  class=""
-                  variant="outlined"
-                  disabled
-                >
-                  0
-                </v-text-field>
-              </div>
+              <v-text-field
+                variant="outlined"
+                disabled
+              >
+                0
+              </v-text-field>
             </v-col>
             <v-col>
               <v-btn

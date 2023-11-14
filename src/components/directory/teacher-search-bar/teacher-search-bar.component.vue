@@ -4,7 +4,11 @@
     @submit.prevent="search"
   >
     <v-row>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        md="3"
+      >
         <v-text-field 
           v-model="matricule" 
           hide-details 
@@ -16,7 +20,11 @@
           @click:clear="matricule = ''" 
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        md="3"
+      >
         <v-text-field 
           v-model="nom" 
           hide-details 
@@ -28,7 +36,11 @@
           @click:clear="nom = ''" 
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+        md="3"
+      >
         <v-text-field 
           v-model="prenom" 
           hide-details 
@@ -40,7 +52,10 @@
           @click:clear="prenom = ''" 
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        md="3"
+      >
         <v-btn 
           type="submit" 
           color="primary" 

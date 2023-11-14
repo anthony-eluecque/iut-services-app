@@ -20,16 +20,17 @@
     flex-direction: column;
 
     .container-title {
-        padding: 20px;
-        align-items: center;
-        width: 100%;
-        height: 110px;
-        background: $white;
         display: flex;
         justify-content: space-between;
+        padding: 0 20px;
+        align-items: center;
+        width: 100%;
+        height: fit-content;
+        background: $white;
 
         h2 {
             font-family: $title-font;
+            font-weight: bold;
             font-size: $size-32;
         }
 
@@ -75,4 +76,20 @@
             }
         }
     }
+}
+
+
+@media (max-width: 800px){
+    .container-title{
+        flex-direction: column;
+        h2{
+            order: 2;
+            width: 100%;
+        }
+
+        .container-img-title{
+            order: 1;
+            width: 100%;
+        }
+    } 
 }

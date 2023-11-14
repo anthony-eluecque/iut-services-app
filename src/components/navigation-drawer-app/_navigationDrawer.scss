@@ -47,16 +47,7 @@
             font-family: $title-font;
             font-size: $size-16;
             font-weight: bold;
-        }
-
-
-        .list-item{
-            font-family: $title-font;
-            font-size: $size-16;
-            font-weight: bold;
-            border-radius: 0px;
-        }
-        
+        }       
     }
 }
 
@@ -71,4 +62,23 @@
 
 .change-theme-icon {
     margin: 10px;
+}
+
+
+.v-list-item-title{
+    color: white;
+    font-size: $size-16 !important;
+    font-family: $title-font;
+    font-weight: bold !important;
+    padding: 10px;
+}
+
+.v-list-item--rounded{
+    border-radius: 0px !important;
+}
+
+.icon-nav {
+    width: 25%;
+    display: flex;
+    justify-content: center;
 }

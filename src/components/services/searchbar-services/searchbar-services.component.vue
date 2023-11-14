@@ -4,7 +4,13 @@
     @submit.prevent="search"
   >
     <v-row>
-      <v-col>
+      <v-col 
+        cols="6"
+        sm="4"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-text-field
           v-model="id"
           class="field-id"
@@ -15,7 +21,13 @@
           @click:clear="id = ''"
         />
       </v-col>
-      <v-col>
+      <v-col 
+        cols="6"
+        sm="4"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-text-field
           v-model="nom"
           class="field-text"
@@ -26,7 +38,13 @@
           @click:clear="nom = ''"
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols="6"
+        sm="4"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-text-field
           v-model="prenom"
           class="field-text"
@@ -38,7 +56,13 @@
         />
       </v-col>
 
-      <v-col>
+      <v-col
+        cols="6"
+        sm="6"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-text-field
           v-model="ressource"
           class="field-text"
@@ -49,7 +73,13 @@
           @click:clear="ressource = ''"
         />            
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-text-field
           v-model="libelle"
           class="field-text"
@@ -60,8 +90,15 @@
           @click:clear="libelle = ''"
         />
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        md="4"
+        lg="2"
+        xl="2"
+      >
         <v-btn
+          block
           type="submit"
           color="primary"
           append-icon="mdi-magnify"

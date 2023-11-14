@@ -34,16 +34,29 @@
             <v-container fluid>
               <h1>Filtrer :</h1>
               <div class="container-filters-tabs">
-                <SearchField />
-                <div class="pb-2">
-                  <v-btn
-                    height="55px"
-                    append-icon="mdi-plus"
-                    text="Ajouter un professeur"
-                    color="primary"
-                    @click="openModalCreate"
-                  />
-                </div>
+                <v-row no-gutters>
+                  <v-col
+                    cols="12"
+                    lg="8"
+                    class="pa-2"
+                  >
+                    <SearchField />
+                  </v-col>
+                  <v-col 
+                    cols="12"
+                    lg="4"
+                    class="pa-2"
+                  >
+                    <v-btn
+                      block
+                      height="55px"
+                      append-icon="mdi-plus"
+                      text="Ajouter un professeur"
+                      color="primary"
+                      @click="openModalCreate"
+                    />
+                  </v-col>
+                </v-row>
               </div>
               <div class="teachers">
                 <TeacherCard

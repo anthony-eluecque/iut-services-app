@@ -28,41 +28,64 @@
     <TeacherEditionCard v-if="AppStore.getOpenDialog" />
     <div class="container-actions-services">
       <v-row no-gutters>
-        <v-col cols="7" />
-        <v-col cols="5">
-          <div class="content-v-select">
-            <div class="content-v-select-title">
-              <h3>
-                Année Universitaire :
-              </h3>
-            </div>            
-            <div class="container-component-select">
-              <v-select 
-                v-model="currentYear" 
-                hide-details
-                variant="outlined"
-                :items="nextYears"
-              />
-            </div>    
-          </div>   
+        <v-col
+          cols="0"
+          sm="2"
+          md="7"
+          lg="8"
+          xl="9"
+        />        
+        <v-col
+          cols="12"
+          sm="10"
+          md="5"
+          lg="4"
+          xl="3"
+          class="d-flex flex-row align-center"
+        >            
+          <div class="container-title">
+            <h3>
+              Année Universitaire :
+            </h3>
+          </div>
+
+          <v-select 
+            v-model="currentYear"
+            class="pb-2 pt-2" 
+            hide-details
+            variant="outlined"
+            :items="nextYears"
+          />
         </v-col>
       </v-row>
     </div>
-
-    <div class="container-actions">
-      <SearchField />
-      <div class="add-action">
+    <v-row class="d-flex justify-space-between">
+      <v-col
+        cols="12"
+        sm="12"
+        md="7"
+        lg="8"
+        xl="9"
+      >
+        <SearchField />
+      </v-col>
+      <v-col 
+        cols="12"
+        sm="12"
+        md="5"
+        lg="4"
+        xl="3"  
+      >
         <v-btn
+          block
           height="55px"
           append-icon="mdi-plus"
           text="Ajouter un enseignement"
           color="primary"
           @click="addInputFields"
         />
-      </div>
-    </div>
-
-      
+      </v-col>
+    </v-row>
     <div class="container-content">
       <DataTableService 
         :is-creating-item="isCreatingItem" 
@@ -130,7 +153,6 @@ const addInputFields = () => {
 const removeInputFields = () => {
   isCreatingItem.value = false
 }
-
 </script>
 
 <style lang="scss">

@@ -91,25 +91,25 @@ export const rules = {
 
 
 export const inputDebounce = debounce(async (e) => {
-    const res : ResponseData<Teacher> = await fetchData(`${Routes.TEACHERS}/givenid/${givenIdTeacherValue.value}`)
-    const data : Teacher = extractData(res)
-    if (data.id){
-      firstnameTeacherValue.value = data.firstName
-      lastnameTeacherValue.value = data.lastName
-    } else {
-      firstnameTeacherValue.value = ""
-      lastnameTeacherValue.value = ""
-    }
-  }, 500);
+  const res : ResponseData<Teacher> = await fetchData(`${Routes.TEACHERS}/givenid/${givenIdTeacherValue.value}`)
+  const data : Teacher = extractData(res)
+  if (data.id){
+    firstnameTeacherValue.value = data.firstName
+    lastnameTeacherValue.value = data.lastName
+  } else {
+    firstnameTeacherValue.value = ""
+    lastnameTeacherValue.value = ""
+  }
+}, 500);
 
 
 
-  export const inputDebounceLesson = debounce(async (e) => {
-    const res : ResponseData<Lesson> = await fetchData(`${Routes.LESSONS}/givenid/${givenIdLessonValue.value}`)
-    const data = extractData(res)
-    if (data.id){
-      labelLessonValue.value = data.name
-    } else {
-        labelLessonValue.value = ""
-    }
-  }, 500);
+export const inputDebounceLesson = debounce(async (e) => {
+  const res : ResponseData<Lesson> = await fetchData(`${Routes.LESSONS}/givenid/${givenIdLessonValue.value}`)
+  const data = extractData(res)
+  if (data.id){
+    labelLessonValue.value = data.name
+  } else {
+    labelLessonValue.value = ""
+  }
+}, 500);
