@@ -69,6 +69,7 @@ import {
   AddOrUpdateUser,
   rules
 } from './add-user-component'
+import { VForm } from 'vuetify/lib/components/index.mjs';
 
 initializeComponent()
 
@@ -96,7 +97,7 @@ const deleteComponent = () => {
   emit('removeCreateComponent')
 }
 
-const form = ref(null)
+const form = ref(VForm)
 
 /**
  * Valide le formulaire avant de déclencher une action.
@@ -106,6 +107,10 @@ const form = ref(null)
  */
 const validateFormBeforeCallback = async () => {
   const res = await form.value.validate()
+  console.log(form)
+  console.log(form.value)
+  console.log(res)
+  console.log(typeof res)
   const { errors, valid } = res
   if (valid) {
     await AddOrUpdateUser()

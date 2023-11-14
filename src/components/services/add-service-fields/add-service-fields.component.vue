@@ -112,6 +112,7 @@ import {
 } from './add-service-fields.component'
 import { ref } from 'vue';
 import { useAppStore } from '@/store';
+import { VForm } from 'vuetify/lib/components/index.mjs';
 
 initializeComponent()
 
@@ -137,7 +138,7 @@ const deleteComponent = () => {
 }
 
 
-const form = ref(null)
+const form = ref(VForm)
 const validateFormBeforeCallback = async () => {
   const res = await form.value.validate()
   const { errors, valid } = res

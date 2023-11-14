@@ -39,6 +39,7 @@
 import { computed } from 'vue';
 import { ref } from 'vue';
 import { rules } from './lesson-types.component'
+import { VForm } from 'vuetify/lib/components/index.mjs';
 
 const props = defineProps({
   name: {
@@ -102,6 +103,6 @@ const hours = computed(
 
 const removeLesson = () => emit('emitDelete',props.index,props.id)
 
-const form = ref(null)
+const form = ref(VForm)
 </script>
 
