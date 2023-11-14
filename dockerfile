@@ -1,11 +1,28 @@
-# Utilise l'image Node.js LTS comme base
-FROM node:19
+FROM node:18 as builder
 
-COPY ./package*.json ./
+WORKDIR /usr/src/app
 
-RUN npm cache clean --force
+COPY package*.json .
+
 RUN npm install
 
-EXPOSE 3000
+COPY . .
 
-CMD ["npm","run", "dev","--","--host","0.0.0.0"]
+RUN npm run build
+
+# Sending to production
+FROM node:18 as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json .
+
+RUN npm install
+
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/.env .env
+
+CMD ["npm", "run", "dev","--", "--host",'0.0.0.0']
