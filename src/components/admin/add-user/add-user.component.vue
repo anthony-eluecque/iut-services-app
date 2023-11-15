@@ -107,10 +107,6 @@ const form = ref(VForm)
  */
 const validateFormBeforeCallback = async () => {
   const res = await form.value.validate()
-  console.log(form)
-  console.log(form.value)
-  console.log(res)
-  console.log(typeof res)
   const { errors, valid } = res
   if (valid) {
     await AddOrUpdateUser()
