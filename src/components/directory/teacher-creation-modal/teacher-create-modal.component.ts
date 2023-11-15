@@ -6,7 +6,8 @@ import { ref } from "vue";
 interface AppStore {
     addTeacher: (teacher : Teacher) => Promise<void>,
     fetchTeachers: () => Promise<void>,
-    setStateDialog: (newState: boolean) => void
+    setStateDialog: (newState: boolean) => void,
+    createAlert: (title: string, text: string, type: "error" | "success" | "warning" | "info" | undefined) => void
 }
 
 let appStoreInstance: AppStore | null = null;
@@ -15,7 +16,8 @@ export const initializeComponent = () => {
   appStoreInstance = {
     addTeacher: (teacher : Teacher) => useAppStore().addTeacher(teacher),
     fetchTeachers: async () => await useAppStore().fetchTeachers(),
-    setStateDialog: (newState : boolean) => useAppStore().setStateDialog(newState)
+    setStateDialog: (newState : boolean) => useAppStore().setStateDialog(newState),
+    createAlert: (title, text, type) => useAppStore().createAlert(title,text,type)
   };
 }  
 
@@ -49,4 +51,10 @@ export const createTeacher = async () => {
 
   await appStoreInstance?.addTeacher(newTeacher);
   removeModal();
+
+  appStoreInstance?.createAlert(
+    "Supression d'un professeur",
+    'La suppression a été effectuée avec succès',
+    'success'
+  )
 }

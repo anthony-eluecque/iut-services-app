@@ -8,6 +8,7 @@ interface AppStore {
     setStateDialog: (value: boolean) => void,
     fetchItems: (pageNumber: number) => Promise<void>,
     getCurrentIndexPage: () => number,
+    createAlert: (title: string, text: string, type: "error" | "success" | "warning" | "info" | undefined) => void
 }
 
 let appStoreInstance: AppStore | null = null;
@@ -18,12 +19,18 @@ export const initializeComponent = () => {
     setStateDialog: (value: boolean) => useAppStore().setStateDialog(value),
     fetchItems: async (pageNumber: number) => await useAppStore().fetchItemsPage(pageNumber),
     getCurrentIndexPage: () => useAppStore().getCurrentIndexPage,
+    createAlert: (title, text, type) => useAppStore().createAlert(title,text,type)
   };
 }  
     
 export const removeItem = async (itemToDelete : Item) => {
   await deleteItem(Routes.ITEMS,itemToDelete.id);
   await appStoreInstance?.fetchItems(appStoreInstance.getCurrentIndexPage())
+  appStoreInstance?.createAlert(
+    "Supression d'un Item",
+    "L'item a bien été supprimé de la base de données",
+    'success'
+  )
 }
   
 export const openItem = (itemToOpen : Item) => {
