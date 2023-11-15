@@ -9,4 +9,4 @@ services:
       target: production
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"
+      - "3010:3010"
