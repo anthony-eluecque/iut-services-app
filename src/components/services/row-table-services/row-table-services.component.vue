@@ -10,12 +10,33 @@
     <td>{{ props.item.lesson?.name }}</td>
     <td>{{ calculateTotalHours(props.item) }}</td>
     <td>
-      <v-btn
-        icon="mdi-trash-can-outline"
-        color="red"
-        variant="plain"
-        @click="removeItem(props.item)"
-      />
+    <v-dialog width="500">
+      <template v-slot:activator="{ props }">
+        <v-btn
+          v-bind="props"
+          icon="mdi-trash-can-outline"
+          color="red"
+          variant="plain"
+        >
+        </v-btn>
+      </template>
+
+      <template v-slot:default="{ isActive }">
+        <v-card title="Supression d'un Item">
+          <v-card-text>
+            Êtes-vous sur de vouloir supprimer cette ligne?
+            <br>  
+            <strong style="color: red;">Attention, cette action est irréversible</strong>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text="Annuler" variant="outlined" color="warning" @click="isActive.value = false"></v-btn>
+            <v-btn text="Supprimer" variant="flat" color="red" @click="{removeItem(props.item);isActive.value = false}"></v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+    </v-dialog>
       <v-btn
         icon="mdi-pencil-outline"
         color="orange"
