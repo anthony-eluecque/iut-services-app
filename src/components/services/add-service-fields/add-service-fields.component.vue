@@ -59,7 +59,7 @@
                 variant="outlined"
                 class=""
                 label="Libellé Matière"
-                :rules="[rules.required,rules.formatText,rules.counter]"
+                :rules="[rules.required,rules.counter]"
                 counter
                 maxlength="20"
                 :hint="hints.lesson"
