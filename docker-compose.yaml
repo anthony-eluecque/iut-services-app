@@ -24,6 +24,7 @@ networks:
     external: true
     name: lan_${NAME}
   web:
+    driver: bridge
     external: false
     name: web_${NAME}
   
