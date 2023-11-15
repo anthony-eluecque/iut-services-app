@@ -96,5 +96,10 @@ const removeTeacher = async (teacherToDelete: Teacher) => {
   await deleteTeacher(Routes.TEACHERS, teacherToDelete.id);
   await AppStore.fetchTeachers();
   removeModal();
+  AppStore.createAlert(
+    "Supression d'un professeur",
+    'La suppression a été effectuée avec succès',
+    'success'
+  )
 }
 </script>

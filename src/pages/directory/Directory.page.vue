@@ -12,6 +12,19 @@
         >
       </div>
     </v-container>
+    <div class="container-notifications">
+      <v-fade-transition>
+        <v-alert 
+          v-model="alert.display"
+          height="100%"
+          :title="alert.title" 
+          :text="alert.text" 
+          :type="alert.type"
+          width="400px"
+          transition="slide-x-transition"
+        />
+      </v-fade-transition>
+    </div>
     <EditionCard v-if="isUpdatingTeacher" />
     <DeletionCard v-if="isDeletingTeacher" />
     <CreationCard v-if="isCreatingTeacher" />
@@ -99,6 +112,7 @@ const tab = ref("1")
 const isUpdatingTeacher: Ref<boolean> = ref(false)
 const isDeletingTeacher: Ref<boolean> = ref(false)
 const isCreatingTeacher: Ref<boolean> = ref(false)
+const alert = computed(() => AppStore.getAlert)
 
 onBeforeMount(async () => {
   await AppStore.fetchTeachers()

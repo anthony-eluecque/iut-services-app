@@ -6,6 +6,7 @@ import { computed } from "vue";
 interface AppStore {
     getUpdatingTeacher: () => ReturnType<typeof useAppStore>['getUpdatingTeacher'],
     fetchTeachers: () => Promise<void>,
+    createAlert: (title: string, text: string, type: "error" | "success" | "warning" | "info" | undefined) => void
 }
 
 let appStoreInstance: AppStore | null = null;
@@ -14,6 +15,7 @@ export const initializeComponent = () => {
   appStoreInstance = {
     getUpdatingTeacher: () => useAppStore().getUpdatingTeacher,
     fetchTeachers: async () => await useAppStore().fetchTeachers(),
+    createAlert: (title, text, type) => useAppStore().createAlert(title,text,type)
   };
 }  
 
@@ -53,4 +55,9 @@ export const editTeacher = async () => {
   await updateData(Routes.TEACHERS, updatedData);
   await AppStore.fetchTeachers();
   removeModal();
+  appStoreInstance?.createAlert(
+    "Mise à jour d'un professeur",
+    'La mise à jour a été effectuée avec succès',
+    'success'
+  )
 }
