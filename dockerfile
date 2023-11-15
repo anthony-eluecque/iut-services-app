@@ -22,7 +22,10 @@ COPY package*.json .
 
 RUN npm install
 
+
 COPY --from=builder /usr/src/app/dist ./dist
 COPY --from=builder /usr/src/app/.env .env
 
-CMD ["npm", "run", "dev","--", "--host",'0.0.0.0']
+EXPOSE 3000
+
+CMD ["npm", "start"]

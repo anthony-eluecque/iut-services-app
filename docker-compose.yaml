@@ -2,11 +2,28 @@ version: '3'
 
 services:
   vue-app:
-    container_name: iut_front_vue
+    container_name: ${NAME}_front
     restart: on-failure
     build:
       context: .
       target: production
       dockerfile: Dockerfile
     ports:
-      - "3001:3001"
+      - "3000:3000"
+    networks:
+      - lan
+      - web
+    # labels:
+    #   - traefik.enable=true
+    #   - traefik.http.routers.${NAME}.entryPoints=websecure 
+    #   - traefik.http.routers.${NAME}.rule=Host(`${NAME}.jrcandev.netlib.re`)
+    #   - traefik.http.routers.${NAME}.tls=true  
+    #   - traefik.http.routers.${NAME}.tls.certresolver=myresolver
+networks:
+  lan:
+    external: true
+    name: lan_${NAME}
+  web:
+    external: false
+    name: web_${NAME}
+  
