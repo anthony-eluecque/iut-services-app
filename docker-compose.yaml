@@ -3,7 +3,7 @@ version: '3'
 services:
   vue-app:
     container_name: iut_front_vue
-    restart: on-failure
+    restart: always
     build:
       context: .
       target: production
